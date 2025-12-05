@@ -1,15 +1,39 @@
-import '../styles/globals.css';
 import Head from 'next/head';
+import Header from '../components/global/Header';
+import '../styles/globals.css';
 
-function App({ Component, pageProps }) {
-  return (
-    <>
-      <Head>
-        <title>Next.js App</title>
-      </Head>
-      <Component {...pageProps} />
-    </>
-  );
+// redux
+// import {combineReducers, configureStore} from '@reduxjs/toolkit';
+// import {Provider} from 'react-redux';
+// import user from '../reducers/user';
+
+// redux-persist
+// import {persistReducer, persistStore} from 'redux-persist';
+// import {PersistGate} from 'redux-persist/integration/react';
+// import storage from 'redux-persist/lib/storage';
+
+// const reducers = combineReducers({user});
+// const persistConfig = {key: 'applicationName', storage};
+
+// const store = configureStore({
+// 	reducer: persistReducer(persistConfig, reducers),
+// 	middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}),
+// });
+
+function App({Component, pageProps}) {
+	return (
+		<>
+			{/* <Provider store={store}>
+				<PersistGate persistor={persistor}> */}
+			<Head>
+				<title>MVP</title>
+			</Head>
+			<Header />
+			<Component {...pageProps} />
+			{/* </PersistGate>
+			</Provider> */}
+		</>
+	);
 }
 
 export default App;

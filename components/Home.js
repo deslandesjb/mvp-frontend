@@ -3,8 +3,8 @@ import {Button} from '@/components/ui/button';
 
 function Home() {
 	return (
-		<div>
-			<main className="bg-orange flex h-screen flex-col items-center justify-center">
+		<>
+			<main className="font-body flex h-screen flex-col items-center justify-center">
 				<section>
 					<h1 className="italic">
 						Welcome to <a href="https://nextjs.org">Next.js!</a>
@@ -12,10 +12,10 @@ function Home() {
 				</section>
 
 				<section>
-					<Button>Shadcn test</Button>
+					<Button className="hover:bg-orangehover bg-orange text-zinc-900">Shadcn component</Button>
 				</section>
 			</main>
-		</div>
+		</>
 	);
 }
 

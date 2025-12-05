@@ -16,8 +16,13 @@ module.exports = {
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)',
 			},
+			fontFamily: {
+				title: ['Archivo', 'sans-serif'],
+				body: ['Manrope', 'sans-serif'],
+			},
 			colors: {
 				orange: '#ff7849',
+				orangehover: '#ff9a6c',
 				darkblue: '#1b5792',
 				lightblue: '#80a4ed',
 				background: 'hsl(var(--background))',
