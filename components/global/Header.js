@@ -18,7 +18,7 @@ export default function Header() {
 	return (
 		<header className="font-title flex h-16 items-center justify-between px-4">
 			<div>
-				<Link href="/">LOGO</Link>
+				<Link href="/">logo</Link>
 			</div>
 			<div>
 				{/* mobile */}

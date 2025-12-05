@@ -18,7 +18,7 @@ module.exports = {
 			},
 			fontFamily: {
 				title: ['Archivo', 'sans-serif'],
-				body: ['Manrope', 'sans-serif'],
+				body: ['Manrope', 'serif'],
 			},
 			colors: {
 				orange: '#ff7849',
