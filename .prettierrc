@@ -1,0 +1,10 @@
+{
+	"useTabs": true,
+	"printWidth": 120,
+	"plugins": ["prettier-plugin-tailwindcss"],
+	"pluginSearchDirs": false,
+	"bracketSpacing": false,
+	"bracketSameLine": true,
+	"htmlWhitespaceSensitivity": "strict",
+	"singleQuote": true
+}
