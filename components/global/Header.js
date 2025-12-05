@@ -1,5 +1,5 @@
 import {Button} from '@/components/ui/button';
-import {Menu} from 'lucide-react';
+import {Menu, X} from 'lucide-react';
 import Link from 'next/link';
 
 // drawer
@@ -33,7 +33,9 @@ export default function Header() {
 						</DrawerHeader>
 						<nav className="flex h-screen flex-col items-center">
 							<DrawerClose>
-								<Button variant="ghost">CLOSE</Button>
+								<Button variant="ghost">
+									<X />
+								</Button>
 							</DrawerClose>
 							<Link href="#">test</Link>
 							<Link href="#">test</Link>
