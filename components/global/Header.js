@@ -1,5 +1,18 @@
+import {Button} from '@/components/ui/button';
 import {Menu} from 'lucide-react';
 import Link from 'next/link';
+
+// drawer
+import {
+	Drawer,
+	DrawerClose,
+	DrawerContent,
+	DrawerDescription,
+	DrawerFooter,
+	DrawerHeader,
+	DrawerTitle,
+	DrawerTrigger,
+} from '@/components/ui/drawer';
 
 export default function Header() {
 	return (
@@ -9,24 +22,27 @@ export default function Header() {
 			</div>
 			<div>
 				{/* mobile */}
-				<div>
-					{/* <svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						strokeWidth="2"
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						className="lucide lucide-menu-icon lucide-menu">
-						<path d="M4 5h16" />
-						<path d="M4 12h16" />
-						<path d="M4 19h16" />
-					</svg> */}
-					<Menu />
-				</div>
+				<Drawer direction="right">
+					<DrawerTrigger>
+						<Menu />
+					</DrawerTrigger>
+					<DrawerContent>
+						<DrawerHeader>
+							<DrawerTitle>Logo</DrawerTitle>
+							{/* <DrawerDescription>This action cannot be undone.</DrawerDescription> */}
+						</DrawerHeader>
+						<nav className="flex h-screen flex-col items-center">
+							<DrawerClose>
+								<Button variant="ghost">CLOSE</Button>
+							</DrawerClose>
+							<Link href="#">test</Link>
+							<Link href="#">test</Link>
+						</nav>
+						{/* <DrawerFooter>
+							<Button>Submit</Button>
+						</DrawerFooter> */}
+					</DrawerContent>
+				</Drawer>
 				<nav></nav>
 				{/* desktop */}
 				<nav>{/* <Link></Link> */}</nav>
