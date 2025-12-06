@@ -16,38 +16,38 @@ import {
 
 export default function Header() {
 	return (
-		<header className="font-title flex h-16 items-center justify-between px-4">
+		<header className="font-title flex h-16 items-center justify-between bg-lightblue px-4">
 			<div>
 				<Link href="/">logo</Link>
 			</div>
 			<div>
 				{/* mobile */}
-				<Drawer direction="right">
-					<DrawerTrigger>
-						<Menu />
-					</DrawerTrigger>
-					<DrawerContent>
-						<DrawerHeader>
-							<DrawerTitle>Logo</DrawerTitle>
-							{/* <DrawerDescription>This action cannot be undone.</DrawerDescription> */}
-						</DrawerHeader>
-						<nav className="flex h-screen flex-col items-center">
-							<DrawerClose>
-								<Button variant="ghost">
+				<div className="md:hidden">
+					<Drawer direction="right">
+						<DrawerTrigger>
+							<Menu />
+						</DrawerTrigger>
+						<DrawerContent>
+							<DrawerHeader>
+								<DrawerTitle>Logo</DrawerTitle>
+							</DrawerHeader>
+							<div className="flex h-screen flex-col">
+								<DrawerClose className="mr-4 h-16 w-fit self-end">
 									<X />
-								</Button>
-							</DrawerClose>
-							<Link href="#">test</Link>
-							<Link href="#">test</Link>
-						</nav>
-						{/* <DrawerFooter>
-							<Button>Submit</Button>
-						</DrawerFooter> */}
-					</DrawerContent>
-				</Drawer>
-				<nav></nav>
+								</DrawerClose>
+								<nav className="flex h-full flex-col items-center justify-center">
+									<Link href="#">test</Link>
+									<Link href="#">test</Link>
+								</nav>
+							</div>
+						</DrawerContent>
+					</Drawer>
+				</div>
 				{/* desktop */}
-				<nav>{/* <Link></Link> */}</nav>
+				<nav className="hidden md:flex">
+					<Link href="#">test1</Link>
+					<Link href="#">test2</Link>
+				</nav>
 			</div>
 		</header>
 	);

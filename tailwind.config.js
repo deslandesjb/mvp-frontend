@@ -20,6 +20,10 @@ module.exports = {
 				title: ['Archivo', 'sans-serif'],
 				body: ['Manrope', 'serif'],
 			},
+			height: {
+				'screen-header': 'calc(100vh - 4rem)',
+			},
+
 			colors: {
 				orange: '#ff7849',
 				orangehover: '#ff9a6c',
