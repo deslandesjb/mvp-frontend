@@ -27,8 +27,8 @@ import {
 
 export default function Header() {
 	return (
-		<header className="flex h-16 items-center justify-between px-4 font-title shadow-lg">
-			<div className="min-w-80">
+		<header className="flex h-16 items-center justify-between bg-zinc-500 px-4 font-title shadow-lg">
+			<div className="md:min-w-80">
 				<Link href="/">logo</Link>
 			</div>
 			<div>
@@ -49,10 +49,7 @@ export default function Header() {
 								</DrawerClose>
 								<nav className="flex h-full flex-col items-center justify-center gap-4">
 									<Link className="lowercase first-letter:uppercase" href="#">
-										test
-									</Link>
-									<Link className="lowercase first-letter:uppercase" href="#">
-										test
+										Nouveautés
 									</Link>
 									{/* NESTED */}
 									<Drawer direction="right">
@@ -77,6 +74,22 @@ export default function Header() {
 											</div>
 										</DrawerContent>
 									</Drawer>
+
+									<Link className="lowercase first-letter:uppercase" href="#">
+										Favoris
+									</Link>
+
+									{/* TODO IF !LOGGED */}
+									<div className="flex gap-4">
+										<Link className="lowercase first-letter:uppercase" href="#">
+											Connexion
+										</Link>
+										<Link className="lowercase first-letter:uppercase" href="#">
+											Inscription
+										</Link>
+									</div>
+
+									{/* TODO IF LOGGED */}
 								</nav>
 							</div>
 						</DrawerContent>
@@ -86,7 +99,14 @@ export default function Header() {
 				<NavigationMenu className="hidden md:flex">
 					<NavigationMenuList className="flex-wrap gap-4">
 						<NavigationMenuItem>
-							<NavigationMenuTrigger className="bg-transparent p-0 text-base font-normal">
+							<NavigationMenuLink asChild>
+								<Link className="lowercase first-letter:uppercase" href="#">
+									Nouveautés
+								</Link>
+							</NavigationMenuLink>
+						</NavigationMenuItem>
+						<NavigationMenuItem>
+							<NavigationMenuTrigger className="bg-transparent p-0 text-base font-normal lowercase first-letter:uppercase">
 								All categories
 							</NavigationMenuTrigger>
 							<NavigationMenuContent>
@@ -125,20 +145,20 @@ export default function Header() {
 						</NavigationMenuItem>
 						<NavigationMenuItem>
 							<NavigationMenuLink asChild>
-								<Link href="#">Test</Link>
-							</NavigationMenuLink>
-						</NavigationMenuItem>
-						<NavigationMenuItem>
-							<NavigationMenuLink asChild>
-								<Link href="#">Test</Link>
+								<Link href="#">Favoris</Link>
 							</NavigationMenuLink>
 						</NavigationMenuItem>
 					</NavigationMenuList>
 				</NavigationMenu>
 			</div>
-			<div className="flex min-w-80 justify-end">
+
+			{/* TODO IF !LOGGED */}
+			<div className="hidden min-w-80 justify-end md:flex">
 				<Link href="#">Connexion</Link>
+				<Link href="#">Inscription</Link>
 			</div>
+
+			{/* TODO IF LOGGED */}
 		</header>
 	);
 }
