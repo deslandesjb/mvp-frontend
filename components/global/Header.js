@@ -16,7 +16,7 @@ import {
 
 export default function Header() {
 	return (
-		<header className="font-title flex h-16 items-center justify-between bg-lightblue px-4">
+		<header className="flex h-16 items-center justify-between bg-lightblue px-4 font-title">
 			<div>
 				<Link href="/">logo</Link>
 			</div>
@@ -44,7 +44,7 @@ export default function Header() {
 					</Drawer>
 				</div>
 				{/* desktop */}
-				<nav className="hidden md:flex">
+				<nav className="hidden gap-4 md:flex">
 					<Link href="#">test1</Link>
 					<Link href="#">test2</Link>
 				</nav>
