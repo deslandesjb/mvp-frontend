@@ -4,7 +4,7 @@ import {Button} from '@/components/ui/button';
 function Home() {
 	return (
 		<>
-			<main className="flex h-screen-header flex-col items-center justify-center font-body">
+			<main className="flex h-screen-header min-h-96 flex-col items-center justify-center font-body">
 				<section>
 					<h1 className="italic">
 						Welcome to <a href="https://nextjs.org">Next.js!</a>
@@ -12,7 +12,7 @@ function Home() {
 				</section>
 
 				<section>
-					<Button className="bg-orange text-zinc-900 hover:bg-orangehover">Shadcn component</Button>
+					<Button className="bg-orange text-zinc-900 shadow-sm hover:bg-orangehover">Shadcn component</Button>
 				</section>
 			</main>
 		</>
