@@ -12,7 +12,9 @@ function Home() {
 				</section>
 
 				<section>
-					<Button className="bg-orange text-zinc-900 shadow-sm hover:bg-orangehover">Shadcn component</Button>
+					<Button className="bg-orange text-zinc-900 shadow-lg hover:bg-orangehover hover:shadow-sm">
+						Shadcn component
+					</Button>
 				</section>
 			</main>
 		</>

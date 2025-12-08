@@ -27,8 +27,8 @@ import {
 
 export default function Header() {
 	return (
-		<header className="flex h-16 items-center justify-between bg-lightblue px-4 font-title shadow-sm">
-			<div>
+		<header className="flex h-16 items-center justify-between px-4 font-title shadow-lg">
+			<div className="min-w-80">
 				<Link href="/">logo</Link>
 			</div>
 			<div>
@@ -86,7 +86,9 @@ export default function Header() {
 				<NavigationMenu className="hidden md:flex">
 					<NavigationMenuList className="flex-wrap gap-4">
 						<NavigationMenuItem>
-							<NavigationMenuTrigger className="bg-transparent p-0">All categories</NavigationMenuTrigger>
+							<NavigationMenuTrigger className="bg-transparent p-0 text-base font-normal">
+								All categories
+							</NavigationMenuTrigger>
 							<NavigationMenuContent>
 								<ul className="grid gap-2 p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-[.75fr_1fr]">
 									<li className="row-span-3">
@@ -134,7 +136,7 @@ export default function Header() {
 					</NavigationMenuList>
 				</NavigationMenu>
 			</div>
-			<div>
+			<div className="flex min-w-80 justify-end">
 				<Link href="#">Connexion</Link>
 			</div>
 		</header>
