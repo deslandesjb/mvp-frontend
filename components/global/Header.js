@@ -1,6 +1,7 @@
 import {Button} from '@/components/ui/button';
 import {ArrowLeft, Menu, X} from 'lucide-react';
 import Link from 'next/link';
+import {useEffect, useState} from 'react';
 
 // drawer
 import {
@@ -26,9 +27,54 @@ import {
 } from '@/components/ui/navigation-menu';
 
 export default function Header() {
+	const [categories, setCategories] = useState([]);
+	const [categoriesDesk, setCategoriesDesk] = useState([]);
+	useEffect(() => {
+		fetch('http://localhost:3000/products/categories')
+			.then((response) => response.json())
+			.then((data) => {
+				// setArticlesData(data.articles.filter((data, i) => i > 0));
+				if (data.result) {
+					setCategories(data.categories);
+				}
+			});
+	}, []);
+
+	useEffect(() => {
+		fetch('http://localhost:3000/products/categories')
+			.then((response) => response.json())
+			.then((data) => {
+				// setArticlesData(data.articles.filter((data, i) => i > 0));
+				if (data.result) {
+					setCategoriesDesk(data.categories);
+				}
+			});
+	}, []);
+
+	// console.log(categories);
+
+	const catShow = categories.map((data, i) => {
+		return (
+			<Link key={i} href={data} className="first-letter:uppercase">
+				{data}
+			</Link>
+		);
+	});
+
+	const catShowDesk = categoriesDesk.map((data, i) => {
+		return (
+			<NavigationMenuLink key={i} asChild>
+				<Link href={data}>
+					<div className="first-letter:uppercase">{data}</div>
+					{/* <div className="text-muted-foreground">Browse all components in the library.</div> */}
+				</Link>
+			</NavigationMenuLink>
+		);
+	});
+
 	return (
-		<header className="flex h-16 items-center justify-between bg-zinc-500 px-4 font-title shadow-lg">
-			<div className="md:min-w-80">
+		<header className="flex h-16 items-center justify-between bg-zinc-100 px-4 font-title shadow-lg">
+			<div className="md:min-w-60">
 				<Link href="/">logo</Link>
 			</div>
 			<div>
@@ -39,7 +85,7 @@ export default function Header() {
 							<Menu />
 						</DrawerTrigger>
 						<DrawerContent>
-							<DrawerHeader>
+							<DrawerHeader className="hidden">
 								<DrawerTitle>Logo</DrawerTitle>
 								<DrawerDescription>Main menu</DrawerDescription>
 							</DrawerHeader>
@@ -48,14 +94,12 @@ export default function Header() {
 									<X />
 								</DrawerClose>
 								<nav className="flex h-full flex-col items-center justify-center gap-4">
-									<Link className="lowercase first-letter:uppercase" href="#">
-										Nouveautés
-									</Link>
+									<Link href="#">TOP</Link>
 									{/* NESTED */}
-									<Drawer direction="right">
-										<DrawerTrigger className="lowercase first-letter:uppercase">All categories</DrawerTrigger>
+									{/* <Drawer direction="right">
+										<DrawerTrigger>All categories</DrawerTrigger>
 										<DrawerContent>
-											<DrawerHeader>
+											<DrawerHeader className="hidden">
 												<DrawerTitle>Logo</DrawerTitle>
 												<DrawerDescription>Second menu</DrawerDescription>
 											</DrawerHeader>
@@ -63,30 +107,18 @@ export default function Header() {
 												<DrawerClose className="mr-4 h-16 w-fit self-end">
 													<ArrowLeft />
 												</DrawerClose>
-												<nav className="flex h-full flex-col items-center justify-center gap-4">
-													<Link className="lowercase first-letter:uppercase" href="#">
-														test
-													</Link>
-													<Link className="lowercase first-letter:uppercase" href="#">
-														test
-													</Link>
-												</nav>
+												<nav className="flex h-full flex-col items-center justify-center gap-4">{catShow}</nav>
 											</div>
 										</DrawerContent>
-									</Drawer>
+									</Drawer> */}
+									{catShow}
 
-									<Link className="lowercase first-letter:uppercase" href="#">
-										Favoris
-									</Link>
+									<Link href="#">Favoris</Link>
 
 									{/* TODO IF !LOGGED */}
 									<div className="flex gap-4">
-										<Link className="lowercase first-letter:uppercase" href="#">
-											Connexion
-										</Link>
-										<Link className="lowercase first-letter:uppercase" href="#">
-											Inscription
-										</Link>
+										<Link href="#">Connexion</Link>
+										<Link href="#">Inscription</Link>
 									</div>
 
 									{/* TODO IF LOGGED */}
@@ -100,47 +132,15 @@ export default function Header() {
 					<NavigationMenuList className="flex-wrap gap-4">
 						<NavigationMenuItem>
 							<NavigationMenuLink asChild>
-								<Link className="lowercase first-letter:uppercase" href="#">
-									Nouveautés
-								</Link>
+								<Link href="#">TOP</Link>
 							</NavigationMenuLink>
 						</NavigationMenuItem>
 						<NavigationMenuItem>
-							<NavigationMenuTrigger className="bg-transparent p-0 text-base font-normal lowercase first-letter:uppercase">
+							<NavigationMenuTrigger className="bg-transparent p-0 text-base font-normal">
 								All categories
 							</NavigationMenuTrigger>
 							<NavigationMenuContent>
-								<ul className="grid gap-2 p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-[.75fr_1fr]">
-									<li className="row-span-3">
-										<NavigationMenuLink asChild>
-											<a
-												className="bg-linear-to-b outline-hidden flex h-full w-full select-none flex-col justify-end rounded-md from-muted/50 to-muted p-4 no-underline transition-all duration-200 focus:shadow-md md:p-6"
-												href="/">
-												<div className="mb-2 text-lg font-medium sm:mt-4">shadcn/ui</div>
-												<p className="text-sm leading-tight text-muted-foreground">
-													Beautifully designed components built with Tailwind CSS.
-												</p>
-											</a>
-										</NavigationMenuLink>
-									</li>
-									<li className="flex flex-col gap-2">
-										<Link href="#" className="inline-block">
-											Test
-										</Link>
-										<Link href="#" className="inline-block">
-											Test
-										</Link>
-										<Link href="#" className="inline-block">
-											Test
-										</Link>
-										<Link href="#" className="inline-block">
-											Test
-										</Link>
-										<Link href="#" className="inline-block">
-											Test
-										</Link>
-									</li>
-								</ul>
+								<div className="grid w-[300px] gap-4 p-4">{catShowDesk}</div>
 							</NavigationMenuContent>
 						</NavigationMenuItem>
 						<NavigationMenuItem>
@@ -153,7 +153,7 @@ export default function Header() {
 			</div>
 
 			{/* TODO IF !LOGGED */}
-			<div className="hidden min-w-80 justify-end md:flex">
+			<div className="hidden min-w-60 justify-end gap-4 md:flex">
 				<Link href="#">Connexion</Link>
 				<Link href="#">Inscription</Link>
 			</div>
