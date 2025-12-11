@@ -12,14 +12,7 @@ function AllProducts() {
 	// const [defaultNumberToAdd, setDefaultNumberToAdd] = useState(12);
 	const [productList, setProductList] = useState([]);
 	const [categories, setCategories] = useState([]);
-	const size = useWindowSize();
-
-	console.log(size.width);
-	// if (size.width > 1103) {
-	// 	setDefaultNumberToAdd(12);
-	// } else if (size.width > 831) {
-	// 	setDefaultNumberToAdd(2);
-	// }
+	// const size = useWindowSize();
 
 	const fetchProducts = async () => {
 		const newProducts = [];
@@ -77,7 +70,7 @@ function AllProducts() {
 					<h1 className="font-title text-4xl tracking-tight text-slate-100">ALL PRODUCTS</h1>
 				</section>
 				<section className="px-4">
-					<div className="my-4 flex justify-center gap-4">{catShow}</div>
+					<div className="my-4 flex flex-wrap justify-center gap-4">{catShow}</div>
 					<div className="products-container flex flex-wrap justify-between gap-4">{products}</div>
 					<div className="my-8 flex items-center justify-center">
 						{productsNumber < productFullLength && (
