@@ -1,15 +1,25 @@
 // import {Button} from '@/components/ui/button';
 import {Button} from '@/components/ui/button';
+import {useWindowSize} from '@uidotdev/usehooks';
 import Link from 'next/link';
 import {useEffect, useState} from 'react';
 import ProductCard from './ProductCard';
 
 function AllProducts() {
 	const [startIndex, setStartIndex] = useState(1);
-	const [productsNumber, setProductsNumber] = useState(15);
+	const [productsNumber, setProductsNumber] = useState(12);
 	const [productFullLength, setProductFullLength] = useState(0);
+	// const [defaultNumberToAdd, setDefaultNumberToAdd] = useState(12);
 	const [productList, setProductList] = useState([]);
 	const [categories, setCategories] = useState([]);
+	const size = useWindowSize();
+
+	console.log(size.width);
+	// if (size.width > 1103) {
+	// 	setDefaultNumberToAdd(12);
+	// } else if (size.width > 831) {
+	// 	setDefaultNumberToAdd(2);
+	// }
 
 	const fetchProducts = async () => {
 		const newProducts = [];
@@ -25,12 +35,12 @@ function AllProducts() {
 		}
 
 		setProductList([...productList, ...newProducts]);
-		setStartIndex(startIndex + 15);
-		setProductsNumber(productsNumber + 15);
+		setStartIndex(startIndex + 12);
+		setProductsNumber(productsNumber + 12);
 	};
-	console.log('productFullLength', productFullLength);
+	// console.log('productFullLength', productFullLength);
 
-	console.log(productsNumber);
+	// console.log(productsNumber);
 	useEffect(() => {
 		fetchProducts();
 	}, []);
