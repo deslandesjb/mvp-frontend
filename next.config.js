@@ -3,7 +3,7 @@ const nextConfig = {
 	reactStrictMode: true,
 	devIndicators: false,
 	images: {
-		domains: [],
+		domains: ['static.fnac-static.com'],
 	},
 };
 
