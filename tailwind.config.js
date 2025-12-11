@@ -28,6 +28,7 @@ module.exports = {
 				orange: '#ff7849',
 				orangehover: '#ff9a6c',
 				darkblue: '#1b5792',
+				// darkblueOp: '#1b579286',
 				lightblue: '#80a4ed',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',

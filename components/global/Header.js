@@ -102,7 +102,7 @@ export default function Header() {
 									</Drawer> */}
 									{catShow}
 
-									<Link href="#">Favoris</Link>
+									<Link href="/lists">Favoris</Link>
 
 									{/* TODO IF !LOGGED */}
 									<div className="flex gap-4">
@@ -134,7 +134,7 @@ export default function Header() {
 						</NavigationMenuItem>
 						<NavigationMenuItem>
 							<NavigationMenuLink asChild>
-								<Link href="#">Favoris</Link>
+								<Link href="/lists">Favoris</Link>
 							</NavigationMenuLink>
 						</NavigationMenuItem>
 					</NavigationMenuList>
