@@ -1,10 +1,8 @@
 // import {Button} from '@/components/ui/button';
 import {Button} from '@/components/ui/button';
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from '@/components/ui/card.tsx';
-import {Plus, Star} from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import {useEffect, useState} from 'react';
+import ProductCard from './ProductCard';
 
 function AllProducts() {
 	const [startIndex, setStartIndex] = useState(1);
@@ -53,47 +51,10 @@ function AllProducts() {
 	});
 
 	const products = productList.map((data, i) => {
-		const stars = [];
 		if (data) {
-			for (let i = 0; i < 5; i++) {
-				let starClass = ' stroke-zinc-900';
-				if (i < data.noteMoy - 1) {
-					starClass += ' fill-orange';
-				}
-				stars.push(<Star key={i} strokeWidth={1} size={18} className={starClass} />);
-			}
-
-			return (
-				<Card key={i} className="w-[23%] min-w-64 overflow-hidden hover:shadow-lg">
-					<Link href={'products/' + data.id} className="inline-block h-full">
-						<CardContent className="relative">
-							<Image className="p-8" src={data.picture[0].url} alt={data.picture[0].title} width={600} height={314} />
-							<Button className="absolute right-0 top-0 z-10" variant="ghost">
-								<Plus size={18} />
-							</Button>
-						</CardContent>
-						<CardHeader>
-							<CardTitle>{data.name}</CardTitle>
-							<CardDescription>{data.desc}</CardDescription>
-						</CardHeader>
-						<CardContent>
-							<div className="flex">{stars}</div>
-							<div className="flex justify-between">
-								<p className="font-bold">{data.priceMoy}€</p>
-								{/* <p>{data.noteMoy}</p> */}
-							</div>
-							{/* <div className="mt-auto flex justify-between">
-							<p>{data.brand}</p>
-							<p>{data.categorie}</p>
-						</div> */}
-						</CardContent>
-					</Link>
-				</Card>
-			);
+			return <ProductCard key={i} {...data} />;
 		}
 	});
-	// console.log('st', startIndex);
-	// console.log('productList.length', productList.length);
 
 	return (
 		<>
