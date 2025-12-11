@@ -28,7 +28,7 @@ import {
 
 export default function Header() {
 	const [categories, setCategories] = useState([]);
-	const [categoriesDesk, setCategoriesDesk] = useState([]);
+
 	useEffect(() => {
 		fetch('http://localhost:3000/products/categories')
 			.then((response) => response.json())
@@ -40,19 +40,7 @@ export default function Header() {
 			});
 	}, []);
 
-	useEffect(() => {
-		fetch('http://localhost:3000/products/categories')
-			.then((response) => response.json())
-			.then((data) => {
-				// setArticlesData(data.articles.filter((data, i) => i > 0));
-				if (data.result) {
-					setCategoriesDesk(data.categories);
-				}
-			});
-	}, []);
-
-	// console.log(categories);
-
+	// categories mobile
 	const catShow = categories.map((data, i) => {
 		return (
 			<Link key={i} href={data} className="first-letter:uppercase">
@@ -61,7 +49,8 @@ export default function Header() {
 		);
 	});
 
-	const catShowDesk = categoriesDesk.map((data, i) => {
+	// categories desktop
+	const catShowDesk = categories.map((data, i) => {
 		return (
 			<NavigationMenuLink key={i} asChild>
 				<Link href={data}>

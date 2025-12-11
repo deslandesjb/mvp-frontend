@@ -1,6 +1,6 @@
 import {Button} from '@/components/ui/button';
 
-function Product() {
+function ProductCard() {
 	return (
 		<>
 			<main className="flex h-screen-header min-h-96 flex-col items-center justify-center font-body">
@@ -12,4 +12,4 @@ function Product() {
 	);
 }
 
-export default Product;
+export default ProductCard;
