@@ -34,7 +34,7 @@ function ProductCard(props) {
 							</Button>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent>
-							<DropdownMenuLabel>My Account</DropdownMenuLabel>
+							<DropdownMenuLabel>My Accouyarnnt</DropdownMenuLabel>
 							<DropdownMenuSeparator />
 							<DropdownMenuItem>Profile</DropdownMenuItem>
 							<DropdownMenuItem>Billing</DropdownMenuItem>
