@@ -7,47 +7,38 @@ import { useEffect, useState } from 'react';
 import ProductCard from './ProductCard';
 function List() {
     const [listsData, setListsData] = useState([]);
-
-    useEffect(() => {
-        fetch('http://localhost:3000/lists/69397295490f817493bca691')
+    const allLists = ()=>{
+          fetch('http://localhost:3000/lists/69397295490f817493bca691')
             .then(response => response.json())
             .then(listsUser => {
                 setListsData(listsUser);
             });
+    }
+    useEffect(() => {
+      allLists()
     }, []);
 
     const list = listsData?.listsUser?.map((listUser) => {
-        console.log("listUser", listUser.products);
+        console.log("listUser", listUser);
 
         return (
             <div className='w-full bg-lightblue rounded-lg mt-10' key={listUser._id}>
                 <h6 className='p-10 bg-orange w-[10%]'>{listUser.name}</h6>
 
-                <div className='flex flex-wrap'>
-                    <Card className="w-[20%] min-w-60 overflow-hidden hover:shadow-lg m-10">
-                        <Link href="#" className="inline-block h-full flex justify-around items-center">
-                            <Image
-                                src="https://static.fnac-static.com/multimedia/Images/FR/MDM/7b/7f/f0/15761275/1540-1/tsp20251205131610/Casque-sans-fil-Bluetooth-Marshall-Major-IV-Noir.jpg"
-                                alt="data.picture[0].title"
-                                width={200}
-                                height={200}
+                <div className='flex flex-wrap items-center'>
+                    {listUser.products.map((product)=>{
+                        return(
+                            <ProductCard  
+                            name={product.name} 
+                            id={product._id}
+                            picture={product.picture} 
+                            desc={product.desc}
+                            priceMoy={product.priceMoy}
+                            stars={product.stars}
+                            listNames={listsData.listsUser}
                             />
-
-                            <div>
-                                <CardHeader>
-                                    <CardTitle>Casque</CardTitle>
-                                    <CardDescription>Beau Casque</CardDescription>
-                                </CardHeader>
-
-                                <CardContent>
-                                    <div className="flex">*****</div>
-                                    <div className="flex justify-between">
-                                        <p className="font-bold">785€</p>
-                                    </div>
-                                </CardContent>
-                            </div>
-                        </Link>
-                    </Card>
+                        )
+                    })}
                 </div>
             </div>
         );

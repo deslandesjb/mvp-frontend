@@ -1,7 +1,7 @@
 // import {Button} from '@/components/ui/button';
-import {Button} from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import ProductCard from './ProductCard';
 
 function AllProducts() {
@@ -53,12 +53,35 @@ function AllProducts() {
 			</Link>
 		);
 	});
+	
+	// ------------------------------ ajt fetch list
+
+		const [listsData, setListsData] = useState([]);
+	const allLists = () => {
+		fetch('http://localhost:3000/lists/69397295490f817493bca691')
+			.then(response => response.json())
+			.then(listsUser => {
+				setListsData(listsUser);
+			});
+	}
+	useEffect(() => {
+		allLists()
+	}, []);
+
+
+
+
+// -------------- passage en props list
 
 	const products = productList.map((data, i) => {
 		if (data) {
-			return <ProductCard key={i} {...data} />;
+			return <ProductCard key={i} {...data}  listNames={listsData.listsUser} />;
 		}
 	});
+
+
+
+
 
 	return (
 		<>
