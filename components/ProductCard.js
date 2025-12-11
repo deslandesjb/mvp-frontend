@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 function ProductCard(props) {
-	console.log(props.id);
 	const stars = [];
 	for (let i = 0; i < 5; i++) {
 		let starClass = ' stroke-zinc-900';

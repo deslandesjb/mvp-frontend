@@ -7,6 +7,7 @@ import ProductCard from './ProductCard';
 function AllProducts() {
 	const [startIndex, setStartIndex] = useState(1);
 	const [productsNumber, setProductsNumber] = useState(15);
+	const [productFullLength, setProductFullLength] = useState(0);
 	const [productList, setProductList] = useState([]);
 	const [categories, setCategories] = useState([]);
 
@@ -19,6 +20,7 @@ function AllProducts() {
 			// console.log('product', data.products[i]);
 			// console.log(i);
 
+			setProductFullLength(data.products.length);
 			newProducts.push(data.products[i]);
 		}
 
@@ -26,7 +28,9 @@ function AllProducts() {
 		setStartIndex(startIndex + 15);
 		setProductsNumber(productsNumber + 15);
 	};
+	console.log('productFullLength', productFullLength);
 
+	console.log(productsNumber);
 	useEffect(() => {
 		fetchProducts();
 	}, []);
@@ -66,11 +70,13 @@ function AllProducts() {
 					<div className="my-4 flex justify-center gap-4">{catShow}</div>
 					<div className="products-container flex flex-wrap justify-between gap-4">{products}</div>
 					<div className="my-8 flex items-center justify-center">
-						<Button
-							className="bg-orange text-zinc-900 shadow-lg hover:bg-orangehover hover:shadow-sm"
-							onClick={() => fetchProducts()}>
-							Next
-						</Button>
+						{productsNumber < productFullLength && (
+							<Button
+								className="bg-orange text-zinc-900 shadow-lg hover:bg-orangehover hover:shadow-sm"
+								onClick={() => fetchProducts()}>
+								Next
+							</Button>
+						)}
 					</div>
 				</section>
 			</main>
