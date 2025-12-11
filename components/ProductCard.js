@@ -22,7 +22,7 @@ function ProductCard(props) {
 		stars.push(<Star key={i} strokeWidth={1} size={18} className={starClass} />);
 	}
 	return (
-		<Card className="w-[23%] min-w-64 overflow-hidden hover:shadow-lg">
+		<Card className="w-full overflow-hidden hover:shadow-lg sm:w-[calc(50%-1rem)] md:w-[calc(33.3%-1rem)] lg:w-[calc(25%-1rem)]">
 			<Link href={'products/' + props.id} className="inline-block h-full">
 				<CardContent className="relative">
 					<Image className="p-8" src={props.picture[0].url} alt={props.picture[0].title} width={600} height={314} />
