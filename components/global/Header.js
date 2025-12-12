@@ -111,6 +111,12 @@ export default function Header() {
 										</DrawerContent>
 									</Drawer> */}
 									{catShow}
+									<NavigationMenuLink asChild>
+										<Link href="/allproducts">
+											<div className="first-letter:uppercase">All products</div>
+											{/* <div className="text-muted-foreground">Browse all components in the library.</div> */}
+										</Link>
+									</NavigationMenuLink>
 
 									<Link href="/lists">Favoris</Link>
 
@@ -137,14 +143,25 @@ export default function Header() {
 						<NavigationMenuItem>
 							<NavigationMenuTrigger className="bg-transparent p-0 text-base font-normal">
 								All categories
+								{/* <Link href="/allproducts">Categories</Link> */}
 							</NavigationMenuTrigger>
 							<NavigationMenuContent>
-								<div className="grid w-[300px] gap-4 p-4">{catShow}</div>
+								<div className="grid w-[300px] gap-4 p-4">
+									{catShow}
+									<Link href="/allproducts" className="first-letter:uppercase">
+										All products
+									</Link>
+								</div>
 							</NavigationMenuContent>
 						</NavigationMenuItem>
 						<NavigationMenuItem>
 							<NavigationMenuLink asChild>
 								<Link href="/lists">Favoris</Link>
+							</NavigationMenuLink>
+						</NavigationMenuItem>
+						<NavigationMenuItem>
+							<NavigationMenuLink asChild>
+								<Link href="/productpage">ppage</Link>
 							</NavigationMenuLink>
 						</NavigationMenuItem>
 					</NavigationMenuList>
