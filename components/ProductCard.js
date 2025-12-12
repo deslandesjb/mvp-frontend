@@ -11,7 +11,6 @@ import {
 import {Plus, Star} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
 
 function ProductCard(props) {
 	const stars = [];
@@ -23,30 +22,28 @@ function ProductCard(props) {
 		stars.push(<Star key={i} strokeWidth={1} size={18} className={starClass} />);
 	}
 	return (
-		<Card className="m-5 w-full overflow-hidden hover:shadow-lg sm:w-[calc(50%-1rem)] md:w-[calc(33.3%-1rem)] lg:w-[calc(25%-1rem)]">
+		<Card className="w-full max-w-xl overflow-hidden hover:shadow-lg md:w-[calc(50%-1rem)] xl:w-[calc(33.3%-1rem)]">
 			<Link href={'products/' + props.id} className="relative flex h-full">
 				<DropdownMenu>
-					<DropdownMenuTrigger className="absolute right-0 top-0 z-10">
-						<Button variant="ghost">
-							<Plus size={18} />
-						</Button>
+					<DropdownMenuTrigger className="absolute right-0 top-0 z-10 px-4 py-2">
+						<Plus size={18} />
 					</DropdownMenuTrigger>
 					<DropdownMenuContent>
 						<DropdownMenuLabel>My Account</DropdownMenuLabel>
-						{props.listNames.map((name) => {
+						{props.listNames.map((name, i) => {
 							return (
-								<>
+								<div key={i}>
 									<DropdownMenuSeparator />
 									<DropdownMenuItem>{name.name}</DropdownMenuItem>
-								</>
+								</div>
 							);
 						})}
 					</DropdownMenuContent>
 				</DropdownMenu>
-				<CardContent>
-					<div className="w-[200px]">
+				<CardContent className="w-1/2 p-0">
+					<div>
 						<Image
-							className="h-[100%] w-[100%] p-4"
+							className="h-full w-full"
 							src={props.picture[0].url}
 							alt={props.picture[0].title}
 							width={200}
@@ -54,7 +51,7 @@ function ProductCard(props) {
 						/>
 					</div>
 				</CardContent>
-				<div>
+				<div className="w-1/2">
 					<CardHeader>
 						<CardTitle className="text-sm">{props.name.slice(0, 25) + '...'}</CardTitle>
 						<CardDescription>{props.desc}</CardDescription>
