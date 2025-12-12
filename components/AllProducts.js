@@ -6,10 +6,12 @@ import ProductCard from './ProductCard';
 
 function AllProducts() {
 	const [startIndex, setStartIndex] = useState(1);
-	const [productsNumber, setProductsNumber] = useState(15);
+	const [productsNumber, setProductsNumber] = useState(12);
 	const [productFullLength, setProductFullLength] = useState(0);
+	// const [defaultNumberToAdd, setDefaultNumberToAdd] = useState(12);
 	const [productList, setProductList] = useState([]);
 	const [categories, setCategories] = useState([]);
+	// const size = useWindowSize();
 
 	const fetchProducts = async () => {
 		const newProducts = [];
@@ -25,12 +27,12 @@ function AllProducts() {
 		}
 
 		setProductList([...productList, ...newProducts]);
-		setStartIndex(startIndex + 15);
-		setProductsNumber(productsNumber + 15);
+		setStartIndex(startIndex + 12);
+		setProductsNumber(productsNumber + 12);
 	};
-	console.log('productFullLength', productFullLength);
+	// console.log('productFullLength', productFullLength);
 
-	console.log(productsNumber);
+	// console.log(productsNumber);
 	useEffect(() => {
 		fetchProducts();
 	}, []);
@@ -90,7 +92,7 @@ function AllProducts() {
 					<h1 className="font-title text-4xl tracking-tight text-slate-100">ALL PRODUCTS</h1>
 				</section>
 				<section className="px-4">
-					<div className="my-4 flex justify-center gap-4">{catShow}</div>
+					<div className="my-4 flex flex-wrap justify-center gap-4">{catShow}</div>
 					<div className="products-container flex flex-wrap justify-between gap-4">{products}</div>
 					<div className="my-8 flex items-center justify-center">
 						{productsNumber < productFullLength && (

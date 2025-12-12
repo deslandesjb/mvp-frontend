@@ -1,4 +1,5 @@
 import {Button} from '@/components/ui/button';
+import {useWindowSize} from '@uidotdev/usehooks';
 import {ArrowLeft, Menu, X} from 'lucide-react';
 import Link from 'next/link';
 import {useEffect, useState} from 'react';
@@ -28,6 +29,7 @@ import {
 
 export default function Header() {
 	const [categories, setCategories] = useState([]);
+	const size = useWindowSize();
 
 	useEffect(() => {
 		fetch('http://localhost:3000/products/categories')
@@ -41,25 +43,33 @@ export default function Header() {
 	}, []);
 
 	// categories mobile
+
 	const catShow = categories.map((data, i) => {
-		return (
-			<Link key={i} href={data} className="first-letter:uppercase">
-				{data}
-			</Link>
-		);
+		if (size.width >= 768) {
+			return (
+				// desktop
+				<NavigationMenuLink key={i} asChild>
+					<Link href={data}>
+						<div className="first-letter:uppercase">{data}</div>
+						{/* <div className="text-muted-foreground">Browse all components in the library.</div> */}
+					</Link>
+				</NavigationMenuLink>
+			);
+		} else {
+			// mobile
+			return (
+				<Link key={i} href={data} className="first-letter:uppercase">
+					{data}
+				</Link>
+			);
+		}
 	});
 
 	// categories desktop
-	const catShowDesk = categories.map((data, i) => {
-		return (
-			<NavigationMenuLink key={i} asChild>
-				<Link href={data}>
-					<div className="first-letter:uppercase">{data}</div>
-					{/* <div className="text-muted-foreground">Browse all components in the library.</div> */}
-				</Link>
-			</NavigationMenuLink>
-		);
-	});
+	// const catShowDesk = categories.map((data, i) => {
+	// 	return (
+	// 	);
+	// });
 
 	return (
 		<header className="flex h-16 items-center justify-between bg-zinc-100 px-4 font-title shadow-lg">
@@ -129,7 +139,7 @@ export default function Header() {
 								All categories
 							</NavigationMenuTrigger>
 							<NavigationMenuContent>
-								<div className="grid w-[300px] gap-4 p-4">{catShowDesk}</div>
+								<div className="grid w-[300px] gap-4 p-4">{catShow}</div>
 							</NavigationMenuContent>
 						</NavigationMenuItem>
 						<NavigationMenuItem>
