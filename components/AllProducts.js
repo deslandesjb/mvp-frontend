@@ -1,6 +1,5 @@
 // import {Button} from '@/components/ui/button';
-import {Button} from '@/components/ui/button';
-import {useWindowSize} from '@uidotdev/usehooks';
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import ProductCard from './ProductCard';

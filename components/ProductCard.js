@@ -1,6 +1,5 @@
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card.tsx';
+import {Button} from '@/components/ui/button';
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from '@/components/ui/card.tsx';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -9,10 +8,10 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Plus, Star } from 'lucide-react';
+import {Plus, Star} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-
+import React from 'react';
 
 function ProductCard(props) {
 	const stars = [];
@@ -24,8 +23,8 @@ function ProductCard(props) {
 		stars.push(<Star key={i} strokeWidth={1} size={18} className={starClass} />);
 	}
 	return (
-		<Card className="w-[450px] min-w-64 overflow-hidden hover:shadow-lg m-5">
-			<Link href={'products/' + props.id} className="inline-block h-full flex relative">
+		<Card className="m-5 w-full overflow-hidden hover:shadow-lg sm:w-[calc(50%-1rem)] md:w-[calc(33.3%-1rem)] lg:w-[calc(25%-1rem)]">
+			<Link href={'products/' + props.id} className="relative flex h-full">
 				<DropdownMenu>
 					<DropdownMenuTrigger className="absolute right-0 top-0 z-10">
 						<Button variant="ghost">
@@ -40,19 +39,24 @@ function ProductCard(props) {
 									<DropdownMenuSeparator />
 									<DropdownMenuItem>{name.name}</DropdownMenuItem>
 								</>
-							)
+							);
 						})}
 					</DropdownMenuContent>
 				</DropdownMenu>
 				<CardContent>
-					<div className='w-[200px]'>
-						<Image className="p-4 w-[100%] h-[100%]" src={props.picture[0].url} alt={props.picture[0].title} width={200} height={200} />
-
+					<div className="w-[200px]">
+						<Image
+							className="h-[100%] w-[100%] p-4"
+							src={props.picture[0].url}
+							alt={props.picture[0].title}
+							width={200}
+							height={200}
+						/>
 					</div>
 				</CardContent>
 				<div>
 					<CardHeader>
-						<CardTitle className='text-sm'>{props.name.slice(0, 25) + '...'}</CardTitle>
+						<CardTitle className="text-sm">{props.name.slice(0, 25) + '...'}</CardTitle>
 						<CardDescription>{props.desc}</CardDescription>
 					</CardHeader>
 					<CardContent>
