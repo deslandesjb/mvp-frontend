@@ -26,11 +26,10 @@ export default function ProductPage() {
 	return (
 		<main className="flex h-screen-header min-h-96 flex-col items-center justify-center font-body">
 			<section>
-				{/* <h1 className="italic">
-					Welcome to <a href="https://nextjs.org">Next.js!</a>
-				</h1> */}
 				<div>
-					<Image src={productInfo.picture[0].url} alt={productInfo.picture[0].title} width={200} height={200} />
+					{productInfo.picture && (
+						<Image src={productInfo.picture[0].url} alt={productInfo.picture[0].url} width={200} height={200} />
+					)}
 				</div>
 				<div>
 					<div>
@@ -49,8 +48,6 @@ export default function ProductPage() {
 					</div>
 				</div>
 			</section>
-
-			<section></section>
 		</main>
 	);
 }
