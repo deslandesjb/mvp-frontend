@@ -1,11 +1,18 @@
-import {Button} from '@/components/ui/button';
-import {Plus} from 'lucide-react';
-import {useEffect, useState} from 'react';
+import { Button } from '@/components/ui/button';
+import { Plus,BadgeMinus } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import ProductCard from './ProductCard';
+import {
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "@/components/ui/popover"
+
 function List() {
 	const [listsData, setListsData] = useState([]);
+	const [nameList, setNameList] = useState('');
 	const allLists = () => {
-		fetch('http://localhost:3000/lists/69397295490f817493bca691')
+		fetch('http://localhost:3000/lists/693bdd77dc0cfddaa22f0dad')
 			.then((response) => response.json())
 			.then((listsUser) => {
 				setListsData(listsUser);
@@ -20,8 +27,9 @@ function List() {
 
 		return (
 			<div className="mt-10 w-full rounded-lg bg-lightblue" key={listUser._id}>
+				
+					<BadgeMinus />
 				<h6 className="w-[10%] bg-orange p-10">{listUser.name}</h6>
-
 				<div className="flex flex-wrap items-center">
 					{listUser.products.map((product) => {
 						return (
@@ -41,6 +49,23 @@ function List() {
 		);
 	});
 
+	const nameListRegister = () => {
+		fetch("http://localhost:3000/lists/newLists/5G8nbRxPIo5Rfnan-9vBHYZCNJLDDsRL", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				name: nameList,
+			}),
+		})
+			.then(response => response.json())
+			.then(newList => {
+				// console.log('newList', newList)
+				allLists()
+			})
+	}
+
+
+
 	return (
 		<>
 			{/* {list} */}
@@ -48,9 +73,24 @@ function List() {
 				<section className="h-full w-full p-20">
 					<div>
 						<h3 className="text-4xl">Favoris</h3>
-						<Button className="mt-10 bg-orange text-zinc-900 shadow-lg hover:bg-orangehover hover:shadow-sm">
-							<Plus />
-						</Button>
+
+						<Popover>
+							<PopoverTrigger>
+								<Button className="mt-10 bg-orange text-zinc-900 shadow-lg hover:bg-orangehover hover:shadow-sm">
+									<Plus />
+								</Button>
+							</PopoverTrigger>
+							<PopoverContent
+								align="center"
+								sideOffset={50}
+								className="flex"
+							>
+								<input type="text" placeholder='Nom' className='mr-10 p-2' onChange={(e) => setNameList(e.target.value)} />
+								<Button type="button" onClick={nameListRegister}>
+									valider
+								</Button >
+							</PopoverContent>
+						</Popover>
 					</div>
 					{list}
 				</section>
