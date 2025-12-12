@@ -11,8 +11,9 @@ import {
 function List() {
 	const [listsData, setListsData] = useState([]);
 	const [nameList, setNameList] = useState('');
+	const [idList, setIdList] = useState('');
 	const allLists = () => {
-		fetch('http://localhost:3000/lists/693bdd77dc0cfddaa22f0dad')
+		fetch('http://localhost:3000/lists/693bf16f5d4cedcd50de2805')
 			.then((response) => response.json())
 			.then((listsUser) => {
 				setListsData(listsUser);
@@ -22,13 +23,43 @@ function List() {
 		allLists();
 	}, []);
 
+		const nameListRegister = () => {
+		fetch("http://localhost:3000/lists/newLists/tDDhL4ODW42d5DlmbiaPYocVDZ3TIAsi", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				name: nameList,
+			}),
+		})
+			.then(response => response.json())
+			.then(newList => {
+				// console.log('newList', newList)
+				allLists()
+			})
+	}
+
+		const deleteList = (idList) => {
+		fetch(`http://localhost:3000/lists/removeList/${idList}`, {
+			method: "DELETE",
+			headers: { "Content-Type": "application/json" },
+		})
+			.then(response => response.json())
+			.then(() => {
+				// console.log('newList', newList)
+				allLists()
+			})
+	}
+	
+
+
 	const list = listsData?.listsUser?.map((listUser) => {
 		console.log('listUser', listUser);
 
 		return (
 			<div className="mt-10 w-full rounded-lg bg-lightblue" key={listUser._id}>
-				
-					<BadgeMinus />
+				<Button onClick={()=>deleteList(listUser._id)}>
+					<BadgeMinus/>
+				</Button>
 				<h6 className="w-[10%] bg-orange p-10">{listUser.name}</h6>
 				<div className="flex flex-wrap items-center">
 					{listUser.products.map((product) => {
@@ -49,21 +80,6 @@ function List() {
 		);
 	});
 
-	const nameListRegister = () => {
-		fetch("http://localhost:3000/lists/newLists/5G8nbRxPIo5Rfnan-9vBHYZCNJLDDsRL", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				name: nameList,
-			}),
-		})
-			.then(response => response.json())
-			.then(newList => {
-				// console.log('newList', newList)
-				allLists()
-			})
-	}
-
 
 
 	return (
@@ -73,7 +89,6 @@ function List() {
 				<section className="h-full w-full p-20">
 					<div>
 						<h3 className="text-4xl">Favoris</h3>
-
 						<Popover>
 							<PopoverTrigger>
 								<Button className="mt-10 bg-orange text-zinc-900 shadow-lg hover:bg-orangehover hover:shadow-sm">
