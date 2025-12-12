@@ -13,7 +13,7 @@ function List() {
 	const [nameList, setNameList] = useState('');
 	const [idList, setIdList] = useState('');
 	const allLists = () => {
-		fetch('http://localhost:3000/lists/693bf16f5d4cedcd50de2805')
+		fetch('http://localhost:3000/lists/FnMVljUDOto9Nr-dsCxPmQz8RbaZhuAD')
 			.then((response) => response.json())
 			.then((listsUser) => {
 				setListsData(listsUser);
@@ -24,7 +24,7 @@ function List() {
 	}, []);
 
 		const nameListRegister = () => {
-		fetch("http://localhost:3000/lists/newLists/tDDhL4ODW42d5DlmbiaPYocVDZ3TIAsi", {
+		fetch("http://localhost:3000/lists/newLists/FnMVljUDOto9Nr-dsCxPmQz8RbaZhuAD", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
@@ -53,7 +53,7 @@ function List() {
 
 
 	const list = listsData?.listsUser?.map((listUser) => {
-		console.log('listUser', listUser);
+		console.log('listUser', listUser.idProducts);
 
 		return (
 			<div className="mt-10 w-full rounded-lg bg-lightblue" key={listUser._id}>
