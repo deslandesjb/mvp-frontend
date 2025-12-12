@@ -26,6 +26,8 @@ export default function Header() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.user);
+	console.log(user);
+	
 
 	useEffect(() => {
 		fetch('http://localhost:3000/products/categories')
@@ -170,7 +172,7 @@ export default function Header() {
 						</span>
 						<button
 							onClick={handleLogout}
-							className="rounded-lg bg-red-500 px-4 py-2 font-semibold text-white transition-colors hover:bg-red-600">
+							className="rounded-lg bg-red-500 px-2 py-2 font-semibold text-white transition-colors hover:bg-red-600">
 							Déconnexion
 						</button>
 					</div>
