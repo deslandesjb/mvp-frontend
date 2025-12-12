@@ -1,4 +1,3 @@
-
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -24,13 +23,6 @@ const userSlice = createSlice({
       state.lastname = null;
       state.mail = null;
     },
-    logout: (state) => {
-  state.token = null;
-  state.firstname = null;
-  state.lastname = null;
-  state.mail = null;
-},
-
   },
 });
 
