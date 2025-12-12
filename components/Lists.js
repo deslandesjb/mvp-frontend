@@ -1,8 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Dice1, Plus } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card.tsx';
-import Link from 'next/link';
-import Image from 'next/image';
+import {Plus } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import ProductCard from './ProductCard';
 function List() {
@@ -15,7 +12,7 @@ function List() {
             });
     }
     useEffect(() => {
-      allLists()
+        allLists()
     }, []);
 
     const list = listsData?.listsUser?.map((listUser) => {
@@ -53,7 +50,6 @@ function List() {
                         <h3 className='text-4xl'>Favoris</h3>
                         <Button className="bg-orange text-zinc-900 shadow-lg hover:bg-orangehover hover:shadow-sm mt-10"><Plus /></Button>
                     </div>
-                   
                     {list}
                 </section>
             </main>

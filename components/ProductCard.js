@@ -33,21 +33,20 @@ function ProductCard(props) {
 						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent>
-						<DropdownMenuLabel>My Accouyarnnt</DropdownMenuLabel>
+						<DropdownMenuLabel>My Account</DropdownMenuLabel>
 						{props.listNames.map((name) => {
 							return (
-								<React.Fragment key={name.name}>
-
+								<>
 									<DropdownMenuSeparator />
 									<DropdownMenuItem>{name.name}</DropdownMenuItem>
-								</React.Fragment>
+								</>
 							)
 						})}
 					</DropdownMenuContent>
 				</DropdownMenu>
 				<CardContent>
 					<div className='w-[200px]'>
-						<Image className="p-8 w-[100%] h-[100%]" src={props.picture[0].url} alt={props.picture[0].title} width={200} height={200} />
+						<Image className="p-4 w-[100%] h-[100%]" src={props.picture[0].url} alt={props.picture[0].title} width={200} height={200} />
 
 					</div>
 				</CardContent>
