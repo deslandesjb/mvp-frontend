@@ -47,8 +47,8 @@ function List() {
 				name: nameList,
 			}),
 		})
-			.then(response => response.json())
-			.then(newList => {
+			.then((response) => response.json())
+			.then((newList) => {
 				// console.log('newList', newList)
 				allLists()
 			})
