@@ -41,8 +41,8 @@ function List() {
 				name: nameList,
 			}),
 		})
-			.then(response => response.json())
-			.then(newList => {
+			.then((response) => response.json())
+			.then((newList) => {
 				// console.log('newList', newList)
 				allLists()
 			})
@@ -115,15 +115,16 @@ function List() {
 									<Plus className='fill-darkblue' />
 								</Button>
 							</PopoverTrigger>
-							<PopoverContent
-								align="center"
-								sideOffset={50}
-								className="flex"
-							>
-								<input type="text" placeholder='Nom' className='mr-10 p-2' onChange={(e) => setNameList(e.target.value)} />
+							<PopoverContent align="center" sideOffset={50} className="flex">
+								<input
+									type="text"
+									placeholder="Nom"
+									className="mr-10 p-2"
+									onChange={(e) => setNameList(e.target.value)}
+								/>
 								<Button type="button" onClick={nameListRegister}>
 									valider
-								</Button >
+								</Button>
 							</PopoverContent>
 						</Popover>
 					</div>
