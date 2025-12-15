@@ -58,7 +58,7 @@ function AllProducts() {
 	// ------------------------------ ajt fetch list
 	const [listsData, setListsData] = useState([]);
 	const allLists = () => {
-		fetch('http://localhost:3000/lists/69397295490f817493bca691')
+		fetch('http://localhost:3000/lists/S_GecKwSKafozaCV0BfnpDYgTkh1nXwd')
 			.then((response) => response.json())
 			.then((listsUser) => {
 				setListsData(listsUser);
