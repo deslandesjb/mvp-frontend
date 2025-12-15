@@ -1,67 +1,24 @@
-// import styles from '../styles/Home.module.css';
-import {Button} from '@/components/ui/button';
+import SearchInput from './SearchInput';
+
 
 function Home() {
-	return (
-		<main className="flex h-screen-header min-h-96 flex-col items-center justify-center font-body">
-			<section>
-				<h1 className="italic">
-					Welcome to <a href="https://nextjs.org">Next.js!</a>
-				</h1>
-			</section>
+    return (
+       
+        <main className="flex min-h-screen flex-col items-center pt-24 px-4 font-body bg-background">
+            
+            <section className="w-full flex justify-center">
+                {/* Le composant SearchInput gère sa propre largeur max (max-w-2xl), 
+                    donc ici on lui donne juste toute la largeur disponible */}
+                <SearchInput />
+            </section>
 
-			<section>
-				<Button className="bg-orange text-zinc-900 shadow-sm hover:bg-orangehover hover:shadow-lg">
-					Shadcn component
-				</Button>
-			</section>
-		</main>
-	);
+            <section className="mt-8 text-center">
+                {/* Exemple de contenu en dessous si besoin */}
+                {/* <h1 className="text-2xl font-bold text-muted-foreground">Bienvenue sur MVP Shop</h1> */}
+            </section>
+
+        </main>
+    );
 }
 
 export default Home;
-// import { Button } from '@/components/ui/button';
-// import { useSelector } from 'react-redux';
-// import Link from 'next/link';
-
-// function Home() {
-// 	const user = useSelector((state) => state.user);
-
-// 	return (
-// 		<>
-// 			<main className="flex h-screen-header min-h-96 flex-col items-center justify-center font-body p-8">
-
-			
-
-// 				{/* SECTION BOUTONS */}
-// 				<section className="flex gap-4 flex-wrap justify-center">
-// 					<Link href="/allproducts">
-// 						<Button className="bg-blue-600 text-white shadow-sm hover:bg-blue-700 hover:shadow-lg px-8 py-6 text-lg">
-// 							Voir tous les produits
-// 						</Button>
-// 					</Link>
-
-// 					{user?.token && (
-// 						<Link href="/lists">
-// 							<Button className="bg-orange-500 text-white shadow-sm hover:bg-orange-600 hover:shadow-lg px-8 py-6 text-lg">
-// 								Mes Favoris
-// 							</Button>
-// 						</Link>
-// 					)}
-// 				</section>
-
-// 				{/* MESSAGE INVITATION À CRÉER UN COMPTE */}
-// 				{!user?.token && (
-// 					<section className="mt-12 p-6 bg-gray-100 rounded-lg max-w-md text-center">
-// 						<p className="text-gray-700">
-// 							Crée ton compte pour débloquer toutes les fonctionnalités !
-// 						</p>
-// 					</section>
-// 				)}
-// 			</main>
-// 		</>
-// 	);
-// }
-
-// export default Home;
-
