@@ -65,7 +65,7 @@ export default function Header() {
 	});
 
 	return (
-		<header className="flex h-16 items-center justify-between bg-zinc-100 px-4 font-title shadow-lg">
+		<header className="relative z-10 flex h-16 items-center justify-between bg-zinc-100 px-4 font-title shadow-lg">
 			{/* LEFT : LOGO */}
 			<div className="md:min-w-60">
 				<Link href="/">logo</Link>

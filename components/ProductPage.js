@@ -4,50 +4,72 @@ import React, {useEffect, useState} from 'react';
 
 export default function ProductPage() {
 	const [productInfo, setProductInfo] = useState({});
+	const [productData, setProductData] = useState(false);
 
 	useEffect(() => {
-		fetch('http://localhost:3000/products/id/69383ba502d195cb6577d535')
+		fetch('http://localhost:3000/products/id/693fe4515403bcd12431fcaa')
 			.then((response) => response.json())
 			.then((data) => {
-				// setArticlesData(data.articles.filter((data, i) => i > 0));
-				// console.log(data);
 				if (data.result) {
 					setProductInfo(data.product);
+					setProductData(true);
 				}
 			});
 	}, []);
 
-	console.log(productInfo);
-
-	// const sellers = productInfo.sellers.map((seller, i) => {
-	//   return()
-	// });
+	console.log(productInfo.sellers);
 
 	return (
-		<main className="flex h-screen-header min-h-96 flex-col items-center justify-center font-body">
-			<section>
-				<div>
-					{productInfo.picture && (
-						<Image src={productInfo.picture[0].url} alt={productInfo.picture[0].url} width={200} height={200} />
-					)}
-				</div>
-				<div>
-					<div>
-						<h1>{productInfo.name}</h1>
-						<h2>{productInfo.desc}</h2>
+		<main className="min-h-screen-header flex min-h-96 flex-col items-center justify-center font-body">
+			{productData && (
+				<section className="flex">
+					<div className="w-1/2">
+						{productInfo.picture && (
+							<Image
+								className="w-full"
+								src={productInfo.picture[0].url}
+								alt={productInfo.picture[0].url}
+								width={200}
+								height={200}
+							/>
+						)}
 					</div>
-					<div>
-						<p>
-							Prix moyen: <b>{productInfo.priceMoy}€</b>
-						</p>
-						<p>{productInfo.noteMoy}</p>
+					<div className="w-1/2">
+						<div>
+							<h1>{productInfo.name}</h1>
+							<h2>{productInfo.desc}</h2>
+						</div>
+						<div>
+							<p>
+								Prix moyen: <b>{productInfo.priceMoy}€</b>
+							</p>
+							<p>{productInfo.noteMoy}</p>
+						</div>
+						<div>
+							<h3>{productInfo.brand}</h3>
+							<h3>{productInfo.categorie}</h3>
+						</div>
 					</div>
-					<div>
-						<h3>{productInfo.brand}</h3>
-						<h3>{productInfo.categorie}</h3>
-					</div>
-				</div>
-			</section>
+					{productInfo.sellers.map((seller, i) => {
+						seller.avis.map((avis, j) => {
+							console.log(avis.content);
+						});
+
+						return (
+							<div key={i}>
+								<div>{seller.price}</div>
+								{/* <div>{avis.content}</div> */}
+								<div>{seller.seller}</div>
+							</div>
+						);
+					})}
+				</section>
+			)}
+			{!productData && (
+				<section>
+					<h1>No data found</h1>
+				</section>
+			)}
 		</main>
 	);
 }

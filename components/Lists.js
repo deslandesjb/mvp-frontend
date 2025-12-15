@@ -4,9 +4,15 @@ import {BadgeMinus, Plus} from 'lucide-react';
 import {useEffect, useState} from 'react';
 import ProductCard from './ProductCard';
 
+import {useDispatch, useSelector} from 'react-redux';
+
 function List() {
 	const [listsData, setListsData] = useState([]);
 	const [nameList, setNameList] = useState('');
+
+	const user = useSelector((state) => state.user);
+	// console.log(user.token);
+
 	const allLists = () => {
 		fetch('http://localhost:3000/lists/S_GecKwSKafozaCV0BfnpDYgTkh1nXwd')
 			.then((response) => response.json())
@@ -19,7 +25,7 @@ function List() {
 	}, []);
 
 	const list = listsData?.listsUser?.map((listUser) => {
-		console.log('listUser', listUser);
+		// console.log('listUser', listUser);
 
 		return (
 			<div className="mt-10 w-full rounded-lg bg-lightblue" key={listUser._id}>
