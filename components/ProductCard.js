@@ -8,7 +8,7 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import {Plus, Star, Minus} from 'lucide-react';
+import {Minus, Plus, Star} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -35,11 +35,8 @@ function ProductCard(props) {
 								<div key={i}>
 									<DropdownMenuSeparator />
 									<DropdownMenuItem className="justify-between">
-										{name.name} 
-										<Button >
-										{!props.idProduct ? <Plus/> : <Minus/>}
-										</Button>
-									
+										{name.name}
+										<Button>{!props.idProduct ? <Plus /> : <Minus />}</Button>
 									</DropdownMenuItem>
 								</div>
 							);
