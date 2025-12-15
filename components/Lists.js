@@ -3,6 +3,8 @@ import { Plus, BadgeMinus } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import ProductCard from './ProductCard';
 import { useSelector } from 'react-redux';
+import Connexion from '../components/Connexion';
+
 import {
 	Popover,
 	PopoverContent,
@@ -16,25 +18,29 @@ import {
 } from "@/components/ui/accordion"
 
 function List() {
-	// const user = useSelector((state) => state.user.value);
-	// console.log(user)
+	const token = useSelector((state) => state.user.token);
+	console.log(token)
 	// ${user.token}
 	const [listsData, setListsData] = useState([]);
 	const [nameList, setNameList] = useState('');
 	const [idList, setIdList] = useState('');
+
 	const allLists = () => {
-		fetch(`http://localhost:3000/lists/j5T49lK7DTOzKtCEOzZT95bBtEIP9v9f`)
+			token && fetch(`http://localhost:3000/lists/${token}`)
 			.then((response) => response.json())
 			.then((listsUser) => {
 				setListsData(listsUser);
 			});
+
+
 	};
 	useEffect(() => {
 		allLists();
 	}, []);
 
 	const nameListRegister = () => {
-		fetch("http://localhost:3000/lists/newLists/j5T49lK7DTOzKtCEOzZT95bBtEIP9v9f", {
+
+		token && fetch(`http://localhost:3000/lists/newLists/${token}`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
@@ -115,16 +121,16 @@ function List() {
 									<Plus className='fill-darkblue' />
 								</Button>
 							</PopoverTrigger>
-							<PopoverContent align="center" sideOffset={50} className="flex">
-								<input
-									type="text"
-									placeholder="Nom"
-									className="mr-10 p-2"
-									onChange={(e) => setNameList(e.target.value)}
-								/>
+							<PopoverContent
+								align="center"
+								sideOffset={50}
+								className="flex"
+							>
+								
+								{token ? <><input type="text" placeholder='Nom' className='mr-10 p-2' onChange={(e) => setNameList(e.target.value)} />
 								<Button type="button" onClick={nameListRegister}>
 									valider
-								</Button>
+								</Button ></>: <Connexion></Connexion>}
 							</PopoverContent>
 						</Popover>
 					</div>

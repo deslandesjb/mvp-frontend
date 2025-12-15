@@ -2,6 +2,7 @@ import {Button} from '@/components/ui/button';
 import Link from 'next/link';
 import {useEffect, useState} from 'react';
 import ProductCard from './ProductCard';
+import { useSelector } from 'react-redux';
 
 function AllProducts() {
 	const [startIndex, setStartIndex] = useState(1);
@@ -10,6 +11,7 @@ function AllProducts() {
 	// const [defaultNumberToAdd, setDefaultNumberToAdd] = useState(12);
 	const [productList, setProductList] = useState([]);
 	const [categories, setCategories] = useState([]);
+	const token = useSelector((state) => state.user.token);
 	// const size = useWindowSize();
 
 	const fetchProducts = async () => {
@@ -58,7 +60,8 @@ function AllProducts() {
 	// ------------------------------ ajt fetch list
 	const [listsData, setListsData] = useState([]);
 	const allLists = () => {
-		fetch('http://localhost:3000/lists/S_GecKwSKafozaCV0BfnpDYgTkh1nXwd')
+		
+		token && fetch(`http://localhost:3000/lists/${token}`)
 			.then((response) => response.json())
 			.then((listsUser) => {
 				setListsData(listsUser);
