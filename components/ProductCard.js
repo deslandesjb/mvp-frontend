@@ -18,9 +18,9 @@ function ProductCard(props) {
 	const token = useSelector((state) => state.user.token);
 
 	const addToList = (idProduct, idList) => {
-		console.log('token', token);
-		console.log('idProduct', idProduct);
-		console.log('idList', idList);
+		// console.log("token", token)
+		// console.log("idProduct", idProduct)
+		// console.log("idList", idList)
 		token &&
 			fetch(`http://localhost:3000/lists/addToLists/${token}/${idProduct}/${idList}`, {
 				method: 'POST',
@@ -29,6 +29,7 @@ function ProductCard(props) {
 				.then((response) => response.json())
 				.then((resultat) => {
 					console.log(resultat);
+					props.allLists();
 				});
 	};
 
