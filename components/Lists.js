@@ -5,20 +5,7 @@ import {BadgeMinus, Plus} from 'lucide-react';
 import {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import ProductCard from './ProductCard';
-import { useSelector } from 'react-redux';
 import Connexion from '../components/Connexion';
-
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from "@/components/ui/popover"
-import {
-	Accordion,
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger,
-} from "@/components/ui/accordion"
 
 function List() {
 	const token = useSelector((state) => state.user.token);
@@ -108,8 +95,8 @@ function List() {
 	return (
 		<>
 			{/* {list} */}
-			<main className="min-h-screen-header flex min-h-96 flex-col items-center justify-center font-body">
-				<section className="h-full w-full p-20">
+			<main className="min-h-screen-header flex min-h-96 flex-col items-center pt-16 font-body">
+				<section className="h-full w-full p-">
 					<div>
 						<h3 className="text-4xl">Favoris</h3>
 						<Popover>
