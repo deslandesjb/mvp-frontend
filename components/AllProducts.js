@@ -74,7 +74,7 @@ function AllProducts() {
 	// -------------- passage en props list
 	const products = productList.map((data, i) => {
 		if (data) {
-			return <ProductCard key={i} {...data} listNames={listsData.listsUser} />;
+			return <ProductCard key={i} {...data} data={data} listNames={listsData.listsUser} />;
 		}
 	});
 

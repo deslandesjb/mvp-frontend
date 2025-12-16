@@ -19,6 +19,20 @@ import Inscription from '../components/Inscription';
 function ProductCard(props) {
 	const token = useSelector((state) => state.user.token);
 
+	const addToList = (idProduct, idList) => {
+		console.log("token", token)
+		console.log("idProduct", idProduct)
+		console.log("idList", idList)
+		token && fetch(`http://localhost:3000/lists/addToLists/${token}/${idProduct}/${idList}`,{
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+		})
+		.then(response=>response.json())
+		.then(resultat=>{
+			console.log(resultat)
+		})
+	}
+
 	const stars = [];
 	for (let i = 0; i < 5; i++) {
 		let starClass = ' stroke-zinc-900';
@@ -29,27 +43,28 @@ function ProductCard(props) {
 	}
 	return (
 		<Card className="w-full max-w-xl overflow-hidden hover:shadow-lg md:w-[calc(50%-1rem)] xl:w-[calc(33.3%-1rem)]">
-			<Link href={'products/' + props.id} className="relative flex h-full">
+			{/* <Link href={'products/' + props.id} className="relative flex h-full"> */}
+			<div className="relative flex h-full">
 				<DropdownMenu>
 					<DropdownMenuTrigger className="absolute right-0 top-0 z-10 px-4 py-2">
 						<Plus size={18} />
 					</DropdownMenuTrigger>
 					<DropdownMenuContent className="z-10">
 						<DropdownMenuLabel>My Account</DropdownMenuLabel>
-						{ token ? props.listNames.map((name, i) => {
+						{token ? props.listNames.map((name, i) => {
 							return (
 								<div key={i}>
 									<DropdownMenuSeparator />
 									<DropdownMenuItem className="justify-between">
 										{name.name}
-										<Button >
+										<Button onClick={() => addToList(props.id, name._id)}>
 											{!props.idProduct ? <Plus /> : <Minus />}
 										</Button>
 
 									</DropdownMenuItem>
 								</div>
 							);
-						}):<Inscription /> } 
+						}) : <Inscription />}
 					</DropdownMenuContent>
 				</DropdownMenu>
 				<CardContent className="w-1/2 p-0">
@@ -75,7 +90,8 @@ function ProductCard(props) {
 						</div>
 					</CardContent>
 				</div>
-			</Link>
+			</div>
+			{/* </Link> */}
 		</Card>
 	);
 }
