@@ -1,53 +1,52 @@
-import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from '@/components/ui/accordion';
-import {Button} from '@/components/ui/button';
-import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover';
-import {BadgeMinus, Plus} from 'lucide-react';
-import {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Button } from '@/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { BadgeMinus, Plus } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import ProductCard from './ProductCard';
 import Connexion from '../components/Connexion';
 
 function List() {
 	const token = useSelector((state) => state.user.token);
-	console.log(token)
+	console.log(token);
 	// ${user.token}
 	const [listsData, setListsData] = useState([]);
 	const [nameList, setNameList] = useState('');
 	const [idList, setIdList] = useState('');
 
-	const allLists = () => {
-			token && fetch(`http://localhost:3000/lists/${token}`)
-			.then((response) => response.json())
-			.then((listsUser) => {
-				setListsData(listsUser);
-			});
-
-
+	const allLists = (props) => {
+		token &&
+			fetch(`http://localhost:3000/lists/${token}`)
+				.then((response) => response.json())
+				.then((listsUser) => {
+					setListsData(listsUser);
+				});
 	};
 	useEffect(() => {
 		allLists();
 	}, []);
 
 	const nameListRegister = () => {
-
-		token && fetch(`http://localhost:3000/lists/newLists/${token}`, {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				name: nameList,
-			}),
-		})
-			.then((response) => response.json())
-			.then((newList) => {
-				// console.log('newList', newList)
-				allLists();
-			});
+		token &&
+			fetch(`http://localhost:3000/lists/newLists/${token}`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					name: nameList,
+				}),
+			})
+				.then((response) => response.json())
+				.then((newList) => {
+					// console.log('newList', newList)
+					allLists();
+				});
 	};
 
 	const deleteList = (idList) => {
 		fetch(`http://localhost:3000/lists/removeList/${idList}`, {
 			method: 'DELETE',
-			headers: {'Content-Type': 'application/json'},
+			headers: { 'Content-Type': 'application/json' },
 		})
 			.then((response) => response.json())
 			.then(() => {
@@ -66,22 +65,18 @@ function List() {
 						<AccordionTrigger className="rounded-lg bg-orange pl-4 pr-4 text-white hover:bg-orangehover">
 							{listUser.name}
 						</AccordionTrigger>
-							<div className="mt-10 w-full" key={listUser._id}>
-								<Button onClick={() => deleteList(listUser._id)}>
-									<BadgeMinus />
-								</Button>
-							</div>
-						<AccordionContent className="flex gap-4 text-balance flex-wrap">
+						<div className="mt-10 w-full" key={listUser._id}>
+							<Button onClick={() => deleteList(listUser._id)}>
+								<BadgeMinus />
+							</Button>
+						</div>
+						<AccordionContent className="flex flex-wrap gap-4 text-balance">
 							{listUser.products.map((product) => {
 								return (
 									<ProductCard
-										name={product.name}
-										id={product._id}
-										picture={product.picture}
-										desc={product.desc}
-										priceMoy={product.priceMoy}
-										stars={product.stars}
-										listNames={listsData.listsUser}
+										{...product}
+										listNames={listsData?.listsUser || []}
+										allLists = {allLists}
 									/>
 								);
 							})}
@@ -96,7 +91,7 @@ function List() {
 		<>
 			{/* {list} */}
 			<main className="min-h-screen-header flex min-h-96 flex-col items-center pt-16 font-body">
-				<section className="h-full w-full p-">
+				<section className="h-full w-full p-20">
 					<div>
 						<h3 className="text-4xl">Favoris</h3>
 						<Popover>
@@ -105,16 +100,22 @@ function List() {
 									<Plus className="fill-darkblue" />
 								</Button>
 							</PopoverTrigger>
-							<PopoverContent
-								align="center"
-								sideOffset={50}
-								className="flex"
-							>
-								
-								{token ? <><input type="text" placeholder='Nom' className='mr-10 p-2' onChange={(e) => setNameList(e.target.value)} />
-								<Button type="button" onClick={nameListRegister}>
-									valider
-								</Button ></>: <Connexion></Connexion>}
+							<PopoverContent align="center" sideOffset={50} className="flex">
+								{token ? (
+									<>
+										<input
+											type="text"
+											placeholder="Nom"
+											className="mr-10 p-2"
+											onChange={(e) => setNameList(e.target.value)}
+										/>
+										<Button type="button" onClick={nameListRegister}>
+											valider
+										</Button>
+									</>
+								) : (
+									<Connexion></Connexion>
+								)}
 							</PopoverContent>
 						</Popover>
 					</div>
