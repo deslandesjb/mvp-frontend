@@ -1,12 +1,12 @@
-import Filter from './Filter';
-import SearchInput from './Search';
+import Filter from './FilterComp';
+import SearchInput from './SearchComp';
 
 function Home() {
 	return (
 		<main className="flex min-h-screen flex-col items-center bg-background px-4 pt-24 font-body">
 			<section className="flex w-full justify-center">
-				{/* Le composant SearchInput gère sa propre largeur max (max-w-2xl), 
-                    donc ici on lui donne juste toute la largeur disponible */}
+				{/* Le composant SearchInput gère sa propre largeur max (max-w-2xl),
+				donc ici on lui donne juste toute la largeur disponible */}
 				<Filter />
 				<SearchInput />
 			</section>
