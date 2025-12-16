@@ -1,11 +1,11 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { BadgeMinus, Plus } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import ProductCard from './ProductCard';
+import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from '@/components/ui/accordion';
+import {Button} from '@/components/ui/button';
+import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover';
+import {BadgeMinus, Plus} from 'lucide-react';
+import {useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
 import Connexion from '../components/Connexion';
+import ProductCard from './ProductCard';
 
 function List() {
 	const token = useSelector((state) => state.user.token);
@@ -31,7 +31,7 @@ function List() {
 		token &&
 			fetch(`http://localhost:3000/lists/newLists/${token}`, {
 				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
+				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify({
 					name: nameList,
 				}),
@@ -46,7 +46,7 @@ function List() {
 	const deleteList = (idList) => {
 		fetch(`http://localhost:3000/lists/removeList/${idList}`, {
 			method: 'DELETE',
-			headers: { 'Content-Type': 'application/json' },
+			headers: {'Content-Type': 'application/json'},
 		})
 			.then((response) => response.json())
 			.then(() => {
@@ -72,13 +72,7 @@ function List() {
 						</div>
 						<AccordionContent className="flex flex-wrap gap-4 text-balance">
 							{listUser.products.map((product) => {
-								return (
-									<ProductCard
-										{...product}
-										listNames={listsData?.listsUser || []}
-										allLists = {allLists}
-									/>
-								);
+								return <ProductCard {...product} listNames={listsData?.listsUser || []} allLists={allLists} />;
 							})}
 						</AccordionContent>
 					</AccordionItem>
@@ -90,7 +84,7 @@ function List() {
 	return (
 		<>
 			{/* {list} */}
-			<main className="min-h-screen-header flex min-h-96 flex-col items-center pt-16 font-body">
+			<main className="min-h-screen-header flex flex-col items-center pt-16 font-body">
 				<section className="h-full w-full p-20">
 					<div>
 						<h3 className="text-4xl">Favoris</h3>
