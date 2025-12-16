@@ -174,7 +174,8 @@ function AllProducts() {
             <ProductCard
                 key={i}
                 {...data}
-                listNames={listsData?.listsUser || []}
+                listNames={listsData.listsUser || []}
+                allLists = {allLists}
             />
         ) : null
     );

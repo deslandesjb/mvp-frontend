@@ -8,7 +8,7 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import {Minus, Plus, Star} from 'lucide-react';
+import { Minus, Plus, Star } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
@@ -20,17 +20,18 @@ function ProductCard(props) {
 	const token = useSelector((state) => state.user.token);
 
 	const addToList = (idProduct, idList) => {
-		console.log("token", token)
-		console.log("idProduct", idProduct)
-		console.log("idList", idList)
-		token && fetch(`http://localhost:3000/lists/addToLists/${token}/${idProduct}/${idList}`,{
+		// console.log("token", token)
+		// console.log("idProduct", idProduct)
+		// console.log("idList", idList)
+		token && fetch(`http://localhost:3000/lists/addToLists/${token}/${idProduct}/${idList}`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 		})
-		.then(response=>response.json())
-		.then(resultat=>{
-			console.log(resultat)
-		})
+			.then(response => response.json())
+			.then(resultat => {
+				console.log(resultat)
+				props.allLists();
+			})
 	}
 
 	const stars = [];
@@ -52,13 +53,22 @@ function ProductCard(props) {
 					<DropdownMenuContent className="z-10">
 						<DropdownMenuLabel>My Account</DropdownMenuLabel>
 						{token ? props.listNames.map((name, i) => {
+							const productExists = name.products.some(
+								(product) => product?.id === props.id
+							);
 							return (
 								<div key={i}>
 									<DropdownMenuSeparator />
 									<DropdownMenuItem className="justify-between">
 										{name.name}
 										<Button onClick={() => addToList(props.id, name._id)}>
-											{!props.idProduct ? <Plus /> : <Minus />}
+											{/* console.log("props.idProduct", props.listNames[0].products[0]) */}
+											{/* {console.log(" name.products", name.products[i].id)}
+												{console.log("props._id", props.id)} */}
+											{/* {name.products[0]?.id !== props.id ? <Plus /> : <Minus />} */}
+		
+														{!productExists ? <Plus /> : <Minus />}
+
 										</Button>
 
 									</DropdownMenuItem>
