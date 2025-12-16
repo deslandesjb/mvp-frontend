@@ -1,5 +1,5 @@
-import {Button} from '@/components/ui/button';
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from '@/components/ui/card.tsx';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card.tsx';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -8,11 +8,17 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import {Plus, Star, Minus} from 'lucide-react';
+import {Minus, Plus, Star} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import Inscription from '../components/Inscription';
+
+
 
 function ProductCard(props) {
+	const token = useSelector((state) => state.user.token);
+
 	const stars = [];
 	for (let i = 0; i < 5; i++) {
 		let starClass = ' stroke-zinc-900';
@@ -28,22 +34,19 @@ function ProductCard(props) {
 					<DropdownMenuTrigger className="absolute right-0 top-0 z-10 px-4 py-2">
 						<Plus size={18} />
 					</DropdownMenuTrigger>
-					<DropdownMenuContent>
+					<DropdownMenuContent className="z-10">
 						<DropdownMenuLabel>My Account</DropdownMenuLabel>
-						{props.listNames.map((name, i) => {
+						{ token ? props.listNames.map((name, i) => {
 							return (
 								<div key={i}>
 									<DropdownMenuSeparator />
 									<DropdownMenuItem className="justify-between">
-										{name.name} 
-										<Button >
-										{!props.idProduct ? <Plus/> : <Minus/>}
-										</Button>
-									
+										{name.name}
+										<Button>{!props.idProduct ? <Plus /> : <Minus />}</Button>
 									</DropdownMenuItem>
 								</div>
 							);
-						})}
+						}):<Inscription /> } 
 					</DropdownMenuContent>
 				</DropdownMenu>
 				<CardContent className="w-1/2 p-0">
