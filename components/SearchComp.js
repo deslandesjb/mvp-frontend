@@ -1,0 +1,122 @@
+// 'use client';
+import {Button} from '@/components/ui/button';
+import {Input} from '@/components/ui/input';
+import {Search, X} from 'lucide-react';
+import {useRouter} from 'next/navigation';
+import {useEffect, useRef, useState} from 'react';
+
+export default function SearchInput() {
+	const [query, setQuery] = useState('');
+	const [results, setResults] = useState([]);
+
+	const router = useRouter();
+	const containerRef = useRef(null);
+
+	// --- FETCH PREVIEW ---
+	const fetchPreviewData = async () => {
+		try {
+			const response = await fetch('http://localhost:3000/products/search', {
+				method: 'POST',
+				headers: {'Content-Type': 'application/json'},
+				body: JSON.stringify({search: query}),
+			});
+
+			if (!response.ok) return;
+			const data = await response.json();
+			setResults(data.result ? data.products || [] : []);
+		} catch (error) {
+			console.error('Erreur fetch preview:', error);
+		}
+	};
+
+	// Déclenche la prévisualisation
+	useEffect(() => {
+		if (!query.trim()) {
+			setResults([]);
+			return;
+		}
+		const timeout = setTimeout(() => fetchPreviewData(), 300);
+		return () => clearTimeout(timeout);
+	}, [query]);
+
+	// --- REDIRECTION VERS ALLPRODUCTS ---
+	const handleSearchSubmit = (e) => {
+		if (e) e.preventDefault();
+		router.push(`/allproducts?q=${encodeURIComponent(query)}`);
+		setResults([]);
+	};
+
+	// Click outside
+	useEffect(() => {
+		const handler = (e) => {
+			if (!containerRef.current?.contains(e.target)) {
+				setResults([]);
+			}
+		};
+		document.addEventListener('mousedown', handler);
+		return () => document.removeEventListener('mousedown', handler);
+	}, []);
+
+	// --- RENDER ---
+	return (
+		<div className="relative mx-auto w-full max-w-2xl font-sans" ref={containerRef}>
+			<form onSubmit={handleSearchSubmit} className="flex w-full items-center gap-2">
+				<div className="relative flex-1">
+					<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+					<Input
+						className="w-full pl-9"
+						value={query}
+						onChange={(e) => setQuery(e.target.value)}
+						placeholder="Rechercher..."
+					/>
+					{query && (
+						<button
+							type="button"
+							onClick={() => setQuery('')}
+							className="absolute right-2 top-2.5 text-muted-foreground hover:text-foreground">
+							<X className="h-4 w-4" />
+						</button>
+					)}
+				</div>
+
+				<Button type="submit" className="shrink-0">
+					<Search className="h-4 w-4" />
+				</Button>
+			</form>
+
+			{/* PREVISUALISATION RESULTATS */}
+			{results.length > 0 && (
+				<div className="z-40 mt-2 max-h-[60vh] w-full overflow-hidden overflow-y-auto rounded-lg border bg-background shadow-xl">
+					<ul>
+						{results.map((item, index) => (
+							<li
+								key={index}
+								className="flex cursor-pointer gap-4 border-b p-4 transition-colors last:border-0 hover:bg-muted/50"
+								onClick={() => router.push(`/allproducts?q=${encodeURIComponent(item.name)}`)}>
+								<div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-md border bg-white">
+									<img
+										src={Array.isArray(item.picture) ? item.picture[0]?.url : item.picture || '/placeholder.png'}
+										alt={item.name}
+										className="h-full w-full object-contain"
+										onError={(e) => (e.target.src = '/placeholder.png')}
+									/>
+								</div>
+								<div className="flex min-w-0 flex-1 flex-col justify-between">
+									<div>
+										<p className="truncate text-sm font-semibold">{item.name}</p>
+										<p className="truncate text-xs capitalize text-muted-foreground">
+											{item.brand} • {item.categorie}
+										</p>
+									</div>
+									<div className="mt-1 flex items-center justify-between">
+										<span className="font-bold text-primary">{item.priceMoy} €</span>
+									</div>
+								</div>
+							</li>
+						))}
+					</ul>
+				</div>
+			)}
+		</div>
+	);
+}

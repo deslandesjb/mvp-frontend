@@ -42,7 +42,7 @@ export default function ProductPage() {
 	// console.log('notes', notes);
 
 	return (
-		<main className="min-h-screen-header flex min-h-96 flex-col items-center justify-center font-body">
+		<main className="min-h-screen-header flex flex-col items-center justify-center font-body">
 			{productData && (
 				<>
 					<section className="flex">

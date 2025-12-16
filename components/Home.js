@@ -1,5 +1,5 @@
-import SearchInput from './SearchInput';
-
+import Filter from './FilterComp';
+import SearchInput from './SearchComp';
 
 function Home() {
     return (
@@ -12,13 +12,12 @@ function Home() {
                 <SearchInput />
             </section>
 
-            <section className="mt-8 text-center">
-                {/* Exemple de contenu en dessous si besoin */}
-                {/* <h1 className="text-2xl font-bold text-muted-foreground">Bienvenue sur MVP Shop</h1> */}
-            </section>
-
-        </main>
-    );
+			<section className="mt-8 text-center">
+				{/* Exemple de contenu en dessous si besoin */}
+				{/* <h1 className="text-2xl font-bold text-muted-foreground">Bienvenue sur MVP Shop</h1> */}
+			</section>
+		</main>
+	);
 }
 
 export default Home;

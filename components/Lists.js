@@ -1,16 +1,16 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { BadgeMinus, Plus } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import ProductCard from './ProductCard';
+import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from '@/components/ui/accordion';
+import {Button} from '@/components/ui/button';
+import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover';
+import {BadgeMinus, Plus} from 'lucide-react';
+import {useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
 import Connexion from '../components/Connexion';
 import { Toaster } from "@/components/ui/sonner"
 
 // import { Toast } from "radix-ui";
 // import { Toast } from "radix-ui";
 // import { Toaster } from "@/components/ui/sonner"
+import ProductCard from './ProductCard';
 
 function List() {
 	const token = useSelector((state) => state.user.token);
@@ -36,7 +36,7 @@ function List() {
 		token &&
 			fetch(`http://localhost:3000/lists/newLists/${token}`, {
 				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
+				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify({
 					name: nameList,
 				}),
@@ -52,7 +52,7 @@ function List() {
 		const confirmed = window.confirm(`Êtes-vous sûr de vouloir supprimer la list : ${nameList} ?`);
 		confirmed && fetch(`http://localhost:3000/lists/removeList/${idList}`, {
 			method: 'DELETE',
-			headers: { 'Content-Type': 'application/json' },
+			headers: {'Content-Type': 'application/json'},
 		})
 			.then((response) => response.json())
 			.then(() => {
@@ -101,7 +101,7 @@ function List() {
 	return (
 		<>
 			{/* {list} */}
-			<main className="min-h-screen-header flex min-h-96 flex-col items-center pt-16 font-body">
+			<main className="min-h-screen-header flex flex-col items-center pt-16 font-body">
 				<section className="h-full w-full p-20">
 					<div>
 						<h3 className="text-4xl">Favoris</h3>

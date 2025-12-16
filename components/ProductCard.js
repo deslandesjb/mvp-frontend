@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card.tsx';
+import {Button} from '@/components/ui/button';
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from '@/components/ui/card.tsx';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -8,10 +8,10 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Minus, Plus, Star } from 'lucide-react';
+import {Minus, Plus, Star} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import Inscription from '../components/Inscription';
 
 import { toast } from "sonner"
@@ -36,7 +36,6 @@ function ProductCard(props) {
 				console.log(nameProduct)
 				console.log(nameList)
 				props.allLists();
-			// 1. On met à jour l'état
       setRemoved(resultat.remove);
 
       const message = !removed 
@@ -45,7 +44,8 @@ function ProductCard(props) {
 
       notif(message);
 			})
-	}
+
+	};
 
 	const notif = (message) => {
 		toast(message, {
