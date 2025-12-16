@@ -9,6 +9,9 @@ import {useSearchParams} from 'next/navigation'; // Lecture des paramètres dans
 import {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import ProductCard from './ProductCard';
+// import { useSelector } from 'react-redux';
+import { Toaster } from "@/components/ui/sonner"
+
 
 function AllProducts() {
 	// ==============================
@@ -16,24 +19,24 @@ function AllProducts() {
 	// ==============================
 	const searchParams = useSearchParams(); // Permet de savoir si on est en mode recherche
 
-	// ==============================
-	// ÉTATS PAGINATION (mode défaut)
-	// ==============================
-	const [startIndex, setStartIndex] = useState(1);
-	const [productsNumber, setProductsNumber] = useState(12);
-	const [productFullLength, setProductFullLength] = useState(0);
+    // ==============================
+    // ÉTATS PAGINATION (mode défaut)
+    // ==============================
+    const [startIndex, setStartIndex] = useState(1);
+    const [productsNumber, setProductsNumber] = useState(12);
+    const [productFullLength, setProductFullLength] = useState(0);
 
-	// ==============================
-	// ÉTATS DONNÉES
-	// ==============================
-	const [productList, setProductList] = useState([]); // Produits affichés
-	const [categories, setCategories] = useState([]); // Catégories
-	const [listsData, setListsData] = useState([]); // Listes utilisateur
+    // ==============================
+    // ÉTATS DONNÉES
+    // ==============================
+    const [productList, setProductList] = useState([]); // Produits affichés
+    const [categories, setCategories] = useState([]);   // Catégories
+    const [listsData, setListsData] = useState([]);     // Listes utilisateur
 
-	// ==============================
-	// AUTH
-	// ==============================
-	const token = useSelector((state) => state.user.token);
+    // ==============================
+    // AUTH
+    // ==============================
+    const token = useSelector((state) => state.user.token);
 
 	// ==============================
 	// MODE ACTIF : recherche ou défaut
@@ -122,27 +125,27 @@ function AllProducts() {
 			// MODE PAR DÉFAUT
 			setIsSearchMode(false);
 
-			// Chargement initial uniquement si vide
-			if (productList.length === 0) {
-				fetchDefaultProducts();
-			}
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [searchParams]); // Se relance à chaque changement d’URL
+            // Chargement initial uniquement si vide
+            if (productList.length === 0) {
+                fetchDefaultProducts();
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchParams]); // Se relance à chaque changement d’URL
 
-	// ==========================================
-	// 4. RÉCUPÉRATION DES LISTES UTILISATEUR
-	// ==========================================
-	const allLists = () => {
-		token &&
-			fetch(`http://localhost:3000/lists/${token}`)
-				.then((response) => response.json())
-				.then((listsUser) => setListsData(listsUser));
-	};
+    // ==========================================
+    // 4. RÉCUPÉRATION DES LISTES UTILISATEUR
+    // ==========================================
+    const allLists = () => {
+        token &&
+            fetch(`http://localhost:3000/lists/${token}`)
+                .then((response) => response.json())
+                .then((listsUser) => setListsData(listsUser));
+    };
 
-	useEffect(() => {
-		allLists();
-	}, []);
+    useEffect(() => {
+        allLists();
+    }, []);
 
 	// ==========================================
 	// 5. RÉCUPÉRATION DES CATÉGORIES
@@ -167,18 +170,26 @@ function AllProducts() {
 		</Link>
 	));
 
-	// Cards produits
-	const products = productList.map((data, i) =>
-		data ? <ProductCard key={i} {...data} listNames={listsData?.listsUser || []} /> : null,
-	);
+    // Cards produits
+    const products = productList.map((data, i) =>
+        data ? (
+            <ProductCard
+                key={i}
+                {...data}
+                listNames={listsData.listsUser || []}
+                allLists={allLists}
+            />
+        ) : null
+    );
 
-	return (
-		<main className="min-h-screen bg-slate-50 pb-10 font-body">
-			{/* HEADER */}
-			<section className="flex min-h-96 flex-col items-center justify-center bg-gradient-to-tr from-lightblue to-darkblue">
-				<h1 className="font-title text-4xl uppercase tracking-tight text-slate-100">
-					{isSearchMode ? 'Résultats de recherche' : 'All Products'}
-				</h1>
+    return (
+        <main className="font-body bg-slate-50 min-h-screen pb-10">
+            {/* HEADER */}       
+						<Toaster position="top-right" />
+            <section className="flex min-h-96 flex-col items-center justify-center bg-gradient-to-tr from-lightblue to-darkblue">
+                <h1 className="font-title text-4xl tracking-tight text-slate-100 uppercase">
+                    {isSearchMode ? 'Résultats de recherche' : 'All Products'}
+                </h1>
 
 				{/* Reset recherche */}
 				{isSearchMode && (

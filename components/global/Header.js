@@ -8,7 +8,7 @@ import {logout} from '../../reducer/user';
 
 import Connexion from '../Connexion';
 import Inscription from '../Inscription';
-import SearchInput from '../Search';
+import SearchInput from '../SearchComp';
 
 import {Drawer, DrawerClose, DrawerContent, DrawerTrigger} from '@/components/ui/drawer';
 import {
