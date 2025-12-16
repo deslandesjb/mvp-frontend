@@ -79,12 +79,12 @@ function List() {
 						<AccordionTrigger className="rounded-lg bg-orange pl-4 pr-4 text-white hover:bg-orangehover">
 							{listUser.name}
 						</AccordionTrigger>
-						<AccordionContent className="flex flex-col gap-4 text-balance">
 							<div className="mt-10 w-full" key={listUser._id}>
 								<Button onClick={() => deleteList(listUser._id)}>
 									<BadgeMinus />
 								</Button>
 							</div>
+						<AccordionContent className="flex gap-4 text-balance flex-wrap">
 							{listUser.products.map((product) => {
 								return (
 									<ProductCard
