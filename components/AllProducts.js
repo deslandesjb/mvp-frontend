@@ -9,6 +9,8 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation'; // Lecture des paramètres dans l’URL
 import ProductCard from './ProductCard';
 import { useSelector } from 'react-redux';
+import { Toaster } from "@/components/ui/sonner"
+
 
 function AllProducts() {
     // ==============================
@@ -19,21 +21,21 @@ function AllProducts() {
     // ==============================
     // ÉTATS PAGINATION (mode défaut)
     // ==============================
-	const [startIndex, setStartIndex] = useState(1);
-	const [productsNumber, setProductsNumber] = useState(12);
-	const [productFullLength, setProductFullLength] = useState(0);
+    const [startIndex, setStartIndex] = useState(1);
+    const [productsNumber, setProductsNumber] = useState(12);
+    const [productFullLength, setProductFullLength] = useState(0);
 
     // ==============================
     // ÉTATS DONNÉES
     // ==============================
-	const [productList, setProductList] = useState([]); // Produits affichés
-	const [categories, setCategories] = useState([]);   // Catégories
+    const [productList, setProductList] = useState([]); // Produits affichés
+    const [categories, setCategories] = useState([]);   // Catégories
     const [listsData, setListsData] = useState([]);     // Listes utilisateur
 
     // ==============================
     // AUTH
     // ==============================
-	const token = useSelector((state) => state.user.token);
+    const token = useSelector((state) => state.user.token);
 
     // ==============================
     // MODE ACTIF : recherche ou défaut
@@ -127,22 +129,22 @@ function AllProducts() {
                 fetchDefaultProducts();
             }
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchParams]); // Se relance à chaque changement d’URL
 
     // ==========================================
     // 4. RÉCUPÉRATION DES LISTES UTILISATEUR
     // ==========================================
-	const allLists = () => {
-		token &&
-			fetch(`http://localhost:3000/lists/${token}`)
-				.then((response) => response.json())
-				.then((listsUser) => setListsData(listsUser));
-	};
+    const allLists = () => {
+        token &&
+            fetch(`http://localhost:3000/lists/${token}`)
+                .then((response) => response.json())
+                .then((listsUser) => setListsData(listsUser));
+    };
 
-	useEffect(() => {
-		allLists();
-	}, []);
+    useEffect(() => {
+        allLists();
+    }, []);
 
     // ==========================================
     // 5. RÉCUPÉRATION DES CATÉGORIES
@@ -175,14 +177,17 @@ function AllProducts() {
                 key={i}
                 {...data}
                 listNames={listsData.listsUser || []}
-                allLists = {allLists}
+                allLists={allLists}
             />
         ) : null
     );
 
     return (
         <main className="font-body bg-slate-50 min-h-screen pb-10">
-            {/* HEADER */}
+            {/* HEADER */}       
+            {/* <Toaster position="top-right" toastOptions={{
+                className: 'bg-orange',
+            }} /> */}
             <section className="flex min-h-96 flex-col items-center justify-center bg-gradient-to-tr from-lightblue to-darkblue">
                 <h1 className="font-title text-4xl tracking-tight text-slate-100 uppercase">
                     {isSearchMode ? 'Résultats de recherche' : 'All Products'}

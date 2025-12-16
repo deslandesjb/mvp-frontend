@@ -6,6 +6,11 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import ProductCard from './ProductCard';
 import Connexion from '../components/Connexion';
+import { Toaster } from "@/components/ui/sonner"
+
+// import { Toast } from "radix-ui";
+// import { Toast } from "radix-ui";
+// import { Toaster } from "@/components/ui/sonner"
 
 function List() {
 	const token = useSelector((state) => state.user.token);
@@ -43,8 +48,9 @@ function List() {
 				});
 	};
 
-	const deleteList = (idList) => {
-		fetch(`http://localhost:3000/lists/removeList/${idList}`, {
+	const deleteList = (idList, nameList) => {
+		const confirmed = window.confirm(`Êtes-vous sûr de vouloir supprimer la list : ${nameList} ?`);
+		confirmed && fetch(`http://localhost:3000/lists/removeList/${idList}`, {
 			method: 'DELETE',
 			headers: { 'Content-Type': 'application/json' },
 		})
@@ -58,25 +64,30 @@ function List() {
 	const list = listsData?.listsUser?.map((listUser) => {
 		console.log('listUser', listUser.idProducts);
 
+		{/* <Toaster /> */ }
 		return (
 			<>
-				<Accordion type="single" collapsible className="mt-10 w-full" defaultValue="item-1">
+				<Toaster position="top-right" />
+
+
+				{/* {toast("Event has been created.")} */}
+				<Accordion type="single" collapsible className="mt-10 w-full relative" defaultValue="item-1 ">
 					<AccordionItem value="item-1" className="w-full">
-						<AccordionTrigger className="rounded-lg bg-orange pl-4 pr-4 text-white hover:bg-orangehover">
+						<AccordionTrigger className="rounded-lg bg-orange pl-4 pr-4 text-white hover:bg-orange">
 							{listUser.name}
-						</AccordionTrigger>
-						<div className="mt-10 w-full" key={listUser._id}>
-							<Button onClick={() => deleteList(listUser._id)}>
+						<div className="mt-10 w-full absolute left-[40rem] top-[-2rem]" key={listUser._id}>
+							<Button className="bg-transparent hover:bg-transparent" onClick={() => deleteList(listUser._id, listUser.name)}>
 								<BadgeMinus />
 							</Button>
 						</div>
-						<AccordionContent className="flex flex-wrap gap-4 text-balance">
+						</AccordionTrigger>
+						<AccordionContent className="flex flex-wrap gap-4 text-balance p-4">
 							{listUser.products.map((product) => {
 								return (
 									<ProductCard
 										{...product}
 										listNames={listsData?.listsUser || []}
-										allLists = {allLists}
+										allLists={allLists}
 									/>
 								);
 							})}
@@ -109,7 +120,8 @@ function List() {
 											className="mr-10 p-2"
 											onChange={(e) => setNameList(e.target.value)}
 										/>
-										<Button type="button" onClick={nameListRegister}>
+
+										<Button type="button" onClick={nameListRegister} >
 											valider
 										</Button>
 									</>
