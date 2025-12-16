@@ -94,7 +94,7 @@ function List() {
 	return (
 		<>
 			{/* {list} */}
-			<main className="flex min-h-screen flex-col justify-center font-body">
+			<main className="min-h-screen-header flex flex-col justify-center font-body">
 				<section className="h-full w-full p-20">
 					<div>
 						<h3 className="text-4xl">Favoris</h3>
