@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card.tsx';
+import {Button} from '@/components/ui/button';
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from '@/components/ui/card.tsx';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -11,27 +11,26 @@ import {
 import {Minus, Plus, Star} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import Inscription from '../components/Inscription';
-
-
 
 function ProductCard(props) {
 	const token = useSelector((state) => state.user.token);
 
 	const addToList = (idProduct, idList) => {
-		console.log("token", token)
-		console.log("idProduct", idProduct)
-		console.log("idList", idList)
-		token && fetch(`http://localhost:3000/lists/addToLists/${token}/${idProduct}/${idList}`,{
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-		})
-		.then(response=>response.json())
-		.then(resultat=>{
-			console.log(resultat)
-		})
-	}
+		console.log('token', token);
+		console.log('idProduct', idProduct);
+		console.log('idList', idList);
+		token &&
+			fetch(`http://localhost:3000/lists/addToLists/${token}/${idProduct}/${idList}`, {
+				method: 'POST',
+				headers: {'Content-Type': 'application/json'},
+			})
+				.then((response) => response.json())
+				.then((resultat) => {
+					console.log(resultat);
+				});
+	};
 
 	const stars = [];
 	for (let i = 0; i < 5; i++) {
@@ -51,20 +50,23 @@ function ProductCard(props) {
 					</DropdownMenuTrigger>
 					<DropdownMenuContent className="z-10">
 						<DropdownMenuLabel>My Account</DropdownMenuLabel>
-						{token ? props.listNames.map((name, i) => {
-							return (
-								<div key={i}>
-									<DropdownMenuSeparator />
-									<DropdownMenuItem className="justify-between">
-										{name.name}
-										<Button onClick={() => addToList(props.id, name._id)}>
-											{!props.idProduct ? <Plus /> : <Minus />}
-										</Button>
-
-									</DropdownMenuItem>
-								</div>
-							);
-						}) : <Inscription />}
+						{token ? (
+							props.listNames.map((name, i) => {
+								return (
+									<div key={i}>
+										<DropdownMenuSeparator />
+										<DropdownMenuItem className="justify-between">
+											{name.name}
+											<Button onClick={() => addToList(props.id, name._id)}>
+												{!props.idProduct ? <Plus /> : <Minus />}
+											</Button>
+										</DropdownMenuItem>
+									</div>
+								);
+							})
+						) : (
+							<Inscription />
+						)}
 					</DropdownMenuContent>
 				</DropdownMenu>
 				<CardContent className="w-1/2 p-0">
