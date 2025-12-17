@@ -64,7 +64,7 @@ function List() {
 			<>
 				<Accordion type="single" collapsible className="mt-10 w-full relative" defaultValue="item-1 ">
 					<AccordionItem value="item-1" className="w-full">
-						<AccordionTrigger className="rounded-lg bg-orange pl-4 pr-4 text-white hover:bg-orange">
+						<AccordionTrigger className="rounded-lg bg-lightblue pl-4 pr-4 text-white">
 							{listUser.name}
 							<div className="mt-10  absolute right-[5rem] top-[-2rem]" key={listUser._id}>
 								<Button className="bg-transparent hover:bg-transparent" onClick={() => deleteList(listUser._id, listUser.name)}>
