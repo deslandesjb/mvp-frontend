@@ -94,12 +94,12 @@ export default function FilterPanel() {
 
 	// --- RENDER ---
 	return (
-		<div className="relative" ref={filterRef}>
+		<div className="fixed bottom-4 left-4 z-50" ref={filterRef}>
 			<Button
 				type="button"
 				variant={showFilters ? 'secondary' : 'outline'}
 				onClick={() => setShowFilters(!showFilters)}
-				className={`relative shrink-0 border-dashed px-3 ${activeCount > 0 ? 'border-solid border-primary bg-primary/5 text-primary' : ''}`}>
+				className={`relative shrink-0 border px-3 hover:border-orange hover:bg-orange ${activeCount > 0 ? 'border-solid border-orangehover bg-orangehover text-primary' : ''}`}>
 				<SlidersHorizontal className="mr-2 h-4 w-4" />
 				<span className="hidden sm:inline">Filtres</span>
 				{activeCount > 0 && (
@@ -111,7 +111,7 @@ export default function FilterPanel() {
 
 			{/* MODAL FILTRES */}
 			{showFilters && (
-				<div className="absolute left-0 top-full z-50 mt-2 flex max-h-[60vh] w-[calc(100vw-2rem)] max-w-[400px] flex-col rounded-xl border bg-popover text-popover-foreground shadow-2xl animate-in fade-in zoom-in-95 sm:max-h-[500px] sm:w-[400px]">
+				<div className="absolute bottom-full left-0 z-50 mb-2 flex max-h-[60vh] w-[calc(100vw-2rem)] max-w-[400px] flex-col rounded-xl border bg-popover text-popover-foreground shadow-2xl animate-in fade-in zoom-in-95 sm:max-h-[500px] sm:w-[400px]">
 					<div className="flex-1 space-y-6 overflow-y-auto p-5">
 						{/* TRI */}
 						<div>
