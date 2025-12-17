@@ -1,14 +1,22 @@
 import Image from 'next/image';
 // import React from 'react';
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from '@/components/ui/card.tsx';
+import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
 
 export default function ProductPage() {
 	const [productInfo, setProductInfo] = useState({});
 	const [productData, setProductData] = useState(false);
+	// extraire ID produit de l'url
+	const router = useRouter();
+	const {id} = router.query;
 
 	useEffect(() => {
-		fetch('http://localhost:3000/products/id/69402daf5403bcd12431fcc1')
+		if (!id || id === 'undefined') {
+			return;
+		}
+
+		fetch(`http://localhost:3000/products/id/${id}`)
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.result) {
@@ -17,7 +25,7 @@ export default function ProductPage() {
 					// console.log(data.product);
 				}
 			});
-	}, []);
+	}, [id]);
 
 	const notes = productInfo?.sellers?.map((seller, i) => (
 		<>
@@ -42,7 +50,7 @@ export default function ProductPage() {
 	// console.log('notes', notes);
 
 	return (
-		<main className="min-h-screen-header flex min-h-96 flex-col items-center justify-center font-body">
+		<main className="flex min-h-screen-header flex-col items-center justify-center font-body">
 			{productData && (
 				<>
 					<section className="flex">
