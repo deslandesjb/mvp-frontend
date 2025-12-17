@@ -87,16 +87,7 @@ function ProductCard(props) {
 														addToList(props.id, name._id, props.name, name.name);
 														notif();
 													}}>
-													{/* console.log("props.idProduct", props.listNames[0].products[0]) */}
-													{/* {console.log(" name.products", name.products[i].id)}
-												{console.log("props._id", props.id)} */}
-											{/* {name.products[0]?.id !== props.id ? <Plus /> : <Minus />} */}
-
-											{!productExists ? <Plus color="darkblue" /> : <Minus color= "orange" />}
-
-										</Button>
-
-													{!productExists ? <Plus /> : <Minus />}
+													{!productExists ? <Plus color="darkblue" /> : <Minus color="orange" />}
 												</Button>
 											</DropdownMenuItem>
 										</div>
