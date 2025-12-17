@@ -82,6 +82,7 @@ function ProductCard(props) {
 										<DropdownMenuItem className="justify-between">
 											{name.name}
 											<Button
+												variant="outline"
 												onClick={() => {
 													addToList(props.id, name._id, props.name, name.name);
 													notif();
