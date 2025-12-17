@@ -297,7 +297,7 @@ function AllProducts() {
 				{/* Catégories visibles uniquement hors recherche */}
 				{!isSearchMode && <div className="my-8 flex flex-wrap justify-center gap-4">{catShow}</div>}
 
-				<div className="products-container flex flex-wrap justify-center gap-4 md:justify-between">{products}</div>
+				<div className="products-container flex flex-wrap justify-center gap-4 md:justify-start">{products}</div>
 
 				{/* Aucun résultat */}
 				{productList.length === 0 && isSearchMode && (
