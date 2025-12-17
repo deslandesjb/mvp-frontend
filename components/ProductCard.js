@@ -73,26 +73,27 @@ function ProductCard(props) {
 			<div className="relative flex h-full">
 				<DropdownMenu>
 					<DropdownMenuTrigger className="absolute right-0 top-0 z-10 px-4 py-2">
-						<Plus size={18} />
+						<Plus size={18} color="darkblue"/>
 					</DropdownMenuTrigger>
-					<DropdownMenuContent className="z-10">
-						<DropdownMenuLabel>My Account</DropdownMenuLabel>
-						{token ? props.listNames.map((name, i) => {
+					<DropdownMenuContent className="z-10 overscroll-auto h-[200px]" >
+						<DropdownMenuLabel>My Lists</DropdownMenuLabel>
+						{token ? props.listNames	.map((name, i) => {
 							const productExists = name.products.some(
 								(product) => product?.id === props.id
 							);
 							return (
 								<div key={i}>
 									<DropdownMenuSeparator />
-									<DropdownMenuItem className="justify-between">
+
+									<DropdownMenuItem className="justify-between ">
 										{name.name}
-										<Button onClick={() => { addToList(props.id, name._id, props.name, name.name); notif() }}>
+										<Button className="bg-transparent hover:bg-transparent" onClick={() => { addToList(props.id, name._id, props.name, name.name); notif() }}>
 											{/* console.log("props.idProduct", props.listNames[0].products[0]) */}
 											{/* {console.log(" name.products", name.products[i].id)}
 												{console.log("props._id", props.id)} */}
 											{/* {name.products[0]?.id !== props.id ? <Plus /> : <Minus />} */}
 
-											{!productExists ? <Plus /> : <Minus />}
+											{!productExists ? <Plus color="darkblue" /> : <Minus color= "orange" />}
 
 										</Button>
 
