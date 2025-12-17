@@ -61,14 +61,14 @@ export default function Header() {
 		if (size.width >= 768) {
 			return (
 				<NavigationMenuLink key={i} asChild>
-					<Link href={`/allproducts?categories=${data}`}>
+					<Link href={`/?categories=${data}`}>
 						<div className="first-letter:uppercase hover:text-orange">{data}</div>
 					</Link>
 				</NavigationMenuLink>
 			);
 		} else {
 			return (
-				<Link key={i} href={`/allproducts?categories=${data}`} className="block py-2 first-letter:uppercase">
+				<Link key={i} href={`/?categories=${data}`} className="block py-2 first-letter:uppercase">
 					{data}
 				</Link>
 			);
@@ -110,7 +110,7 @@ export default function Header() {
 												</div>
 											</AccordionTrigger>
 											<AccordionContent className="px-1 pb-4 pt-2">
-												<SearchComp />
+												<SearchComp home={false} />
 											</AccordionContent>
 										</AccordionItem>
 
@@ -125,7 +125,7 @@ export default function Header() {
 									</Accordion>
 
 									{/* <Link href="#" className="font-semibold text-xl py-2">TOP</Link> */}
-									<Link href="/allproducts" className="py-2 text-xl font-semibold">
+									<Link href="/" className="py-2 text-xl font-semibold">
 										Tous les produits
 									</Link>
 									<Link href="/lists" className="py-2 text-xl font-semibold">
@@ -167,7 +167,7 @@ export default function Header() {
 					<NavigationMenuList className="flex-wrap gap-4">
 						<NavigationMenuItem>
 							<NavigationMenuTrigger className="bg-transparent px-3 py-2 text-base font-normal hover:bg-transparent hover:text-orange data-[state=open]:bg-transparent data-[state=open]:text-orange">
-								<Link className="flex items-center gap-2" href="/allproducts">
+								<Link className="flex items-center gap-2" href="/">
 									<Search className="h-4 w-4" />
 									Rechercher
 								</Link>
@@ -175,20 +175,20 @@ export default function Header() {
 							<NavigationMenuContent>
 								<div className="relative flex w-[400px] flex-col gap-3 p-4">
 									<p className="mb-1 text-xs font-bold uppercase tracking-wider text-gray-400">Que cherchez-vous ?</p>
-									<SearchComp />
+									<SearchComp home={false} />
 								</div>
 							</NavigationMenuContent>
 						</NavigationMenuItem>
 
 						<NavigationMenuItem>
 							<NavigationMenuTrigger className="bg-transparent px-3 py-2 text-base font-normal hover:bg-transparent hover:text-orange data-[state=open]:bg-transparent data-[state=open]:text-orange">
-								<Link href="/allproducts">All categories</Link>
+								<Link href="/">All categories</Link>
 							</NavigationMenuTrigger>
 							<NavigationMenuContent>
 								<div className="grid w-[400px] gap-3 p-4">
 									{catShow}
 									<div className="mt-2 border-t pt-2">
-										<Link href="/allproducts" className="block text-sm font-bold text-orange hover:underline">
+										<Link href="/" className="block text-sm font-bold text-orange hover:underline">
 											Voir tout le catalogue →
 										</Link>
 									</div>

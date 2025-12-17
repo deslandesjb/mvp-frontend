@@ -4,9 +4,9 @@ import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {ArrowDownNarrowWide, ArrowUpNarrowWide, Check, Minus, Plus, SlidersHorizontal, Star} from 'lucide-react';
 import {useRouter} from 'next/navigation';
-import {useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 
-const ALL_CATEGORIES = ['Casque', 'Portable', 'Tablette', 'Ordinateur', 'Télévision'];
+// const ALL_CATEGORIES = ['Casque', 'Portable', 'Tablette', 'Ordinateur', 'Télévision'];
 
 const ALL_BRANDS = [
 	'Sony',
@@ -46,6 +46,13 @@ export default function FilterPanel() {
 	const [showFilters, setShowFilters] = useState(false);
 	const [expandCats, setExpandCats] = useState(false);
 	const [expandBrands, setExpandBrands] = useState(false);
+	const [categories, setCategories] = useState([]); // Catégories
+
+	useEffect(() => {
+		fetch('http://localhost:3000/products/categories')
+			.then((response) => response.json())
+			.then((data) => data.result && setCategories(data.categories));
+	}, []);
 
 	const [filters, setFilters] = useState({
 		categories: [],
@@ -78,7 +85,7 @@ export default function FilterPanel() {
 		(filters.minPrice || filters.maxPrice ? 1 : 0) +
 		(filters.sortBy !== 'pertinence' ? 1 : 0);
 
-	// --- REDIRECTION VERS ALLPRODUCTS ---
+	// --- REDIRECTION VERS HOME ---
 	const handleApplyFilters = () => {
 		const params = new URLSearchParams();
 		if (filters.categories.length > 0) params.append('categories', filters.categories.join(','));
@@ -88,13 +95,13 @@ export default function FilterPanel() {
 		if (filters.maxPrice) params.append('maxPrice', filters.maxPrice);
 		if (filters.sortBy !== 'pertinence') params.append('sortBy', filters.sortBy);
 
-		router.push(`/allproducts?${params.toString()}`);
+		router.push(`/?${params.toString()}`);
 		setShowFilters(false);
 	};
 
 	// --- RENDER ---
 	return (
-		<div className="fixed bottom-4 left-4 z-50" ref={filterRef}>
+		<div className="relative" ref={filterRef}>
 			<Button
 				type="button"
 				variant={showFilters ? 'secondary' : 'outline'}
@@ -111,7 +118,7 @@ export default function FilterPanel() {
 
 			{/* MODAL FILTRES */}
 			{showFilters && (
-				<div className="absolute bottom-full left-0 z-50 mb-2 flex max-h-[60vh] w-[calc(100vw-2rem)] max-w-[400px] flex-col rounded-xl border bg-popover text-popover-foreground shadow-2xl animate-in fade-in zoom-in-95 sm:max-h-[500px] sm:w-[400px]">
+				<div className="absolute left-0 top-full z-50 mt-2 flex max-h-[60vh] w-[calc(100vw-2rem)] max-w-[400px] flex-col rounded-xl border bg-popover text-popover-foreground shadow-2xl animate-in fade-in zoom-in-95 sm:max-h-[500px] sm:w-[400px]">
 					<div className="flex-1 space-y-6 overflow-y-auto p-5">
 						{/* TRI */}
 						<div>
@@ -139,7 +146,7 @@ export default function FilterPanel() {
 						<div>
 							<h4 className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">Catégories</h4>
 							<div className="grid grid-cols-2 gap-2">
-								{(expandCats ? ALL_CATEGORIES : ALL_CATEGORIES.slice(0, 6)).map((cat) => (
+								{(expandCats ? categories : categories.slice(0, 6)).map((cat) => (
 									<div
 										key={cat}
 										onClick={() => toggleFilterArray('categories', cat)}

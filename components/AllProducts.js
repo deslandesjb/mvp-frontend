@@ -8,7 +8,9 @@ import Link from 'next/link';
 import {useSearchParams} from 'next/navigation'; // Lecture des paramètres dans l’URL
 import {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
+import Filter from './FilterComp';
 import ProductCard from './ProductCard';
+import SearchComp from './SearchComp';
 // import { useSelector } from 'react-redux';
 import {Toaster} from '@/components/ui/sonner';
 
@@ -29,7 +31,6 @@ function AllProducts() {
 	// ÉTATS DONNÉES
 	// ==============================
 	const [productList, setProductList] = useState([]); // Produits affichés
-	const [categories, setCategories] = useState([]); // Catégories
 	const [listsData, setListsData] = useState([]); // Listes utilisateur
 
 	// ==============================
@@ -147,27 +148,8 @@ function AllProducts() {
 	}, []);
 
 	// ==========================================
-	// 5. RÉCUPÉRATION DES CATÉGORIES
-	// ==========================================
-	useEffect(() => {
-		fetch('http://localhost:3000/products/categories')
-			.then((response) => response.json())
-			.then((data) => data.result && setCategories(data.categories));
-	}, []);
-
-	// ==========================================
 	// 6. AFFICHAGE (JSX)
 	// ==========================================
-
-	// Liens catégories
-	const catShow = categories.map((cat, i) => (
-		<Link
-			key={i}
-			href={`/allproducts?categories=${cat}`}
-			className="rounded border bg-white px-3 py-1 transition-colors first-letter:uppercase hover:text-orange">
-			{cat}
-		</Link>
-	));
 
 	// Cards produits
 	const products = productList.map((data, i) =>
@@ -178,23 +160,24 @@ function AllProducts() {
 		<main className="min-h-screen bg-slate-50 pb-10 font-body">
 			{/* HEADER */}
 			<Toaster position="top-right" />
-			<section className="flex min-h-96 flex-col items-center justify-center bg-gradient-to-tr from-lightblue to-darkblue">
+			<section className="flex min-h-96 flex-col items-center justify-center bg-gradient-to-tr from-lightblue to-darkblue [clip-path:polygon(0_0,100%_0,100%_90%,0_100%)]">
 				<h1 className="font-title text-4xl uppercase tracking-tight text-slate-100">
-					{isSearchMode ? 'Résultats de recherche' : 'All Products'}
+					{isSearchMode ? 'Résultats de la recherche' : 'All Products'}
 				</h1>
 
+				<div className="mt-4 flex w-full max-w-3xl justify-center gap-2">
+					<Filter />
+					<SearchComp home={true} />
+				</div>
 				{/* Reset recherche */}
 				{isSearchMode && (
-					<Button variant="secondary" className="mt-4" onClick={() => (window.location.href = '/allproducts')}>
-						Tout afficher
+					<Button variant="secondary" className="mt-4" onClick={() => (window.location.href = '/')}>
+						Afficher tout
 					</Button>
 				)}
 			</section>
 
 			<section className="mx-auto max-w-[1600px] px-4 py-8">
-				{/* Catégories visibles uniquement hors recherche */}
-				{!isSearchMode && <div className="my-8 flex flex-wrap justify-center gap-4">{catShow}</div>}
-
 				<div className="products-container flex flex-wrap justify-center gap-4 md:justify-start">{products}</div>
 
 				{/* Aucun résultat */}

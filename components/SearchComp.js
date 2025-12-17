@@ -5,7 +5,8 @@ import {Search, X} from 'lucide-react';
 import {useRouter} from 'next/navigation';
 import {useEffect, useRef, useState} from 'react';
 
-export default function SearchInput() {
+export default function SearchComp(props) {
+	// console.log(props.home);
 	const [query, setQuery] = useState('');
 	const [results, setResults] = useState([]);
 
@@ -39,10 +40,10 @@ export default function SearchInput() {
 		return () => clearTimeout(timeout);
 	}, [query]);
 
-	// --- REDIRECTION VERS ALLPRODUCTS ---
+	// --- REDIRECTION VERS HOME ---
 	const handleSearchSubmit = (e) => {
 		if (e) e.preventDefault();
-		router.push(`/allproducts?q=${encodeURIComponent(query)}`);
+		router.push(`/?q=${encodeURIComponent(query)}`);
 		setResults([]);
 	};
 
@@ -59,7 +60,7 @@ export default function SearchInput() {
 
 	// --- RENDER ---
 	return (
-		<div className="relative mx-auto w-full max-w-2xl font-sans" ref={containerRef}>
+		<div className="relative mx-auto w-full font-sans" ref={containerRef}>
 			<form onSubmit={handleSearchSubmit} className="flex w-full items-center gap-2">
 				<div className="relative flex-1">
 					<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -86,13 +87,14 @@ export default function SearchInput() {
 
 			{/* PREVISUALISATION RESULTATS */}
 			{results.length > 0 && (
-				<div className="z-40 mt-2 max-h-[60vh] w-full overflow-hidden overflow-y-auto rounded-lg border bg-background shadow-xl">
+				<div
+					className={`z-40 mt-2 max-h-[60vh] w-full overflow-hidden overflow-y-auto rounded-lg border bg-background shadow-xl ${props.home ? ' absolute' : ''}`}>
 					<ul>
 						{results.map((item, index) => (
 							<li
 								key={index}
 								className="flex cursor-pointer gap-4 border-b p-4 transition-colors last:border-0 hover:bg-muted/50"
-								onClick={() => router.push(`/allproducts?q=${encodeURIComponent(item.name)}`)}>
+								onClick={() => router.push(`/?q=${encodeURIComponent(item.name)}`)}>
 								<div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-md border bg-white">
 									<img
 										src={Array.isArray(item.picture) ? item.picture[0]?.url : item.picture || '/placeholder.png'}
