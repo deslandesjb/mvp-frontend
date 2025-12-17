@@ -43,58 +43,58 @@ function ProductCard(props) {
 	}
 	return (
 		<Card className="w-full max-w-xl overflow-hidden hover:shadow-lg md:w-[calc(50%-1rem)] xl:w-[calc(33.3%-1rem)]">
-			{/* <Link href={'products/' + props.id} className="relative flex h-full"> */}
-			<div className="relative flex h-full">
-				<DropdownMenu>
-					<DropdownMenuTrigger className="absolute right-0 top-0 z-10 px-4 py-2">
-						<Plus size={18} />
-					</DropdownMenuTrigger>
-					<DropdownMenuContent className="z-10">
-						<DropdownMenuLabel>My Account</DropdownMenuLabel>
-						{token ? (
-							props.listNames.map((name, i) => {
-								return (
-									<div key={i}>
-										<DropdownMenuSeparator />
-										<DropdownMenuItem className="justify-between">
-											{name.name}
-											<Button onClick={() => addToList(props.id, name._id)}>
-												{!props.idProduct ? <Plus /> : <Minus />}
-											</Button>
-										</DropdownMenuItem>
-									</div>
-								);
-							})
-						) : (
-							<Inscription />
-						)}
-					</DropdownMenuContent>
-				</DropdownMenu>
-				<CardContent className="w-1/2 p-0">
-					<div>
-						<Image
-							className="h-full w-full"
-							src={props.picture[0].url}
-							alt={props.picture[0].title}
-							width={200}
-							height={200}
-						/>
-					</div>
-				</CardContent>
-				<div className="w-1/2">
-					<CardHeader>
-						<CardTitle className="text-sm">{props.name.slice(0, 25) + '...'}</CardTitle>
-						<CardDescription>{props.desc}</CardDescription>
-					</CardHeader>
-					<CardContent>
-						<div className="flex">{stars}</div>
-						<div className="flex justify-between">
-							<p className="font-bold">{props.priceMoy}€</p>
+			<Link href={`/productpage?id=${props.id}`} className="relative flex h-full">
+				<div className="relative flex h-full">
+					<DropdownMenu>
+						<DropdownMenuTrigger className="absolute right-0 top-0 z-10 px-4 py-2">
+							<Plus size={18} />
+						</DropdownMenuTrigger>
+						<DropdownMenuContent className="z-10">
+							<DropdownMenuLabel>My Account</DropdownMenuLabel>
+							{token ? (
+								props.listNames.map((name, i) => {
+									return (
+										<div key={i}>
+											<DropdownMenuSeparator />
+											<DropdownMenuItem className="justify-between">
+												{name.name}
+												<Button onClick={() => addToList(props.id, name._id)}>
+													{!props.idProduct ? <Plus /> : <Minus />}
+												</Button>
+											</DropdownMenuItem>
+										</div>
+									);
+								})
+							) : (
+								<Inscription />
+							)}
+						</DropdownMenuContent>
+					</DropdownMenu>
+					<CardContent className="w-1/2 p-0">
+						<div>
+							<Image
+								className="h-full w-full"
+								src={props.picture[0].url}
+								alt={props.picture[0].title}
+								width={200}
+								height={200}
+							/>
 						</div>
 					</CardContent>
+					<div className="w-1/2">
+						<CardHeader>
+							<CardTitle className="text-sm">{props.name.slice(0, 25) + '...'}</CardTitle>
+							<CardDescription>{props.desc}</CardDescription>
+						</CardHeader>
+						<CardContent>
+							<div className="flex">{stars}</div>
+							<div className="flex justify-between">
+								<p className="font-bold">{props.priceMoy}€</p>
+							</div>
+						</CardContent>
+					</div>
 				</div>
-			</div>
-			{/* </Link> */}
+			</Link>
 		</Card>
 	);
 }
