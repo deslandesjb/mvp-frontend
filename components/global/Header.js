@@ -76,12 +76,19 @@ export default function Header() {
 	});
 
 	return (
-		<header className="relative z-50 flex h-16 items-center justify-between bg-zinc-100 px-4 font-title shadow-lg">
+		<header className="sticky top-0 z-50 flex h-16 items-center justify-between bg-zinc-100 px-4 font-title shadow-lg">
 			{/* 1. GAUCHE : LOGO */}
 			<div className="flex items-center md:min-w-60">
-				<Link href="/" className="text-xl font-bold">
+				{/* <Link href="/" className="text-xl font-bold">
 					LOGO
-				</Link>
+				</Link> */}
+				<Link href="/">
+  <img 
+    src="/logo-atlasloot.png" 
+    alt="Logo AtlasLoot" 
+    className="h-12 w-auto object-contain" 
+  />
+</Link>
 			</div>
 
 			{/* 2. CENTRE : NAVIGATION */}

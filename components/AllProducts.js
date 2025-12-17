@@ -280,10 +280,11 @@ function AllProducts() {
 		<main className="min-h-screen bg-slate-50 pb-10 font-body">
 			{/* HEADER */}
 			<Toaster position="top-right" />
-			<section className="flex min-h-96 flex-col items-center justify-center bg-gradient-to-tr from-lightblue to-darkblue">
-				<h1 className="font-title text-4xl uppercase tracking-tight text-slate-100">
+			{/* <section className="flex min-h-96 flex-col items-center justify-center bg-gradient-to-tr from-lightblue to-darkblue"> */}
+			<section className="flex min-h-96 flex-col items-center justify-center bg-[url('/banniere.gif')] bg-cover bg-center bg-no-repeat">
+				{/* <h1 className="font-title text-4xl uppercase tracking-tight text-slate-100">
 					{isSearchMode ? 'Résultats de recherche' : 'All Products'}
-				</h1>
+				</h1> */}
 
 				{/* Reset recherche */}
 				{isSearchMode && (
