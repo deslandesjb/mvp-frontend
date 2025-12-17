@@ -14,49 +14,47 @@ import Link from 'next/link';
 import {useSelector} from 'react-redux';
 import Inscription from '../components/Inscription';
 
-import { toast } from "sonner"
-import { useState } from 'react';
-
+import {useState} from 'react';
+import {toast} from 'sonner';
 
 function ProductCard(props) {
 	const token = useSelector((state) => state.user.token);
-	const [removed, setRemoved] = useState(Boolean)
+	const [removed, setRemoved] = useState(Boolean);
 
-	const addToList = (idProduct, idList, nameProduct , nameList) => {
+	const addToList = (idProduct, idList, nameProduct, nameList) => {
 		// console.log("token", token)
 		// console.log("idProduct", idProduct)
 		// console.log("idList", idList)
-		token && fetch(`http://localhost:3000/lists/addToLists/${token}/${idProduct}/${idList}`, {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-		})
-			.then(response => response.json())
-			.then(resultat => {
-				console.log(resultat)
-				console.log(nameProduct)
-				console.log(nameList)
-				props.allLists();
-      setRemoved(resultat.remove);
-
-      const message = !removed 
-        ? `Vous avez enlevé le produit ${nameProduct.slice(0,10)}...  de la list : ${nameList} `
-        : `Vous avez ajouté le produit ${nameProduct.slice(0,10)} à la list :  ${nameList}`;
-
-      notif(message);
+		token &&
+			fetch(`http://localhost:3000/lists/addToLists/${token}/${idProduct}/${idList}`, {
+				method: 'POST',
+				headers: {'Content-Type': 'application/json'},
 			})
+				.then((response) => response.json())
+				.then((resultat) => {
+					console.log(resultat);
+					console.log(nameProduct);
+					console.log(nameList);
+					props.allLists();
+					setRemoved(resultat.remove);
 
+					const message = !removed
+						? `Vous avez enlevé le produit ${nameProduct.slice(0, 10)}...  de la list : ${nameList} `
+						: `Vous avez ajouté le produit ${nameProduct.slice(0, 10)} à la list :  ${nameList}`;
+
+					notif(message);
+				});
 	};
 
 	const notif = (message) => {
 		toast(message, {
 			// description: "Modification de la list",
 			action: {
-				label: "Fermer",
+				label: 'Fermer',
 				// onClick: () => console.log("Undo"),
 			},
-		})
-
-	}
+		});
+	};
 
 	const stars = [];
 	for (let i = 0; i < 5; i++) {
@@ -68,7 +66,6 @@ function ProductCard(props) {
 	}
 	return (
 		<Card className="w-full max-w-xl overflow-hidden hover:shadow-lg md:w-[calc(50%-1rem)] xl:w-[calc(33.3%-1rem)]">
-			
 			{/* <Link href={'products/' + props.id} className="relative flex h-full"> */}
 			<div className="relative flex h-full">
 				<DropdownMenu>
@@ -77,29 +74,33 @@ function ProductCard(props) {
 					</DropdownMenuTrigger>
 					<DropdownMenuContent className="z-10">
 						<DropdownMenuLabel>My Account</DropdownMenuLabel>
-						{token ? props.listNames.map((name, i) => {
-							const productExists = name.products.some(
-								(product) => product?.id === props.id
-							);
-							return (
-								<div key={i}>
-									<DropdownMenuSeparator />
-									<DropdownMenuItem className="justify-between">
-										{name.name}
-										<Button onClick={() => { addToList(props.id, name._id, props.name, name.name); notif() }}>
-											{/* console.log("props.idProduct", props.listNames[0].products[0]) */}
-											{/* {console.log(" name.products", name.products[i].id)}
+						{token ? (
+							props.listNames.map((name, i) => {
+								const productExists = name.products.some((product) => product?.id === props.id);
+								return (
+									<div key={i}>
+										<DropdownMenuSeparator />
+										<DropdownMenuItem className="justify-between">
+											{name.name}
+											<Button
+												onClick={() => {
+													addToList(props.id, name._id, props.name, name.name);
+													notif();
+												}}>
+												{/* console.log("props.idProduct", props.listNames[0].products[0]) */}
+												{/* {console.log(" name.products", name.products[i].id)}
 												{console.log("props._id", props.id)} */}
-											{/* {name.products[0]?.id !== props.id ? <Plus /> : <Minus />} */}
+												{/* {name.products[0]?.id !== props.id ? <Plus /> : <Minus />} */}
 
-											{!productExists ? <Plus /> : <Minus />}
-
-										</Button>
-
-									</DropdownMenuItem>
-								</div>
-							);
-						}) : <Inscription />}
+												{!productExists ? <Plus /> : <Minus />}
+											</Button>
+										</DropdownMenuItem>
+									</div>
+								);
+							})
+						) : (
+							<Inscription />
+						)}
 					</DropdownMenuContent>
 				</DropdownMenu>
 				<CardContent className="w-1/2 p-0">

@@ -8,7 +8,7 @@ import {logout} from '../../reducer/user';
 
 import Connexion from '../Connexion';
 import Inscription from '../Inscription';
-import SearchInput from '../SearchComp';
+import SearchComp from '../SearchComp';
 
 import {Drawer, DrawerClose, DrawerContent, DrawerTrigger} from '@/components/ui/drawer';
 import {
@@ -110,7 +110,7 @@ export default function Header() {
 												</div>
 											</AccordionTrigger>
 											<AccordionContent className="px-1 pb-4 pt-2">
-												<SearchInput />
+												<SearchComp />
 											</AccordionContent>
 										</AccordionItem>
 
@@ -175,7 +175,7 @@ export default function Header() {
 							<NavigationMenuContent>
 								<div className="relative flex w-[400px] flex-col gap-3 p-4">
 									<p className="mb-1 text-xs font-bold uppercase tracking-wider text-gray-400">Que cherchez-vous ?</p>
-									<SearchInput />
+									<SearchComp />
 								</div>
 							</NavigationMenuContent>
 						</NavigationMenuItem>
