@@ -9,8 +9,6 @@ import {useSearchParams} from 'next/navigation'; // Lecture des paramètres dans
 import {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import ProductCard from './ProductCard';
-// import { useSelector } from 'react-redux';
-import {Toaster} from '@/components/ui/sonner';
 
 function AllProducts() {
 	// ==============================
@@ -177,7 +175,6 @@ function AllProducts() {
 	return (
 		<main className="min-h-screen bg-slate-50 pb-10 font-body">
 			{/* HEADER */}
-			<Toaster position="top-right" />
 			<section className="flex min-h-96 flex-col items-center justify-center bg-gradient-to-tr from-lightblue to-darkblue">
 				<h1 className="font-title text-4xl uppercase tracking-tight text-slate-100">
 					{isSearchMode ? 'Résultats de recherche' : 'All Products'}

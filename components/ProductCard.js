@@ -38,7 +38,7 @@ function ProductCard(props) {
 					props.allLists();
 					setRemoved(resultat.remove);
 
-					const message = !removed
+					const message = resultat.remove
 						? `Vous avez enlevé le produit ${nameProduct.slice(0, 10)}...  de la list : ${nameList} `
 						: `Vous avez ajouté le produit ${nameProduct.slice(0, 10)} à la list :  ${nameList}`;
 
@@ -72,7 +72,7 @@ function ProductCard(props) {
 						<Plus size={18} />
 					</DropdownMenuTrigger>
 					<DropdownMenuContent className="z-10">
-						<DropdownMenuLabel>My Account</DropdownMenuLabel>
+						<DropdownMenuLabel>My Lists</DropdownMenuLabel>
 						{token ? (
 							props.listNames.map((name, i) => {
 								const productExists = name.products.some((product) => product?.id === props.id);
@@ -82,6 +82,7 @@ function ProductCard(props) {
 										<DropdownMenuItem className="justify-between">
 											{name.name}
 											<Button
+											className='bg-transparent hover:bg-transparent'
 												onClick={() => {
 													addToList(props.id, name._id, props.name, name.name);
 													notif();

@@ -1,15 +1,11 @@
-import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from '@/components/ui/accordion';
-import {Button} from '@/components/ui/button';
-import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover';
-import {BadgeMinus, Plus} from 'lucide-react';
-import {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Button } from '@/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { BadgeMinus, Plus } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import Connexion from '../components/Connexion';
-import { Toaster } from "@/components/ui/sonner"
 
-// import { Toast } from "radix-ui";
-// import { Toast } from "radix-ui";
-// import { Toaster } from "@/components/ui/sonner"
 import ProductCard from './ProductCard';
 
 function List() {
@@ -36,7 +32,7 @@ function List() {
 		token &&
 			fetch(`http://localhost:3000/lists/newLists/${token}`, {
 				method: 'POST',
-				headers: {'Content-Type': 'application/json'},
+				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
 					name: nameList,
 				}),
@@ -52,7 +48,7 @@ function List() {
 		const confirmed = window.confirm(`Êtes-vous sûr de vouloir supprimer la list : ${nameList} ?`);
 		confirmed && fetch(`http://localhost:3000/lists/removeList/${idList}`, {
 			method: 'DELETE',
-			headers: {'Content-Type': 'application/json'},
+			headers: { 'Content-Type': 'application/json' },
 		})
 			.then((response) => response.json())
 			.then(() => {
@@ -64,22 +60,17 @@ function List() {
 	const list = listsData?.listsUser?.map((listUser) => {
 		console.log('listUser', listUser.idProducts);
 
-		{/* <Toaster /> */ }
 		return (
 			<>
-				<Toaster position="top-right" />
-
-
-				{/* {toast("Event has been created.")} */}
 				<Accordion type="single" collapsible className="mt-10 w-full relative" defaultValue="item-1 ">
 					<AccordionItem value="item-1" className="w-full">
 						<AccordionTrigger className="rounded-lg bg-orange pl-4 pr-4 text-white hover:bg-orange">
 							{listUser.name}
-						<div className="mt-10  absolute right-[5rem] top-[-2rem]" key={listUser._id}>
-							<Button className="bg-transparent hover:bg-transparent" onClick={() => deleteList(listUser._id, listUser.name)}>
-								<BadgeMinus />
-							</Button>
-						</div>
+							<div className="mt-10  absolute right-[5rem] top-[-2rem]" key={listUser._id}>
+								<Button className="bg-transparent hover:bg-transparent" onClick={() => deleteList(listUser._id, listUser.name)}>
+									<BadgeMinus />
+								</Button>
+							</div>
 						</AccordionTrigger>
 						<AccordionContent className="flex flex-wrap gap-4 text-balance p-4">
 							{listUser.products.map((product) => {
