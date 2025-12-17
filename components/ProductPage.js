@@ -1,18 +1,20 @@
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card.tsx';
 import Image from 'next/image';
+// import React from 'react';
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from '@/components/ui/card.tsx';
 import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
 
 export default function ProductPage() {
-	const router = useRouter();
-	const {id} = router.query;
 	const [productInfo, setProductInfo] = useState({});
 	const [productData, setProductData] = useState(false);
-	const [isLoading, setIsLoading] = useState(true);
+	// extraire ID produit de l'url
+	const router = useRouter();
+	const {id} = router.query;
 
 	useEffect(() => {
-		if (!id) return;
-		setIsLoading(true);
+		if (!id || id === 'undefined') {
+			return;
+		}
 
 		fetch(`http://localhost:3000/products/id/${id}`)
 			.then((response) => response.json())
@@ -20,13 +22,9 @@ export default function ProductPage() {
 				if (data.result) {
 					setProductInfo(data.product);
 					setProductData(true);
+					// console.log(data.product);
 				}
-			})
-			.catch((error) => {
-				console.error('Erreur fetch:', error);
-				setProductData(false);
-			})
-			.finally(() => setIsLoading(false));
+			});
 	}, [id]);
 
 	const notes = productInfo?.sellers?.map((seller, i) => (
@@ -40,18 +38,20 @@ export default function ProductPage() {
 						<CardDescription>{seller.content}</CardDescription>
 					</CardHeader>
 					<CardContent>
-						<p>{avis.content}</p>
-						<p>{avis.note}</p>
+						<p> {avis.content}</p>
+						<p> {avis.note}</p>
 					</CardContent>
 				</Card>
 			))}
 		</>
 	));
 
+	// console.log(productInfo.sellers);
+	// console.log('notes', notes);
+
 	return (
-		<main className="min-h-screen-header flex flex-col items-center justify-center font-body">
-			{isLoading && <h1>Chargement...</h1>} {/* ✅ État de chargement */}
-			{productData && !isLoading && (
+		<main className="flex min-h-screen-header flex-col items-center justify-center font-body">
+			{productData && (
 				<>
 					<section className="flex">
 						<div className="w-1/2">
@@ -85,7 +85,7 @@ export default function ProductPage() {
 					<section className="mb-16 flex flex-wrap justify-center gap-4 md:justify-between">{notes}</section>
 				</>
 			)}
-			{!productData && !isLoading && (
+			{!productData && (
 				<section>
 					<h1>No data found</h1>
 				</section>
