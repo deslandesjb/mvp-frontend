@@ -66,38 +66,38 @@ function ProductCard(props) {
 	}
 	return (
 		<Card className="w-full max-w-xl overflow-hidden hover:shadow-lg md:w-[calc(50%-1rem)] xl:w-[calc(33.3%-1rem)]">
-			<Link href={'/product/' + props.id} className="relative flex h-full">
-				<div className="relative flex h-full">
-					<DropdownMenu>
-						<DropdownMenuTrigger className="absolute right-0 top-0 z-10 px-4 py-2">
-							<Plus size={18} />
-						</DropdownMenuTrigger>
-						<DropdownMenuContent className="z-10">
-							<DropdownMenuLabel>My Account</DropdownMenuLabel>
-							{token ? (
-								props.listNames.map((name, i) => {
-									const productExists = name.products.some((product) => product?.id === props.id);
-									return (
-										<div key={i}>
-											<DropdownMenuSeparator />
-											<DropdownMenuItem className="justify-between">
-												{name.name}
-												<Button
-													onClick={() => {
-														addToList(props.id, name._id, props.name, name.name);
-														notif();
-													}}>
-													{!productExists ? <Plus color="darkblue" /> : <Minus color="orange" />}
-												</Button>
-											</DropdownMenuItem>
-										</div>
-									);
-								})
-							) : (
-								<Inscription />
-							)}
-						</DropdownMenuContent>
-					</DropdownMenu>
+			<div className="relative flex h-full">
+				<DropdownMenu>
+					<DropdownMenuTrigger className="absolute right-0 top-0 z-10 px-4 py-2">
+						<Plus size={18} />
+					</DropdownMenuTrigger>
+					<DropdownMenuContent className="z-10">
+						<DropdownMenuLabel>My Account</DropdownMenuLabel>
+						{token ? (
+							props.listNames.map((name, i) => {
+								const productExists = name.products.some((product) => product?.id === props.id);
+								return (
+									<div key={i}>
+										<DropdownMenuSeparator />
+										<DropdownMenuItem className="justify-between">
+											{name.name}
+											<Button
+												onClick={() => {
+													addToList(props.id, name._id, props.name, name.name);
+													notif();
+												}}>
+												{!productExists ? <Plus color="darkblue" /> : <Minus color="orange" />}
+											</Button>
+										</DropdownMenuItem>
+									</div>
+								);
+							})
+						) : (
+							<Inscription />
+						)}
+					</DropdownMenuContent>
+				</DropdownMenu>
+				<Link href={'/product/' + props.id} className="relative flex h-full">
 					<CardContent className="w-1/2 p-0">
 						<div>
 							<Image
@@ -121,8 +121,8 @@ function ProductCard(props) {
 							</div>
 						</CardContent>
 					</div>
-				</div>
-			</Link>
+				</Link>
+			</div>
 		</Card>
 	);
 }
