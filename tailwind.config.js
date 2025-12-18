@@ -26,11 +26,12 @@ module.exports = {
 			minHeight: {
 				'screen-header': 'calc(100vh - 4rem)',
 			},
-			colors: { 
+			colors: {
 				orange: '#ff7849',
 				orangehover: '#ff9a6c',
 				darkblue: '#1b5792',
 				lightblue: '#80a4ed',
+				bgdarkblue: '#201E30',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				card: {

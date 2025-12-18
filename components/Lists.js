@@ -1,9 +1,9 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { BadgeMinus, Plus } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from '@/components/ui/accordion';
+import {Button} from '@/components/ui/button';
+import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover';
+import {BadgeMinus, Plus} from 'lucide-react';
+import {useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
 import Connexion from '../components/Connexion';
 
 import ProductCard from './ProductCard';
@@ -18,11 +18,11 @@ function List() {
 
 	const allLists = (props) => {
 		token &&
-		fetch(`http://localhost:3000/lists/${token}`)
-		.then((response) => response.json())
-		.then((listsUser) => {
-			setListsData(listsUser);
-			// setListsData(listsUser)
+			fetch(`http://localhost:3000/lists/${token}`)
+				.then((response) => response.json())
+				.then((listsUser) => {
+					setListsData(listsUser);
+					// setListsData(listsUser)
 				});
 	};
 	useEffect(() => {
@@ -31,13 +31,13 @@ function List() {
 
 	const nameListRegister = () => {
 		token &&
-		fetch(`http://localhost:3000/lists/newLists/${token}`, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				name: nameList,
-			}),
-		})
+			fetch(`http://localhost:3000/lists/newLists/${token}`, {
+				method: 'POST',
+				headers: {'Content-Type': 'application/json'},
+				body: JSON.stringify({
+					name: nameList,
+				}),
+			})
 				.then((response) => response.json())
 				.then((newList) => {
 					// console.log('newList', newList)
@@ -47,50 +47,45 @@ function List() {
 
 	const deleteList = (idList, nameList) => {
 		const confirmed = window.confirm(`Êtes-vous sûr de vouloir supprimer la list : ${nameList} ?`);
-		confirmed && fetch(`http://localhost:3000/lists/removeList/${idList}`, {
-			method: 'DELETE',
-			headers: { 'Content-Type': 'application/json' },
-		})
-			.then((response) => response.json())
-			.then(() => {
-				// console.log('newList', newList)
-				allLists();
-			});
+		confirmed &&
+			fetch(`http://localhost:3000/lists/removeList/${idList}`, {
+				method: 'DELETE',
+				headers: {'Content-Type': 'application/json'},
+			})
+				.then((response) => response.json())
+				.then(() => {
+					// console.log('newList', newList)
+					allLists();
+				});
 	};
 
 	const list = listsData?.listsUser?.map((listUser) => {
 		// {setLengthList(listUser.products.length)}
 		console.log('listUser', listUser.idProducts);
-		
+
 		return (
 			<>
-				<Accordion type="single" collapsible className="mt-10 w-full relative" defaultValue="item-1 ">
+				<Accordion type="single" collapsible className="relative mt-10 w-full" defaultValue="item-1 ">
 					<AccordionItem value="item-1" className="w-full">
-						<AccordionTrigger className=" text-darkblue pl-4 pr-4 border-orange border-b-2">
-							<div className='flex'>
-								<h6 className='mr-[10px] flex items-center'>
-									{listUser.name}
-								</h6>
-								<p className=' flex justify-center items-center bg-white text-black p-1 rounded-full w-7	h-7	'>
+						<AccordionTrigger className="border-bgdarkblue border-b-2 pl-4 pr-4 text-darkblue">
+							<div className="flex">
+								<h6 className="mr-[10px] flex items-center">{listUser.name}</h6>
+								<p className="flex h-7 w-7 items-center justify-center rounded-full bg-white p-1 text-black">
 									{listUser.products.length}
 								</p>
 							</div>
 
-							<div className="mt-10  absolute right-[5rem] top-[-2rem]" key={listUser._id}>
-								<Button className="bg-transparent hover:bg-transparent" onClick={() => deleteList(listUser._id, listUser.name)}>
+							<div className="absolute right-[5rem] top-[-2rem] mt-10" key={listUser._id}>
+								<Button
+									className="bg-transparent hover:bg-transparent"
+									onClick={() => deleteList(listUser._id, listUser.name)}>
 									<BadgeMinus />
 								</Button>
 							</div>
 						</AccordionTrigger>
-						<AccordionContent className="flex flex-wrap gap-4 text-balance p-8 ">
+						<AccordionContent className="flex flex-wrap gap-4 text-balance p-8">
 							{listUser.products.map((product) => {
-								return (
-									<ProductCard
-										{...product}
-										listNames={listsData?.listsUser || []}
-										allLists={allLists}
-									/>
-								);
+								return <ProductCard {...product} listNames={listsData?.listsUser || []} allLists={allLists} />;
 							})}
 						</AccordionContent>
 					</AccordionItem>
@@ -102,20 +97,17 @@ function List() {
 	return (
 		<>
 			{/* {list} */}
-			<main className="min-h-screen-header flex flex-col items-center  font-body">
-					<section className="flex  w-full min-h-96 flex-col items-center justify-center bg-gradient-to-tr from-orangehover to-orange">
-								<h1 className="font-title text-4xl uppercase tracking-tight text-slate-100">
-									Favoris
-								</h1>
-
-							</section>
+			<main className="flex min-h-screen-header flex-col items-center font-body">
+				<section className="to-bgdarkblue flex min-h-96 w-full flex-col items-center justify-center bg-gradient-to-tr from-darkblue">
+					<h1 className="font-title text-4xl uppercase tracking-tight text-slate-100">Favoris</h1>
+				</section>
 				<section className="h-full w-full p-20">
 					<div>
 						{/* <h3 className="text-4xl">Favoris</h3> */}
 						<Popover>
 							<PopoverTrigger>
 								<Button className="bg-orange text-zinc-900 shadow-lg hover:bg-orangehover hover:shadow-sm">
-									<Plus color='white' />
+									<Plus color="white" />
 								</Button>
 							</PopoverTrigger>
 							<PopoverContent align="center" sideOffset={50} className="flex">
@@ -128,7 +120,7 @@ function List() {
 											onChange={(e) => setNameList(e.target.value)}
 										/>
 
-										<Button type="button" onClick={nameListRegister} >
+										<Button type="button" onClick={nameListRegister}>
 											valider
 										</Button>
 									</>
