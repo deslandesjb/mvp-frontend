@@ -6,6 +6,12 @@ import {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {logout} from '../../reducer/user';
 
+// GSAP animation
+import {useGSAP} from '@gsap/react';
+import gsap from 'gsap';
+import {ScrollTrigger} from 'gsap/dist/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
+
 import Connexion from '../Connexion';
 import Inscription from '../Inscription';
 import SearchComp from '../SearchComp';
@@ -62,7 +68,7 @@ export default function Header() {
 			return (
 				<NavigationMenuLink key={i} asChild>
 					<Link href={`/?categories=${data}`}>
-						<div className="first-letter:uppercase hover:text-orange">{data}</div>
+						<div className="transition-colors first-letter:uppercase hover:text-orange">{data}</div>
 					</Link>
 				</NavigationMenuLink>
 			);
@@ -75,10 +81,21 @@ export default function Header() {
 		}
 	});
 
+	useGSAP(() => {
+		gsap.to('.header', {
+			backgroundColor: '#fff',
+			color: '#000',
+			scrub: 0.3,
+			scrollTrigger: {
+				start: 100,
+				toggleActions: 'play play play reverse',
+			},
+		});
+	});
+
 	return (
 		// <header className="relative z-50 flex h-16 items-center justify-between bg-zinc-100 px-4 font-title shadow-lg">
-					<header className="sticky top-0 z-50 flex h-16 items-center justify-between bg-zinc-100 px-4 font-title shadow-lg">
-
+		<header className="header sticky top-0 z-50 flex h-16 items-center justify-between bg-transparent px-4 font-title text-orange shadow-lg">
 			{/* 1. GAUCHE : LOGO */}
 			<div className="flex items-center md:min-w-60">
 				<Link
@@ -188,7 +205,7 @@ export default function Header() {
 				<NavigationMenu className="hidden lg:flex">
 					<NavigationMenuList className="flex-wrap gap-4">
 						<NavigationMenuItem>
-							<NavigationMenuTrigger className="bg-transparent px-3 text-base font-normal hover:bg-transparent hover:text-orange data-[state=open]:bg-transparent data-[state=open]:text-orange">
+							<NavigationMenuTrigger className="bg-transparent px-3 text-base font-normal transition-colors hover:bg-transparent hover:text-orange data-[state=open]:bg-transparent data-[state=open]:text-orange">
 								<Link className="flex items-center gap-2" href="/">
 									<Search className="h-4 w-4" />
 									Rechercher
@@ -203,7 +220,7 @@ export default function Header() {
 						</NavigationMenuItem>
 
 						<NavigationMenuItem>
-							<NavigationMenuTrigger className="bg-transparent px-3 text-base font-normal hover:bg-transparent hover:text-orange data-[state=open]:bg-transparent data-[state=open]:text-orange">
+							<NavigationMenuTrigger className="bg-transparent px-3 text-base font-normal transition-colors hover:bg-transparent hover:text-orange data-[state=open]:bg-transparent data-[state=open]:text-orange">
 								<Link href="/">All categories</Link>
 							</NavigationMenuTrigger>
 							<NavigationMenuContent>
@@ -247,7 +264,7 @@ export default function Header() {
 						<div className="mx-1 h-8 w-px bg-gray-300"></div>
 						<button
 							onClick={handleLogout}
-							className="group flex items-center gap-2 rounded-full px-3 text-gray-500 transition-all hover:text-orange"
+							className="group flex items-center gap-2 rounded-full px-3 text-gray-500 transition-colors hover:text-orange"
 							title="Se déconnecter">
 							<LogOut className="h-5 w-5" />
 							<span className="text-sm font-medium decoration-orange underline-offset-4 group-hover:underline">
