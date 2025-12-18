@@ -14,7 +14,7 @@ function List() {
 	// ${user.token}
 	const [listsData, setListsData] = useState([]);
 	const [nameList, setNameList] = useState('');
-	const [idList, setIdList] = useState('');
+	// const [idList, setIdList] = useState('');
 
 	const allLists = (props) => {
 		token &&
@@ -66,7 +66,7 @@ function List() {
 			<>
 				<Accordion type="single" collapsible className="mt-10 w-full relative" defaultValue="item-1 ">
 					<AccordionItem value="item-1" className="w-full">
-						<AccordionTrigger className="rounded-t-lg bg-darkblue pl-4 pr-4 text-white">
+						<AccordionTrigger className=" text-darkblue pl-4 pr-4 border-orange border-b-2">
 							<div className='flex'>
 								<h6 className='mr-[10px] flex items-center'>
 									{listUser.name}
@@ -82,7 +82,7 @@ function List() {
 								</Button>
 							</div>
 						</AccordionTrigger>
-						<AccordionContent className="flex flex-wrap gap-4 text-balance p-8 bg-lightblue rounded-b-lg">
+						<AccordionContent className="flex flex-wrap gap-4 text-balance p-8 ">
 							{listUser.products.map((product) => {
 								return (
 									<ProductCard
@@ -102,14 +102,20 @@ function List() {
 	return (
 		<>
 			{/* {list} */}
-			<main className="min-h-screen-header flex flex-col items-center pt-16 font-body">
+			<main className="min-h-screen-header flex flex-col items-center  font-body">
+					<section className="flex  w-full min-h-96 flex-col items-center justify-center bg-gradient-to-tr from-orangehover to-orange">
+								<h1 className="font-title text-4xl uppercase tracking-tight text-slate-100">
+									Favoris
+								</h1>
+
+							</section>
 				<section className="h-full w-full p-20">
 					<div>
-						<h3 className="text-4xl">Favoris</h3>
+						{/* <h3 className="text-4xl">Favoris</h3> */}
 						<Popover>
 							<PopoverTrigger>
-								<Button className="mt-10 bg-darkblue text-zinc-900 shadow-lg hover:bg-lightblue hover:shadow-sm">
-									<Plus color='lightblue' />
+								<Button className="bg-orange text-zinc-900 shadow-lg hover:bg-orangehover hover:shadow-sm">
+									<Plus color='white' />
 								</Button>
 							</PopoverTrigger>
 							<PopoverContent align="center" sideOffset={50} className="flex">
