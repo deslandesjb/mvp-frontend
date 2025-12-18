@@ -1,6 +1,8 @@
 import Image from 'next/image';
 // import React from 'react';
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from '@/components/ui/card.tsx';
+import {Star} from 'lucide-react';
+import Link from 'next/link';
 import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
 
@@ -27,6 +29,27 @@ export default function ProductPage() {
 			});
 	}, [id]);
 
+	const starsShow = (note) => {
+		const stars = [];
+		for (let i = 0; i < 5; i++) {
+			let starClass = 'stroke-zinc-900';
+			if (i < note - 1) {
+				starClass += ' fill-orange';
+			}
+			stars.push(<Star key={i} strokeWidth={1} size={18} className={starClass} />);
+		}
+		return stars;
+	};
+
+	// const stars = [];
+	// for (let i = 0; i < 5; i++) {
+	// 	let starClass = ' stroke-zinc-900';
+	// 	if (i < props.noteMoy - 1) {
+	// 		starClass += ' fill-orange';
+	// 	}
+	// 	stars.push(<Star key={i} strokeWidth={1} size={18} className={starClass} />);
+	// }
+
 	const notes = productInfo?.sellers?.map((seller, i) => (
 		<>
 			{seller.avis.map((avis, j) => (
@@ -39,15 +62,12 @@ export default function ProductPage() {
 					</CardHeader>
 					<CardContent>
 						<p> {avis.content}</p>
-						<p> {avis.note}</p>
+						<p className="flex"> {starsShow(avis.note)}</p>
 					</CardContent>
 				</Card>
 			))}
 		</>
 	));
-
-	// console.log(productInfo.sellers);
-	// console.log('notes', notes);
 
 	return (
 		<main className="flex min-h-screen-header flex-col items-center justify-center font-body">
@@ -67,18 +87,30 @@ export default function ProductPage() {
 						</div>
 						<div className="flex w-1/2 flex-col justify-center">
 							<div>
-								<h1 className="text-xl font-bold">{productInfo.name}</h1>
+								<h1 className="mb-4 text-xl font-bold">{productInfo.name}</h1>
 								<h2>{productInfo.desc}</h2>
 							</div>
 							<div>
-								<p>
+								<p className="mb-2">
 									Prix moyen: <b>{productInfo.priceMoy}€</b>
 								</p>
-								<p>{productInfo.noteMoy}</p>
+								<p className="mb-2 flex">{starsShow(productInfo.noteMoy)}</p>
 							</div>
 							<div>
-								<h3>{productInfo.brand}</h3>
-								<h3>{productInfo.categorie}</h3>
+								<h3>
+									<i>Marque : </i>
+									<Link className="text-orange underline hover:text-orangehover" href={`/?brands=${productInfo.brand}`}>
+										{productInfo.brand}
+									</Link>
+								</h3>
+								<h3>
+									<i>Catégorie : </i>
+									<Link
+										className="text-orange underline hover:text-orangehover"
+										href={`/?categories=${productInfo.categorie}`}>
+										{productInfo.categorie}
+									</Link>
+								</h3>
 							</div>
 						</div>
 					</section>
