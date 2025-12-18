@@ -1,5 +1,6 @@
 import Image from 'next/image';
 // import React from 'react';
+import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from '@/components/ui/card.tsx';
 import {Star} from 'lucide-react';
 import Link from 'next/link';
@@ -24,7 +25,7 @@ export default function ProductPage() {
 				if (data.result) {
 					setProductInfo(data.product);
 					setProductData(true);
-					// console.log(data.product);
+					console.log(data.product);
 				}
 			});
 	}, [id]);
@@ -40,15 +41,6 @@ export default function ProductPage() {
 		}
 		return stars;
 	};
-
-	// const stars = [];
-	// for (let i = 0; i < 5; i++) {
-	// 	let starClass = ' stroke-zinc-900';
-	// 	if (i < props.noteMoy - 1) {
-	// 		starClass += ' fill-orange';
-	// 	}
-	// 	stars.push(<Star key={i} strokeWidth={1} size={18} className={starClass} />);
-	// }
 
 	const notes = productInfo?.sellers?.map((seller, i) => (
 		<>
@@ -68,6 +60,16 @@ export default function ProductPage() {
 			))}
 		</>
 	));
+
+	const sellerLinks = productInfo?.sellers?.map((s, i) => {
+		return (
+			<Button key={i} className="bg-orange p-0 hover:bg-orangehover">
+				<Link href={s.url} target="_blank" className="h-full w-full px-4 py-2">
+					{s.seller}
+				</Link>
+			</Button>
+		);
+	});
 
 	return (
 		<main className="flex min-h-screen-header flex-col items-center justify-center font-body">
@@ -111,6 +113,10 @@ export default function ProductPage() {
 										{productInfo.categorie}
 									</Link>
 								</h3>
+							</div>
+							<div>
+								<h2 className="mb-2 mt-4 text-lg underline">Ou acheter</h2>
+								<div className="flex gap-4">{sellerLinks}</div>
 							</div>
 						</div>
 					</section>
