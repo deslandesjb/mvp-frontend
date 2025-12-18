@@ -159,8 +159,7 @@ function AllProducts() {
 	return (
 		<main className="min-h-screen bg-slate-50 pb-10 font-body">
 			{/* HEADER */}
-			<Toaster position="top-right" />
-			<section className="flex min-h-96 flex-col items-center justify-center bg-gradient-to-tr from-lightblue to-darkblue [clip-path:polygon(0_0,100%_0,100%_90%,0_100%)]">
+			<section className="flex min-h-96 flex-col items-center justify-center bg-gradient-to-tr from-lightblue to-darkblue">
 				<h1 className="font-title text-4xl uppercase tracking-tight text-slate-100">
 					{isSearchMode ? 'Résultats de la recherche' : 'All Products'}
 				</h1>

@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Footer from '../components/global/Footer';
 import Header from '../components/global/Header';
 import '../styles/globals.css';
+import { Toaster } from 'sonner';
 
 // --- Redux ---
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
@@ -23,6 +24,8 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 
+
+
 const store = configureStore({
 	reducer: persistedReducer,
 	middleware: (getDefaultMiddleware) =>
@@ -40,6 +43,7 @@ function App({Component, pageProps}) {
 				<Head>
 					<title>MVP</title>
 				</Head>
+				  <Toaster position="top-right" />
 				<Header />
 				<Component {...pageProps} />
 				<Footer />
