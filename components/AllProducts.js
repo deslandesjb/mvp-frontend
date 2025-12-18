@@ -222,8 +222,8 @@ function AllProducts() {
 				</div>
 			</div>
 
-			<section className="mx-auto max-w-[1600px] px-4 py-8">
-				<div className="products-container flex flex-wrap justify-center gap-4 md:justify-start">{products}</div>
+			<section className="relative z-10 mx-auto max-w-[1600px] px-8 py-8">
+				<div className="products-container flex flex-wrap justify-center gap-8 md:justify-start">{products}</div>
 
 				{/* Aucun résultat */}
 				{productList.length === 0 && isSearchMode && (
