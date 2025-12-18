@@ -65,7 +65,7 @@ function ProductCard(props) {
 		stars.push(<Star key={i} strokeWidth={1} size={18} className={starClass} />);
 	}
 	return (
-		<Card className="min-w-7xl z-10 w-full max-w-xl overflow-hidden bg-white hover:shadow-lg md:w-[calc((100%-1rem)/2)] xl:w-[calc((100%-2rem)/3)]">
+		<Card className="min-w-7xl z-10 w-full max-w-xl overflow-hidden bg-white hover:shadow-lg md:w-[calc((100%-2rem)/2)] xl:w-[calc((100%-4rem)/3)]">
 			<div className="relative flex h-full">
 				<DropdownMenu>
 					<DropdownMenuTrigger className="absolute right-0 top-0 px-4 py-2">
