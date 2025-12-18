@@ -80,7 +80,7 @@ export default function SearchComp(props) {
 					)}
 				</div>
 
-				<Button type="submit" className="shrink-0">
+				<Button type="submit" className="shrink-0 bg-orange text-zinc-900 hover:bg-orangehover">
 					<Search className="h-4 w-4" />
 				</Button>
 			</form>
@@ -88,7 +88,7 @@ export default function SearchComp(props) {
 			{/* PREVISUALISATION RESULTATS */}
 			{results.length > 0 && (
 				<div
-					className={`z-40 mt-2 max-h-[60vh] w-full overflow-hidden overflow-y-auto rounded-lg border bg-background shadow-xl ${props.home ? ' absolute' : ''}`}>
+					className={`z-50 mt-2 max-h-[60vh] w-full overflow-hidden overflow-y-auto rounded-lg border bg-background shadow-xl ${props.home ? ' absolute' : ''}`}>
 					<ul>
 						{results.map((item, index) => (
 							<li
