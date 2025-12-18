@@ -30,6 +30,8 @@ module.exports = {
 				orange: '#ff7849',
 				orangehover: '#ff9a6c',
 				darkblue: '#1b5792',
+				bgdarkblue: '#201E30',
+				bgCardproduct: 'rgba(255, 255, 255, 1)',
 				lightblue: '#80a4ed',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',

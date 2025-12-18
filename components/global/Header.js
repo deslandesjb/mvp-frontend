@@ -1,13 +1,13 @@
-import {useWindowSize} from '@uidotdev/usehooks';
-import {LogOut, Menu, Search, User, X} from 'lucide-react'; // Ajout de LogOut et User
+import { useWindowSize } from '@uidotdev/usehooks';
+import { LogOut, Menu, Search, User, X } from 'lucide-react'; // Ajout de LogOut et User
 import Link from 'next/link';
-import {useRouter} from 'next/router';
-import {useEffect, useRef, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {logout} from '../../reducer/user';
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../reducer/user';
 
 // GSAP animation
-import {useGSAP} from '@gsap/react';
+import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import {ScrollTrigger} from 'gsap/dist/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
@@ -16,7 +16,7 @@ import Connexion from '../Connexion';
 import Inscription from '../Inscription';
 import SearchComp from '../SearchComp';
 
-import {Drawer, DrawerClose, DrawerContent, DrawerTrigger} from '@/components/ui/drawer';
+import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
 import {
 	NavigationMenu,
 	NavigationMenuContent,
@@ -26,7 +26,7 @@ import {
 	NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 
-import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from '@/components/ui/accordion';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 export default function Header() {
 	const [categories, setCategories] = useState([]);

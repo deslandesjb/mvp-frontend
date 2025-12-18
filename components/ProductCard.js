@@ -68,7 +68,7 @@ function ProductCard(props) {
 		<Card className="min-w-7xl z-10 w-full max-w-xl overflow-hidden bg-white hover:shadow-lg md:w-[calc((100%-2rem)/2)] xl:w-[calc((100%-4rem)/3)]">
 			<div className="relative flex h-full">
 				<DropdownMenu>
-					<DropdownMenuTrigger className="absolute right-0 top-0 z-10 px-4 py-2">
+					<DropdownMenuTrigger className="absolute right-0 top-0 px-4 py-2">
 						<Plus size={18} />
 					</DropdownMenuTrigger>
 					<DropdownMenuContent className="z-10">

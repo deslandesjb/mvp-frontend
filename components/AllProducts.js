@@ -202,8 +202,8 @@ function AllProducts() {
 			{/* HEADER */}
 			<div className="relative z-20 min-h-96">
 				{/* Content Layer */}
-				<div className="relative z-10 flex h-full min-h-96 flex-col items-center justify-center p-4 text-center">
-					<h1 className="font-title text-4xl uppercase tracking-tight text-slate-100">
+				<div className="relative z-10 flex h-full min-h-96 flex-col items-center p-4 text-center">
+					<h1 className="font-title text-4xl uppercase tracking-tight text-slate-100 mt-20">
 						{isSearchMode ? 'Résultats de la recherche' : 'All Products'}
 					</h1>
 
