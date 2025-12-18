@@ -1,5 +1,6 @@
 import {useWindowSize} from '@uidotdev/usehooks';
 import {LogOut, Menu, Search, User, X} from 'lucide-react'; // Ajout de LogOut et User
+import {Button} from '@/components/ui/button'; // Import du bouton pour les triggers manuels
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {useEffect, useRef, useState} from 'react';
@@ -37,6 +38,19 @@ export default function Header() {
 
 	const [isSearchOpen, setIsSearchOpen] = useState(false);
 	const searchRef = useRef(null);
+
+	// --- GESTION DES MODALES AUTH ---
+	const [isLoginOpen, setIsLoginOpen] = useState(false);
+	const [isInscriptionOpen, setIsInscriptionOpen] = useState(false);
+
+	const openLogin = () => {
+		setIsInscriptionOpen(false);
+		setIsLoginOpen(true);
+	};
+	const openSignup = () => {
+		setIsLoginOpen(false);
+		setIsInscriptionOpen(true);
+	};
 
 	// Fermer la recherche au clic extérieur
 	useEffect(() => {
@@ -104,6 +118,12 @@ export default function Header() {
 	return (
 		<header className="header sticky top-0 z-50 flex h-16 items-center justify-between bg-transparent px-4 font-title text-orange shadow-lg">
 			{/* 1. GAUCHE : LOGO */}
+			{/* MODALES AUTHENTIFICATION (Rendues une seule fois ici) */}
+			<div className="hidden">
+				<Connexion isOpen={isLoginOpen} onOpenChange={setIsLoginOpen} switchToSignup={openSignup} />
+				<Inscription isOpen={isInscriptionOpen} onOpenChange={setIsInscriptionOpen} switchToLogin={openLogin} />
+			</div>
+
 			<div className="flex items-center md:min-w-60">
 				<Link
 					href="/"
@@ -180,8 +200,12 @@ export default function Header() {
 
 									{!user.token && (
 										<div className="flex flex-col gap-4">
-											<Connexion />
-											<Inscription />
+											<Button variant="ghost" onClick={openLogin} className="w-fit px-0 text-xl font-normal hover:text-orange xl:text-base">
+												Me connecter
+											</Button>
+											<Button variant="ghost" onClick={openSignup} className="w-fit px-0 text-xl font-normal hover:text-orange xl:text-base">
+												Créer un compte
+											</Button>
 										</div>
 									)}
 
@@ -202,7 +226,7 @@ export default function Header() {
 									)}
 								</nav>
 							</div>
-						</DrawerContent>
+					</DrawerContent>
 					</Drawer>
 				</div>
 
@@ -254,8 +278,12 @@ export default function Header() {
 			<div className="hidden min-w-60 items-center justify-end gap-6 lg:flex">
 				{!user.token && (
 					<>
-						<Connexion />
-						<Inscription />
+						<Button variant="ghost" onClick={openLogin} className="w-fit px-0 text-xl font-normal hover:text-orange xl:text-base">
+							Me connecter
+						</Button>
+						<Button variant="ghost" onClick={openSignup} className="w-fit px-0 text-xl font-normal hover:text-orange xl:text-base">
+							Créer un compte
+						</Button>
 					</>
 				)}
 
