@@ -198,19 +198,19 @@ function AllProducts() {
 	);
 
 	return (
-		<main className="min-h-screen bg-slate-50 pb-10 font-body">
+		<main className="finisher-header h-full pb-10 font-body">
 			{/* HEADER */}
 				<div className="relative min-h-96">
 				{/* Background Layer */}
-				<section className="finisher-header absolute inset-0  [clip-path:polygon(0_0,100%_0,100%_90%,0_100%)]"></section>
+				{/* <section className="finisher-header absolute inset-0 [clip-path:polygon(0_0,100%_0,100%_90%,0_100%)]"></section> */}
 				{/* Content Layer */}
-				<h1 className="font-title text-4xl uppercase tracking-tight text-slate-100">
+				{/* <h1 className="font-title text-4xl uppercase tracking-tight text-slate-100">
 					{isSearchMode ? 'Résultats de la recherche' : 'All Products'}
-				</h1>
+				</h1> */}
 
 				{/* Content Layer */}
-				<div className="relative z-10 flex h-full min-h-96 flex-col items-center justify-center p-4 text-center">
-					<h1 className="font-title text-4xl uppercase tracking-tight text-slate-100">
+				<div className="relative z-10 flex h-full min-h-96 flex-col items-center p-4 text-center">
+					<h1 className="font-title text-4xl uppercase tracking-tight text-slate-100 mt-20">
 						{isSearchMode ? 'Résultats de la recherche' : 'All Products'}
 					</h1>
 
