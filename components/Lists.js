@@ -18,10 +18,11 @@ function List() {
 
 	const allLists = (props) => {
 		token &&
-			fetch(`http://localhost:3000/lists/${token}`)
-				.then((response) => response.json())
-				.then((listsUser) => {
-					setListsData(listsUser);
+		fetch(`http://localhost:3000/lists/${token}`)
+		.then((response) => response.json())
+		.then((listsUser) => {
+			setListsData(listsUser);
+			// setListsData(listsUser)
 				});
 	};
 	useEffect(() => {
@@ -30,13 +31,13 @@ function List() {
 
 	const nameListRegister = () => {
 		token &&
-			fetch(`http://localhost:3000/lists/newLists/${token}`, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					name: nameList,
-				}),
-			})
+		fetch(`http://localhost:3000/lists/newLists/${token}`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				name: nameList,
+			}),
+		})
 				.then((response) => response.json())
 				.then((newList) => {
 					// console.log('newList', newList)
@@ -58,21 +59,30 @@ function List() {
 	};
 
 	const list = listsData?.listsUser?.map((listUser) => {
+		// {setLengthList(listUser.products.length)}
 		console.log('listUser', listUser.idProducts);
-
+		
 		return (
 			<>
 				<Accordion type="single" collapsible className="mt-10 w-full relative" defaultValue="item-1 ">
 					<AccordionItem value="item-1" className="w-full">
-						<AccordionTrigger className="rounded-lg bg-lightblue pl-4 pr-4 text-white">
-							{listUser.name}
+						<AccordionTrigger className="rounded-t-lg bg-darkblue pl-4 pr-4 text-white">
+							<div className='flex'>
+								<h6 className='mr-[10px] flex items-center'>
+									{listUser.name}
+								</h6>
+								<p className=' flex justify-center items-center bg-white text-black p-1 rounded-full w-7	h-7	'>
+									{listUser.products.length}
+								</p>
+							</div>
+
 							<div className="mt-10  absolute right-[5rem] top-[-2rem]" key={listUser._id}>
 								<Button className="bg-transparent hover:bg-transparent" onClick={() => deleteList(listUser._id, listUser.name)}>
 									<BadgeMinus />
 								</Button>
 							</div>
 						</AccordionTrigger>
-						<AccordionContent className="flex flex-wrap gap-4 text-balance p-4">
+						<AccordionContent className="flex flex-wrap gap-4 text-balance p-8 bg-lightblue rounded-b-lg">
 							{listUser.products.map((product) => {
 								return (
 									<ProductCard
@@ -99,7 +109,7 @@ function List() {
 						<Popover>
 							<PopoverTrigger>
 								<Button className="mt-10 bg-darkblue text-zinc-900 shadow-lg hover:bg-lightblue hover:shadow-sm">
-									<Plus className="fill-darkblue"/>
+									<Plus color='lightblue' />
 								</Button>
 							</PopoverTrigger>
 							<PopoverContent align="center" sideOffset={50} className="flex">
