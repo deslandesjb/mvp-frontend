@@ -1,8 +1,7 @@
-import Home from '../components/Home';
+import AllProducts from '../components/AllProducts';
 
 function Index() {
-  
-  return <Home />;
+	return <AllProducts />;
 }
 
 export default Index;

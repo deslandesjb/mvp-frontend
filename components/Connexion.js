@@ -84,7 +84,7 @@ export function Connexion() {
 	return (
 		<Dialog open={isOpen} onOpenChange={setIsOpen}>
 			<DialogTrigger asChild onClick={() => setIsOpen(true)}>
-				<Button variant="ghost" className="w-fit px-0 text-xl font-normal xl:text-base">
+				<Button variant="ghost" className="w-fit px-0 text-xl font-normal hover:text-orange xl:text-base">
 					Me connecter
 				</Button>
 			</DialogTrigger>
