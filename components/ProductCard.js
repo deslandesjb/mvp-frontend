@@ -99,7 +99,7 @@ function ProductCard(props) {
 						)}
 					</DropdownMenuContent>
 				</DropdownMenu>
-				<Link href={'/product/' + props.id} className="relative flex h-full">
+				<Link href={'/product/' + props.id} className="relative flex h-full flex-col items-center lg:flex-row">
 					<CardContent className="w-1/2 p-0">
 						<div>
 							<Image
@@ -111,7 +111,7 @@ function ProductCard(props) {
 							/>
 						</div>
 					</CardContent>
-					<div className="w-1/2">
+					<div className="w-full lg:w-1/2">
 						<CardHeader>
 							<CardTitle className="text-sm">{props.name.slice(0, 25) + '...'}</CardTitle>
 							<CardDescription>{props.desc}</CardDescription>
