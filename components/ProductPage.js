@@ -19,7 +19,7 @@ export default function ProductPage() {
 			return;
 		}
 
-		fetch(`http://localhost:3000/products/id/${id}`)
+		fetch(`https://mvp-backend-seven.vercel.app/products/id/${id}`)
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.result) {

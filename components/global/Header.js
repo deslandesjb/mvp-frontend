@@ -1,6 +1,6 @@
+import {Button} from '@/components/ui/button'; // Import du bouton pour les triggers manuels
 import {useWindowSize} from '@uidotdev/usehooks';
 import {LogOut, Menu, Search, User, X} from 'lucide-react'; // Ajout de LogOut et User
-import {Button} from '@/components/ui/button'; // Import du bouton pour les triggers manuels
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {useEffect, useRef, useState} from 'react';
@@ -64,7 +64,7 @@ export default function Header() {
 	}, []);
 
 	useEffect(() => {
-		fetch('http://localhost:3000/products/categories')
+		fetch('https://mvp-backend-seven.vercel.app/products/categories')
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.result) setCategories(data.categories);
@@ -200,10 +200,16 @@ export default function Header() {
 
 									{!user.token && (
 										<div className="flex flex-col gap-4">
-											<Button variant="ghost" onClick={openLogin} className="w-fit px-0 text-xl font-normal hover:text-orange xl:text-base">
+											<Button
+												variant="ghost"
+												onClick={openLogin}
+												className="w-fit px-0 text-xl font-normal hover:text-orange xl:text-base">
 												Me connecter
 											</Button>
-											<Button variant="ghost" onClick={openSignup} className="w-fit px-0 text-xl font-normal hover:text-orange xl:text-base">
+											<Button
+												variant="ghost"
+												onClick={openSignup}
+												className="w-fit px-0 text-xl font-normal hover:text-orange xl:text-base">
 												Créer un compte
 											</Button>
 										</div>
@@ -226,7 +232,7 @@ export default function Header() {
 									)}
 								</nav>
 							</div>
-					</DrawerContent>
+						</DrawerContent>
 					</Drawer>
 				</div>
 
@@ -278,10 +284,16 @@ export default function Header() {
 			<div className="hidden min-w-60 items-center justify-end gap-6 lg:flex">
 				{!user.token && (
 					<>
-						<Button variant="ghost" onClick={openLogin} className="w-fit px-0 text-xl font-normal hover:text-orange xl:text-base">
+						<Button
+							variant="ghost"
+							onClick={openLogin}
+							className="w-fit px-0 text-xl font-normal hover:text-orange xl:text-base">
 							Me connecter
 						</Button>
-						<Button variant="ghost" onClick={openSignup} className="w-fit px-0 text-xl font-normal hover:text-orange xl:text-base">
+						<Button
+							variant="ghost"
+							onClick={openSignup}
+							className="w-fit px-0 text-xl font-normal hover:text-orange xl:text-base">
 							Créer un compte
 						</Button>
 					</>

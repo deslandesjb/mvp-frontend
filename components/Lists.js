@@ -18,7 +18,7 @@ function List() {
 
 	const allLists = (props) => {
 		token &&
-			fetch(`http://localhost:3000/lists/${token}`)
+			fetch(`https://mvp-backend-seven.vercel.app/lists/${token}`)
 				.then((response) => response.json())
 				.then((listsUser) => {
 					setListsData(listsUser);
@@ -31,7 +31,7 @@ function List() {
 
 	const nameListRegister = () => {
 		token &&
-			fetch(`http://localhost:3000/lists/newLists/${token}`, {
+			fetch(`https://mvp-backend-seven.vercel.app/lists/newLists/${token}`, {
 				method: 'POST',
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify({
@@ -48,7 +48,7 @@ function List() {
 	const deleteList = (idList, nameList) => {
 		const confirmed = window.confirm(`Êtes-vous sûr de vouloir supprimer la list : ${nameList} ?`);
 		confirmed &&
-			fetch(`http://localhost:3000/lists/removeList/${idList}`, {
+			fetch(`https://mvp-backend-seven.vercel.app/lists/removeList/${idList}`, {
 				method: 'DELETE',
 				headers: {'Content-Type': 'application/json'},
 			})

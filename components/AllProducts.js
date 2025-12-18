@@ -92,7 +92,7 @@ function AllProducts() {
 		// On charge les produits par tranche (12 par 12)
 		for (let i = startIndex; i <= productsNumber; i++) {
 			try {
-				const response = await fetch(`http://localhost:3000/products`);
+				const response = await fetch(`https://mvp-backend-seven.vercel.app/products`);
 				const data = await response.json();
 
 				if (data.products && data.products[i]) {
@@ -128,7 +128,7 @@ function AllProducts() {
 				sortBy: searchParams.get('sortBy'),
 			};
 
-			const response = await fetch('http://localhost:3000/products/search', {
+			const response = await fetch('https://mvp-backend-seven.vercel.app/products/search', {
 				method: 'POST',
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify(payload),
@@ -178,7 +178,7 @@ function AllProducts() {
 	// ==========================================
 	const allLists = () => {
 		token &&
-			fetch(`http://localhost:3000/lists/${token}`)
+			fetch(`https://mvp-backend-seven.vercel.app/lists/${token}`)
 				.then((response) => response.json())
 				.then((listsUser) => setListsData(listsUser));
 	};
