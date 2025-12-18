@@ -96,20 +96,26 @@ export default function Header() {
 	});
 
 	useGSAP(() => {
-		gsap.to('.header', {
-			backgroundColor: '#fff',
-			color: '#000',
-			scrub: 0.1,
-			scrollTrigger: {
-				start: 50,
-				end: 100,
-				toggleActions: 'play play play reverse',
+		gsap.fromTo(
+			'header',
+			{
+				backgroundColor: 'rgba(255,255,255, 0)',
+				color: '#ff7849',
 			},
-		});
+			{
+				backgroundColor: 'rgba(255,255,255, 1)',
+				color: '#000',
+				scrub: 0.1,
+				scrollTrigger: {
+					start: 50,
+					end: 100,
+					toggleActions: 'play play play reverse',
+				},
+			},
+		);
 	});
 
 	return (
-		// <header className="relative z-50 flex h-16 items-center justify-between bg-zinc-100 px-4 font-title shadow-lg">
 		<header className="header sticky top-0 z-50 flex h-16 items-center justify-between bg-transparent px-4 font-title text-orange shadow-lg">
 			{/* 1. GAUCHE : LOGO */}
 			{/* MODALES AUTHENTIFICATION (Rendues une seule fois ici) */}
@@ -178,9 +184,7 @@ export default function Header() {
 											<AccordionTrigger className="py-3 text-xl font-normal hover:no-underline">
 												Catégories
 											</AccordionTrigger>
-											<AccordionContent className="flex flex-col gap-3 pl-4 text-base text-gray-600">
-												{catShow}
-											</AccordionContent>
+											<AccordionContent className="flex flex-col gap-3 pl-4 text-base">{catShow}</AccordionContent>
 										</AccordionItem>
 									</Accordion>
 
@@ -208,13 +212,13 @@ export default function Header() {
 									{/* LOGOUT MOBILE (MINIMALISTE ET ALIGNÉ) */}
 									{user.token && (
 										<div className="mt-2 flex flex-col gap-4">
-											<div className="flex items-center gap-3 px-1 text-gray-600">
+											<div className="flex items-center gap-3 px-1">
 												<User className="h-5 w-5" />
 												<span className="text-lg">Bonjour {user.firstname}</span>
 											</div>
 											<button
 												onClick={handleLogout}
-												className="flex items-center gap-3 px-1 py-2 text-left text-xl font-normal text-gray-500 transition-colors hover:text-red-600">
+												className="flex items-center gap-3 px-1 py-2 text-left text-xl font-normal transition-colors hover:text-red-600">
 												<LogOut className="h-5 w-5" />
 												Déconnexion
 											</button>
@@ -238,7 +242,7 @@ export default function Header() {
 							</NavigationMenuTrigger>
 							<NavigationMenuContent>
 								<div className="relative flex w-[400px] flex-col gap-3 p-4">
-									<p className="mb-1 text-xs font-bold uppercase tracking-wider text-gray-400">Que cherchez-vous ?</p>
+									<p className="mb-1 text-xs font-bold uppercase tracking-wider">Que cherchez-vous ?</p>
 									<SearchComp home={false} />
 								</div>
 							</NavigationMenuContent>
@@ -287,8 +291,8 @@ export default function Header() {
 				{user.token && (
 					<div className="flex items-center gap-4">
 						<div className="flex flex-col items-end text-sm">
-							<span className="text-xs text-gray-500">Bonjour</span>
-							<span className="font-semibold text-gray-800">{user.firstname}</span>
+							<span className="text-xs">Bonjour</span>
+							<span className="font-semibold">{user.firstname}</span>
 						</div>
 						<div className="mx-1 h-8 w-px bg-gray-300"></div>
 						<button
