@@ -2,9 +2,11 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { BadgeMinus, Plus } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import Connexion from '../components/Connexion';
+
+
 
 import ProductCard from './ProductCard';
 
@@ -66,7 +68,7 @@ function List() {
 			<>
 				<Accordion type="single" collapsible className="mt-10 w-full relative" defaultValue="item-1 ">
 					<AccordionItem value="item-1" className="w-full">
-						<AccordionTrigger className=" text-darkblue pl-4 pr-4 border-orange border-b-2">
+						<AccordionTrigger className=" text-darkblue pl-4 pr-4 border-bgdarkblue border-b-2">
 							<div className='flex'>
 								<h6 className='mr-[10px] flex items-center'>
 									{listUser.name}
@@ -103,7 +105,7 @@ function List() {
 		<>
 			{/* {list} */}
 			<main className="min-h-screen-header flex flex-col items-center  font-body">
-					<section className="flex  w-full min-h-96 flex-col items-center justify-center bg-gradient-to-tr from-orangehover to-orange">
+					<section className="flex  w-full min-h-96 flex-col items-center justify-center bg-gradient-to-tr from-darkblue to-bgdarkblue">
 								<h1 className="font-title text-4xl uppercase tracking-tight text-slate-100">
 									Favoris
 								</h1>
