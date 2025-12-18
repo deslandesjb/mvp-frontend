@@ -72,14 +72,14 @@ export default function ProductPage() {
 	});
 
 	return (
-		<main className="-mt-16 flex min-h-screen flex-col items-center justify-center font-body">
+		<main className="mt-16 flex min-h-screen flex-col items-center justify-center px-8 font-body">
 			{productData && (
 				<>
-					<section className="flex">
-						<div className="w-1/2">
+					<section className="flex flex-col md:flex-row">
+						<div className="md:w-1/2">
 							{productInfo.picture && (
 								<Image
-									className="w-full"
+									className="w-full max-w-2xl"
 									src={productInfo.picture[0].url}
 									alt={productInfo.picture[0].title}
 									width={200}
@@ -87,7 +87,7 @@ export default function ProductPage() {
 								/>
 							)}
 						</div>
-						<div className="flex w-1/2 flex-col justify-center">
+						<div className="flex flex-col justify-center md:w-1/2">
 							<div>
 								<h1 className="mb-4 text-xl font-bold">{productInfo.name}</h1>
 								<h2>{productInfo.desc}</h2>
@@ -121,7 +121,7 @@ export default function ProductPage() {
 						</div>
 					</section>
 					<section>
-						<h2 className="mb-16 text-3xl">Voir les avis</h2>
+						<h2 className="mb-16 mt-4 text-3xl">Voir les avis</h2>
 					</section>
 					<section className="mb-16 flex flex-wrap justify-center gap-4 md:justify-between">{notes}</section>
 				</>
