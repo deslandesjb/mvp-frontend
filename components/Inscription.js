@@ -1,4 +1,3 @@
-
 import {Button} from '@/components/ui/button';
 import {
 	Dialog,
@@ -18,7 +17,9 @@ import {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {login} from '../reducer/user';
 
-export default function Inscription({isOpen, onOpenChange, switchToLogin}) {
+// export default function Inscription({isOpen, onOpenChange, switchToLogin, }) {
+export default function Inscription(props) {
+	// console.log(props);
 	const router = useRouter();
 	const dispatch = useDispatch();
 
@@ -35,9 +36,9 @@ export default function Inscription({isOpen, onOpenChange, switchToLogin}) {
 	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 	// Gestion de l'état (contrôlé par le parent ou interne)
-	const isControlled = typeof isOpen !== 'undefined';
-	const open = isControlled ? isOpen : internalOpen;
-	const setOpen = isControlled ? onOpenChange : setInternalOpen;
+	const isControlled = typeof props.isOpen !== 'undefined';
+	const open = isControlled ? props.isOpen : internalOpen;
+	const setOpen = isControlled ? props.onOpenChange : setInternalOpen;
 
 	const handleRegister = async () => {
 		setErrorMessage('');
@@ -104,7 +105,9 @@ export default function Inscription({isOpen, onOpenChange, switchToLogin}) {
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
-				<Button variant="ghost" className="w-fit px-0 text-xl font-normal hover:text-orange xl:text-base">
+				<Button
+					variant="ghost"
+					className={`w-fit font-normal hover:text-orange ${props.card ? 'px-2 text-base' : 'px-0 text-xl xl:text-base'}`}>
 					Créer un compte
 				</Button>
 			</DialogTrigger>
@@ -183,7 +186,7 @@ export default function Inscription({isOpen, onOpenChange, switchToLogin}) {
 					<button
 						className="font-medium text-orange hover:underline"
 						onClick={() => {
-							if (switchToLogin) switchToLogin();
+							if (props.switchToLogin) switchToLogin();
 						}}>
 						Se connecter
 					</button>
