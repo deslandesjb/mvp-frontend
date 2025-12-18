@@ -18,15 +18,20 @@ import {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {login} from '../reducer/user';
 
-export function Connexion() {
+export function Connexion({isOpen, onOpenChange, switchToSignup}) {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const [isOpen, setIsOpen] = useState(false);
+	const [internalOpen, setInternalOpen] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [mail, setMail] = useState('');
 	const [password, setPassword] = useState('');
+
+	// Gestion de l'état (contrôlé par le parent ou interne)
+	const isControlled = typeof isOpen !== 'undefined';
+	const open = isControlled ? isOpen : internalOpen;
+	const setOpen = isControlled ? onOpenChange : setInternalOpen;
 
 	const handleLogin = async () => {
 		setErrorMessage('');
@@ -57,7 +62,7 @@ export function Connexion() {
 					}),
 				);
 
-				setIsOpen(false);
+				setOpen(false);
 
 				setMail('');
 				setPassword('');
@@ -82,9 +87,9 @@ export function Connexion() {
 	};
 
 	return (
-		<Dialog open={isOpen} onOpenChange={setIsOpen}>
-			<DialogTrigger asChild onClick={() => setIsOpen(true)}>
-				<Button variant="ghost" className="w-fit px-0 text-xl font-normal xl:text-base">
+		<Dialog open={open} onOpenChange={setOpen}>
+			<DialogTrigger asChild>
+				<Button variant="ghost" className="w-fit px-0 text-xl font-normal hover:text-orange xl:text-base">
 					Me connecter
 				</Button>
 			</DialogTrigger>
@@ -134,6 +139,16 @@ export function Connexion() {
 						{isLoading ? 'Connexion...' : 'Se connecter'}
 					</Button>
 				</DialogFooter>
+				<div className="mt-2 flex items-center justify-center gap-2 text-sm text-gray-500">
+					<span>Pas encore de compte ?</span>
+					<button
+						className="font-medium text-orange hover:underline"
+						onClick={() => {
+							if (switchToSignup) switchToSignup();
+						}}>
+						Créer un compte
+					</button>
+				</div>
 			</DialogContent>
 		</Dialog>
 	);

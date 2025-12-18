@@ -65,7 +65,7 @@ function ProductCard(props) {
 		stars.push(<Star key={i} strokeWidth={1} size={18} className={starClass} />);
 	}
 	return (
-		<Card className="w-full min-w-7xl max-w-xl overflow-hidden hover:shadow-lg md:w-[calc((100%-1rem)/2)] xl:w-[calc((100%-2rem)/3)]">
+		<Card className="min-w-7xl z-10 w-full max-w-xl overflow-hidden bg-white hover:shadow-lg md:w-[calc((100%-1rem)/2)] xl:w-[calc((100%-2rem)/3)]">
 			<div className="relative flex h-full">
 				<DropdownMenu>
 					<DropdownMenuTrigger className="absolute right-0 top-0 z-10 px-4 py-2">
@@ -82,7 +82,7 @@ function ProductCard(props) {
 										<DropdownMenuItem className="justify-between">
 											{name.name}
 											<Button
-											className='bg-transparent hover:bg-transparent'
+												className="bg-transparent hover:bg-transparent"
 												variant="outline"
 												onClick={() => {
 													addToList(props.id, name._id, props.name, name.name);

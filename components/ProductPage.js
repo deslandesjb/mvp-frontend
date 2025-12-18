@@ -72,7 +72,7 @@ export default function ProductPage() {
 	});
 
 	return (
-		<main className="flex min-h-screen-header flex-col items-center justify-center font-body">
+		<main className="-mt-16 flex min-h-screen flex-col items-center justify-center font-body">
 			{productData && (
 				<>
 					<section className="flex">
@@ -119,6 +119,9 @@ export default function ProductPage() {
 								<div className="flex gap-4">{sellerLinks}</div>
 							</div>
 						</div>
+					</section>
+					<section>
+						<h2 className="mb-16 text-3xl">Voir les avis</h2>
 					</section>
 					<section className="mb-16 flex flex-wrap justify-center gap-4 md:justify-between">{notes}</section>
 				</>

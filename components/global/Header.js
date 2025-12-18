@@ -1,10 +1,17 @@
 import {useWindowSize} from '@uidotdev/usehooks';
 import {LogOut, Menu, Search, User, X} from 'lucide-react'; // Ajout de LogOut et User
+import {Button} from '@/components/ui/button'; // Import du bouton pour les triggers manuels
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {logout} from '../../reducer/user';
+
+// GSAP animation
+import {useGSAP} from '@gsap/react';
+import gsap from 'gsap';
+import {ScrollTrigger} from 'gsap/dist/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
 
 import Connexion from '../Connexion';
 import Inscription from '../Inscription';
@@ -31,6 +38,19 @@ export default function Header() {
 
 	const [isSearchOpen, setIsSearchOpen] = useState(false);
 	const searchRef = useRef(null);
+
+	// --- GESTION DES MODALES AUTH ---
+	const [isLoginOpen, setIsLoginOpen] = useState(false);
+	const [isInscriptionOpen, setIsInscriptionOpen] = useState(false);
+
+	const openLogin = () => {
+		setIsInscriptionOpen(false);
+		setIsLoginOpen(true);
+	};
+	const openSignup = () => {
+		setIsLoginOpen(false);
+		setIsInscriptionOpen(true);
+	};
 
 	// Fermer la recherche au clic extérieur
 	useEffect(() => {
@@ -62,7 +82,7 @@ export default function Header() {
 			return (
 				<NavigationMenuLink key={i} asChild>
 					<Link href={`/?categories=${data}`}>
-						<div className="first-letter:uppercase hover:text-orange">{data}</div>
+						<div className="transition-colors first-letter:uppercase hover:text-orange">{data}</div>
 					</Link>
 				</NavigationMenuLink>
 			);
@@ -75,11 +95,29 @@ export default function Header() {
 		}
 	});
 
+	useGSAP(() => {
+		gsap.to('.header', {
+			backgroundColor: '#fff',
+			color: '#000',
+			scrub: 0.1,
+			scrollTrigger: {
+				start: 50,
+				end: 100,
+				toggleActions: 'play play play reverse',
+			},
+		});
+	});
+
 	return (
 		// <header className="relative z-50 flex h-16 items-center justify-between bg-zinc-100 px-4 font-title shadow-lg">
-					<header className="sticky top-0 z-50 flex h-16 items-center justify-between bg-zinc-100 px-4 font-title shadow-lg">
-
+		<header className="header sticky top-0 z-50 flex h-16 items-center justify-between bg-transparent px-4 font-title text-orange shadow-lg">
 			{/* 1. GAUCHE : LOGO */}
+			{/* MODALES AUTHENTIFICATION (Rendues une seule fois ici) */}
+			<div className="hidden">
+				<Connexion isOpen={isLoginOpen} onOpenChange={setIsLoginOpen} switchToSignup={openSignup} />
+				<Inscription isOpen={isInscriptionOpen} onOpenChange={setIsInscriptionOpen} switchToLogin={openLogin} />
+			</div>
+
 			<div className="flex items-center md:min-w-60">
 				<Link
 					href="/"
@@ -158,8 +196,12 @@ export default function Header() {
 
 									{!user.token && (
 										<div className="flex flex-col gap-4">
-											<Connexion />
-											<Inscription />
+											<Button variant="ghost" onClick={openLogin} className="w-fit px-0 text-xl font-normal hover:text-orange xl:text-base">
+												Me connecter
+											</Button>
+											<Button variant="ghost" onClick={openSignup} className="w-fit px-0 text-xl font-normal hover:text-orange xl:text-base">
+												Créer un compte
+											</Button>
 										</div>
 									)}
 
@@ -180,7 +222,7 @@ export default function Header() {
 									)}
 								</nav>
 							</div>
-						</DrawerContent>
+					</DrawerContent>
 					</Drawer>
 				</div>
 
@@ -188,7 +230,7 @@ export default function Header() {
 				<NavigationMenu className="hidden lg:flex">
 					<NavigationMenuList className="flex-wrap gap-4">
 						<NavigationMenuItem>
-							<NavigationMenuTrigger className="bg-transparent px-3 text-base font-normal hover:bg-transparent hover:text-orange data-[state=open]:bg-transparent data-[state=open]:text-orange">
+							<NavigationMenuTrigger className="bg-transparent px-3 text-base font-normal transition-colors hover:bg-transparent hover:text-orange data-[state=open]:bg-transparent data-[state=open]:text-orange">
 								<Link className="flex items-center gap-2" href="/">
 									<Search className="h-4 w-4" />
 									Rechercher
@@ -203,7 +245,7 @@ export default function Header() {
 						</NavigationMenuItem>
 
 						<NavigationMenuItem>
-							<NavigationMenuTrigger className="bg-transparent px-3 text-base font-normal hover:bg-transparent hover:text-orange data-[state=open]:bg-transparent data-[state=open]:text-orange">
+							<NavigationMenuTrigger className="bg-transparent px-3 text-base font-normal transition-colors hover:bg-transparent hover:text-orange data-[state=open]:bg-transparent data-[state=open]:text-orange">
 								<Link href="/">All categories</Link>
 							</NavigationMenuTrigger>
 							<NavigationMenuContent>
@@ -232,8 +274,12 @@ export default function Header() {
 			<div className="hidden min-w-60 items-center justify-end gap-6 lg:flex">
 				{!user.token && (
 					<>
-						<Connexion />
-						<Inscription />
+						<Button variant="ghost" onClick={openLogin} className="w-fit px-0 text-xl font-normal hover:text-orange xl:text-base">
+							Me connecter
+						</Button>
+						<Button variant="ghost" onClick={openSignup} className="w-fit px-0 text-xl font-normal hover:text-orange xl:text-base">
+							Créer un compte
+						</Button>
 					</>
 				)}
 
@@ -247,7 +293,7 @@ export default function Header() {
 						<div className="mx-1 h-8 w-px bg-gray-300"></div>
 						<button
 							onClick={handleLogout}
-							className="group flex items-center gap-2 rounded-full px-3 text-gray-500 transition-all hover:text-orange"
+							className="group flex items-center gap-2 rounded-full px-3 text-gray-500 transition-colors hover:text-orange"
 							title="Se déconnecter">
 							<LogOut className="h-5 w-5" />
 							<span className="text-sm font-medium decoration-orange underline-offset-4 group-hover:underline">

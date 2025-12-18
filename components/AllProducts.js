@@ -72,7 +72,6 @@ function AllProducts() {
 					},
 					blending: 'overlay',
 					opacity: {center: 1, edge: 0},
-					skew: -2,
 					shapes: ['c'],
 				});
 			}
@@ -198,16 +197,10 @@ function AllProducts() {
 	);
 
 	return (
-		<main className="min-h-screen bg-slate-50 pb-10 font-body">
+		<main className="-mt-16 min-h-screen bg-slate-50 pb-10 font-body">
+			<section className="finisher-header fixed inset-0 top-0 h-screen"></section>
 			{/* HEADER */}
-				<div className="relative min-h-96">
-				{/* Background Layer */}
-				<section className="finisher-header absolute inset-0  [clip-path:polygon(0_0,100%_0,100%_90%,0_100%)]"></section>
-				{/* Content Layer */}
-				<h1 className="font-title text-4xl uppercase tracking-tight text-slate-100">
-					{isSearchMode ? 'Résultats de la recherche' : 'All Products'}
-				</h1>
-
+			<div className="relative z-20 min-h-96">
 				{/* Content Layer */}
 				<div className="relative z-10 flex h-full min-h-96 flex-col items-center justify-center p-4 text-center">
 					<h1 className="font-title text-4xl uppercase tracking-tight text-slate-100">
@@ -220,7 +213,9 @@ function AllProducts() {
 					</div>
 					{/* Reset recherche */}
 					{isSearchMode && (
-						<Button className="mt-4 bg-orange text-zinc-900 hover:bg-orangehover" onClick={() => (window.location.href = '/')}>
+						<Button
+							className="mt-4 bg-orange text-zinc-900 hover:bg-orangehover"
+							onClick={() => (window.location.href = '/')}>
 							Afficher tout
 						</Button>
 					)}
@@ -246,14 +241,7 @@ function AllProducts() {
 					</div>
 				)}
 			</section>
-			<Script
-				src="/finisher-header.es5.min.js"
-				strategy="lazyOnload"
-				onLoad={initFinisherHeader}
-				
-			/>
-			
-			
+			<Script src="/finisher-header.es5.min.js" strategy="lazyOnload" onLoad={initFinisherHeader} />
 		</main>
 	);
 }
