@@ -79,15 +79,32 @@ export default function Header() {
 		<header className="relative z-50 flex h-16 items-center justify-between bg-zinc-100 px-4 font-title shadow-lg">
 			{/* 1. GAUCHE : LOGO */}
 			<div className="flex items-center md:min-w-60">
-				<Link href="/" className="text-xl font-bold">
-					LOGO
+				<Link
+					href="/"
+					className="flex items-center bg-gradient-to-tr from-darkblue to-lightblue bg-clip-text font-title text-xl font-bold text-transparent">
+					<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+						<defs>
+							<linearGradient id="atlasGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+								<stop offset="0%" stopColor="#1e3a8a" />
+								<stop offset="100%" stopColor="#93c5fd" />
+							</linearGradient>
+						</defs>
+						<g fill="none">
+							<path
+								d="m12 8.657l-3.652 8.264c-.118.263-.185.479-.447.479H5.483c-.344 0-.534-.098-.36-.479l5.894-13.53c.118-.226.196-.391.463-.391h1.044c.262 0 .334.165.463.39l5.893 13.526c.17.386-.025.484-.37.484h-2.412c-.262 0-.334-.216-.447-.479l-3.652-8.27z"
+								fill="url(#atlasGradient)"
+							/>
+							<path className="fill-orange" d="m12.005 21l-2.412-4.63h4.741z" fill="url(#atlasGradient)" />
+						</g>
+					</svg>
+					ATLAS<span className="tracking-tight">Loot</span>
 				</Link>
 			</div>
 
 			{/* 2. CENTRE : NAVIGATION */}
 			<div>
 				{/* --- MOBILE NAV (DRAWER) --- */}
-				<div className="md:hidden">
+				<div className="lg:hidden">
 					<Drawer direction="right">
 						<DrawerTrigger>
 							<Menu className="h-6 w-6" />
@@ -163,10 +180,10 @@ export default function Header() {
 				</div>
 
 				{/* --- DESKTOP NAV --- */}
-				<NavigationMenu className="hidden md:flex">
+				<NavigationMenu className="hidden lg:flex">
 					<NavigationMenuList className="flex-wrap gap-4">
 						<NavigationMenuItem>
-							<NavigationMenuTrigger className="bg-transparent px-3 py-2 text-base font-normal hover:bg-transparent hover:text-orange data-[state=open]:bg-transparent data-[state=open]:text-orange">
+							<NavigationMenuTrigger className="bg-transparent px-3 text-base font-normal hover:bg-transparent hover:text-orange data-[state=open]:bg-transparent data-[state=open]:text-orange">
 								<Link className="flex items-center gap-2" href="/">
 									<Search className="h-4 w-4" />
 									Rechercher
@@ -181,7 +198,7 @@ export default function Header() {
 						</NavigationMenuItem>
 
 						<NavigationMenuItem>
-							<NavigationMenuTrigger className="bg-transparent px-3 py-2 text-base font-normal hover:bg-transparent hover:text-orange data-[state=open]:bg-transparent data-[state=open]:text-orange">
+							<NavigationMenuTrigger className="bg-transparent px-3 text-base font-normal hover:bg-transparent hover:text-orange data-[state=open]:bg-transparent data-[state=open]:text-orange">
 								<Link href="/">All categories</Link>
 							</NavigationMenuTrigger>
 							<NavigationMenuContent>
@@ -197,7 +214,7 @@ export default function Header() {
 						</NavigationMenuItem>
 						<NavigationMenuItem>
 							<NavigationMenuLink asChild>
-								<Link href="/lists" className="px-3 py-2 transition-colors hover:text-orange">
+								<Link href="/lists" className="px-3 transition-colors hover:text-orange">
 									Favoris
 								</Link>
 							</NavigationMenuLink>
@@ -207,7 +224,7 @@ export default function Header() {
 			</div>
 
 			{/* 3. DROITE : AUTHENTIFICATION (DESKTOP) */}
-			<div className="hidden min-w-60 items-center justify-end gap-6 md:flex">
+			<div className="hidden min-w-60 items-center justify-end gap-6 lg:flex">
 				{!user.token && (
 					<>
 						<Connexion />
@@ -222,10 +239,10 @@ export default function Header() {
 							<span className="text-xs text-gray-500">Bonjour</span>
 							<span className="font-semibold text-gray-800">{user.firstname}</span>
 						</div>
-						<div className="mx-1 h-8 w-px bg-gray-300"></div> {/* Petit séparateur vertical */}
+						<div className="mx-1 h-8 w-px bg-gray-300"></div>
 						<button
 							onClick={handleLogout}
-							className="group flex items-center gap-2 rounded-full px-3 py-2 text-gray-500 transition-all hover:text-orange"
+							className="group flex items-center gap-2 rounded-full px-3 text-gray-500 transition-all hover:text-orange"
 							title="Se déconnecter">
 							<LogOut className="h-5 w-5" />
 							<span className="text-sm font-medium decoration-orange underline-offset-4 group-hover:underline">

@@ -98,8 +98,8 @@ function List() {
 						<h3 className="text-4xl">Favoris</h3>
 						<Popover>
 							<PopoverTrigger>
-								<Button className="mt-10 bg-orange text-zinc-900 shadow-lg hover:bg-orangehover hover:shadow-sm">
-									<Plus className="fill-darkblue" />
+								<Button className="mt-10 bg-darkblue text-zinc-900 shadow-lg hover:bg-lightblue hover:shadow-sm">
+									<Plus className="fill-darkblue"/>
 								</Button>
 							</PopoverTrigger>
 							<PopoverContent align="center" sideOffset={50} className="flex">

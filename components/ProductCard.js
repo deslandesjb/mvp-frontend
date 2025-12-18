@@ -83,6 +83,7 @@ function ProductCard(props) {
 											{name.name}
 											<Button
 											className='bg-transparent hover:bg-transparent'
+												variant="outline"
 												onClick={() => {
 													addToList(props.id, name._id, props.name, name.name);
 													notif();
