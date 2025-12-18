@@ -81,18 +81,6 @@ export default function Header() {
 		}
 	});
 
-	// useGSAP(() => {
-	// 	gsap.to('.header', {
-	// 		backgroundColor: '#fff',
-	// 		color: '#000',
-	// 		scrub: 0.1,
-	// 		scrollTrigger: {
-	// 			start: 50,
-	// 			end: 100,
-	// 			toggleActions: 'play play play reverse',
-	// 		},
-	// 	});
-	// });
 	useGSAP(() => {
 		gsap.fromTo(
 			'header',
@@ -114,7 +102,6 @@ export default function Header() {
 	});
 
 	return (
-		// <header className="relative z-50 flex h-16 items-center justify-between bg-zinc-100 px-4 font-title shadow-lg">
 		<header className="header sticky top-0 z-50 flex h-16 items-center justify-between bg-transparent px-4 font-title text-orange shadow-lg">
 			{/* 1. GAUCHE : LOGO */}
 			<div className="flex items-center md:min-w-60">

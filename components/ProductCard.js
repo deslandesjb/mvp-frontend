@@ -95,7 +95,7 @@ function ProductCard(props) {
 								);
 							})
 						) : (
-							<Inscription />
+							<Inscription card={true} />
 						)}
 					</DropdownMenuContent>
 				</DropdownMenu>

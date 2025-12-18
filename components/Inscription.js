@@ -197,7 +197,7 @@ import {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {login} from '../reducer/user';
 
-export default function Inscription() {
+export default function Inscription(props) {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
@@ -278,7 +278,9 @@ export default function Inscription() {
 	return (
 		<Dialog open={isOpen} onOpenChange={setIsOpen}>
 			<DialogTrigger asChild onClick={() => setIsOpen(true)}>
-				<Button variant="ghost" className="w-fit px-0 text-xl font-normal hover:text-orange xl:text-base">
+				<Button
+					variant="ghost"
+					className={`w-fit font-normal hover:text-orange ${props.card ? 'px-2 text-base' : 'px-0 text-xl xl:text-base'}`}>
 					Créer un compte
 				</Button>
 			</DialogTrigger>
