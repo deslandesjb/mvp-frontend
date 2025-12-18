@@ -121,7 +121,10 @@ export default function Header() {
 								<nav className="flex flex-col gap-2 overflow-y-auto">
 									{/* Recherche Mobile */}
 									<Accordion type="single" collapsible className="mb-4 w-full">
-										<AccordionItem value="search-item" className="border-b-0">
+										<div className="relative">
+											<SearchComp home={false} />
+										</div>
+										{/* <AccordionItem value="search-item" className="border-b-0">
 											<AccordionTrigger className="py-3 text-xl font-normal hover:no-underline">
 												<div className="flex items-center gap-3">
 													<Search className="h-5 w-5" />
@@ -131,7 +134,7 @@ export default function Header() {
 											<AccordionContent className="px-1 pb-4 pt-2">
 												<SearchComp home={false} />
 											</AccordionContent>
-										</AccordionItem>
+										</AccordionItem> */}
 
 										<AccordionItem value="categories-item" className="border-b">
 											<AccordionTrigger className="py-3 text-xl font-normal hover:no-underline">
@@ -144,10 +147,10 @@ export default function Header() {
 									</Accordion>
 
 									{/* <Link href="#" className="font-semibold text-xl py-2">TOP</Link> */}
-									<Link href="/" className="py-2 text-xl font-semibold">
+									<Link href="/" className="py-2 text-xl text-orange">
 										Tous les produits
 									</Link>
-									<Link href="/lists" className="py-2 text-xl font-semibold">
+									<Link href="/lists" className="py-2 text-xl">
 										Favoris
 									</Link>
 

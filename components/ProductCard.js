@@ -38,7 +38,7 @@ function ProductCard(props) {
 					props.allLists();
 					setRemoved(resultat.remove);
 
-					const message = !removed
+					const message = resultat.remove
 						? `Vous avez enlevé le produit ${nameProduct.slice(0, 10)}...  de la list : ${nameList} `
 						: `Vous avez ajouté le produit ${nameProduct.slice(0, 10)} à la list :  ${nameList}`;
 
@@ -65,14 +65,14 @@ function ProductCard(props) {
 		stars.push(<Star key={i} strokeWidth={1} size={18} className={starClass} />);
 	}
 	return (
-		<Card className="w-full max-w-xl overflow-hidden hover:shadow-lg md:w-[calc((100%-1rem)/2)] xl:w-[calc((100%-2rem)/3)]">
+		<Card className="w-full min-w-7xl max-w-xl overflow-hidden hover:shadow-lg md:w-[calc((100%-1rem)/2)] xl:w-[calc((100%-2rem)/3)]">
 			<div className="relative flex h-full">
 				<DropdownMenu>
 					<DropdownMenuTrigger className="absolute right-0 top-0 z-10 px-4 py-2">
 						<Plus size={18} />
 					</DropdownMenuTrigger>
 					<DropdownMenuContent className="z-10">
-						<DropdownMenuLabel>My Account</DropdownMenuLabel>
+						<DropdownMenuLabel>My Lists</DropdownMenuLabel>
 						{token ? (
 							props.listNames.map((name, i) => {
 								const productExists = name.products.some((product) => product?.id === props.id);
@@ -82,6 +82,7 @@ function ProductCard(props) {
 										<DropdownMenuItem className="justify-between">
 											{name.name}
 											<Button
+											className='bg-transparent hover:bg-transparent'
 												variant="outline"
 												onClick={() => {
 													addToList(props.id, name._id, props.name, name.name);
@@ -98,7 +99,7 @@ function ProductCard(props) {
 						)}
 					</DropdownMenuContent>
 				</DropdownMenu>
-				<Link href={'/product/' + props.id} className="relative flex h-full">
+				<Link href={'/product/' + props.id} className="relative flex h-full flex-col items-center lg:flex-row">
 					<CardContent className="w-1/2 p-0">
 						<div>
 							<Image
@@ -110,7 +111,7 @@ function ProductCard(props) {
 							/>
 						</div>
 					</CardContent>
-					<div className="w-1/2">
+					<div className="w-full lg:w-1/2">
 						<CardHeader>
 							<CardTitle className="text-sm">{props.name.slice(0, 25) + '...'}</CardTitle>
 							<CardDescription>{props.desc}</CardDescription>
