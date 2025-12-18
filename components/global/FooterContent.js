@@ -15,7 +15,7 @@ export default function FooterContent() {
 
 				<div className="flex gap-10 md:gap-20">
 					<div className="flex flex-col gap-2">
-						<h3 className="mb-2 font-bold tracking-wider text-gray-500 uppercase">Navigation</h3>
+						<h3 className="mb-2 font-bold uppercase tracking-wider text-gray-500">Navigation</h3>
 						<Link href="/" className="transition-colors hover:text-orange">
 							Accueil
 						</Link>
@@ -27,7 +27,7 @@ export default function FooterContent() {
 						</Link>
 					</div>
 					<div className="flex flex-col gap-2">
-						<h3 className="mb-2 font-bold tracking-wider text-gray-500 uppercase">Légal</h3>
+						<h3 className="mb-2 font-bold uppercase tracking-wider text-gray-500">Légal</h3>
 						<Link href="/terms" className="transition-colors hover:text-orange">
 							Mentions légales
 						</Link>
