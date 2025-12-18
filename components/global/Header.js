@@ -85,9 +85,10 @@ export default function Header() {
 		gsap.to('.header', {
 			backgroundColor: '#fff',
 			color: '#000',
-			scrub: 0.3,
+			scrub: 0.1,
 			scrollTrigger: {
-				start: 100,
+				start: 50,
+				end: 100,
 				toggleActions: 'play play play reverse',
 			},
 		});

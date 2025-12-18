@@ -198,11 +198,11 @@ function AllProducts() {
 	);
 
 	return (
-		<main className="min-h-screen bg-slate-50 pb-10 font-body">
+		<main className="-mt-16 min-h-screen bg-slate-50 pb-10 font-body">
 			{/* HEADER */}
-				<div className="relative min-h-96">
+			<div className="relative min-h-96">
 				{/* Background Layer */}
-				<section className="finisher-header absolute inset-0  [clip-path:polygon(0_0,100%_0,100%_90%,0_100%)]"></section>
+				<section className="finisher-header absolute inset-0 [clip-path:polygon(0_0,100%_0,100%_90%,0_100%)]"></section>
 				{/* Content Layer */}
 				<h1 className="font-title text-4xl uppercase tracking-tight text-slate-100">
 					{isSearchMode ? 'Résultats de la recherche' : 'All Products'}
@@ -220,7 +220,9 @@ function AllProducts() {
 					</div>
 					{/* Reset recherche */}
 					{isSearchMode && (
-						<Button className="mt-4 bg-orange text-zinc-900 hover:bg-orangehover" onClick={() => (window.location.href = '/')}>
+						<Button
+							className="mt-4 bg-orange text-zinc-900 hover:bg-orangehover"
+							onClick={() => (window.location.href = '/')}>
 							Afficher tout
 						</Button>
 					)}
@@ -246,14 +248,7 @@ function AllProducts() {
 					</div>
 				)}
 			</section>
-			<Script
-				src="/finisher-header.es5.min.js"
-				strategy="lazyOnload"
-				onLoad={initFinisherHeader}
-				
-			/>
-			
-			
+			<Script src="/finisher-header.es5.min.js" strategy="lazyOnload" onLoad={initFinisherHeader} />
 		</main>
 	);
 }
