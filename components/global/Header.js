@@ -27,8 +27,6 @@ import {
 	NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 
-import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from '@/components/ui/accordion';
-
 export default function Header() {
 	const [categories, setCategories] = useState([]);
 	const size = useWindowSize();
@@ -88,7 +86,7 @@ export default function Header() {
 			);
 		} else {
 			return (
-				<Link key={i} href={`/?categories=${data}`} className="block py-2 first-letter:uppercase">
+				<Link key={i} href={`/?categories=${data}`} className="block pt-2 text-xl first-letter:uppercase">
 					{data}
 				</Link>
 			);
@@ -143,7 +141,7 @@ export default function Header() {
 							<path className="fill-orange" d="m12.005 21l-2.412-4.63h4.741z" fill="url(#atlasGradient)" />
 						</g>
 					</svg>
-					ATLAS<span className="tracking-tight">Loot</span>
+					ATLAS<span className="bg-gradient-to-tr from-orange to-orangehover bg-clip-text tracking-tight">Loot</span>
 				</Link>
 			</div>
 
@@ -164,35 +162,15 @@ export default function Header() {
 
 								<nav className="flex flex-col gap-2 overflow-y-auto">
 									{/* Recherche Mobile */}
-									<Accordion type="single" collapsible className="mb-4 w-full">
-										<div className="relative">
-											<SearchComp home={false} />
-										</div>
-										{/* <AccordionItem value="search-item" className="border-b-0">
-											<AccordionTrigger className="py-3 text-xl font-normal hover:no-underline">
-												<div className="flex items-center gap-3">
-													<Search className="h-5 w-5" />
-													Rechercher
-												</div>
-											</AccordionTrigger>
-											<AccordionContent className="px-1 pb-4 pt-2">
-												<SearchComp home={false} />
-											</AccordionContent>
-										</AccordionItem> */}
+									<div className="my-4">
+										<SearchComp home={false} />
+									</div>
+									{catShow}
 
-										<AccordionItem value="categories-item" className="border-b">
-											<AccordionTrigger className="py-3 text-xl font-normal hover:no-underline">
-												Catégories
-											</AccordionTrigger>
-											<AccordionContent className="flex flex-col gap-3 pl-4 text-base">{catShow}</AccordionContent>
-										</AccordionItem>
-									</Accordion>
-
-									{/* <Link href="#" className="font-semibold text-xl py-2">TOP</Link> */}
-									<Link href="/" className="py-2 text-xl text-orange">
+									<Link href="/" className="pt-2 text-xl text-orange">
 										Tous les produits
 									</Link>
-									<Link href="/lists" className="py-2 text-xl">
+									<Link href="/lists" className="pt-2 text-xl">
 										Favoris
 									</Link>
 

@@ -61,11 +61,12 @@ export default function ProductPage() {
 		</>
 	));
 
+	// sellers CTA + price
 	const sellerLinks = productInfo?.sellers?.map((s, i) => {
 		return (
 			<Button key={i} className="bg-orange p-0 hover:bg-orangehover">
 				<Link href={s.url} target="_blank" className="h-full w-full px-4 py-2">
-					{s.seller}
+					{s.seller} | <b>{s.price}€</b>
 				</Link>
 			</Button>
 		);
@@ -87,9 +88,9 @@ export default function ProductPage() {
 								/>
 							)}
 						</div>
-						<div className="flex flex-col justify-center md:w-1/2">
+						<div className="flex max-w-5xl flex-col justify-center md:w-1/2">
 							<div>
-								<h1 className="mb-4 text-xl font-bold">{productInfo.name}</h1>
+								<h1 className="mb-4 text-3xl font-bold">{productInfo.name}</h1>
 								<h2>{productInfo.desc}</h2>
 							</div>
 							<div>
@@ -123,7 +124,7 @@ export default function ProductPage() {
 					<section>
 						<h2 className="mb-16 mt-4 text-3xl">Voir les avis</h2>
 					</section>
-					<section className="mb-16 flex flex-wrap justify-center gap-4 md:justify-between">{notes}</section>
+					<section className="mb-32 flex flex-wrap justify-center gap-4 md:justify-between">{notes}</section>
 				</>
 			)}
 			{!productData && (

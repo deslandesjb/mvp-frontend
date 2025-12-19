@@ -52,7 +52,7 @@ export default function FooterContent() {
 							<Linkedin size={24} />
 						</Link>
 					</div>
-					<p className="text-gray-500">© 2024 AtlasLoot. Tous droits réservés.</p>
+					<p className="text-gray-500">© 2026 AtlasLoot. Tous droits réservés.</p>
 				</div>
 			</div>
 		</div>
