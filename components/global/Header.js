@@ -62,7 +62,7 @@ export default function Header() {
 	}, []);
 
 	useEffect(() => {
-		fetch('https://mvp-backend-seven.vercel.app/products/categories')
+		fetch('http://localhost:3000/products/categories')
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.result) setCategories(data.categories);
@@ -111,7 +111,7 @@ export default function Header() {
 				},
 			},
 		);
-	});
+	}, []);
 
 	return (
 		<header className="header sticky top-0 z-50 flex h-16 items-center justify-between bg-transparent px-4 font-title text-orange shadow-lg">
@@ -233,7 +233,7 @@ export default function Header() {
 						</NavigationMenuItem>
 
 						<NavigationMenuItem>
-							<NavigationMenuTrigger className="bg-transparent px-3 text-base font-normal transition-colors hover:bg-transparent hover:text-orange data-[state=open]:bg-transparent data-[state=open]:text-orange">
+							<NavigationMenuTrigger className="bg-transparent px-3 text-base font-normal transition-colors hover:bg-transparent hover:text-orange active:text-orange data-[state=open]:bg-transparent data-[state=open]:text-orange">
 								<Link href="/">All categories</Link>
 							</NavigationMenuTrigger>
 							<NavigationMenuContent>

@@ -18,7 +18,7 @@ function List() {
 
 	const allLists = (props) => {
 		token &&
-			fetch(`https://mvp-backend-seven.vercel.app/lists/${token}`)
+			fetch(`http://localhost:3000/lists/${token}`)
 				.then((response) => response.json())
 				.then((listsUser) => {
 					setListsData(listsUser);
@@ -31,7 +31,7 @@ function List() {
 
 	const nameListRegister = () => {
 		token &&
-			fetch(`https://mvp-backend-seven.vercel.app/lists/newLists/${token}`, {
+			fetch(`http://localhost:3000/lists/newLists/${token}`, {
 				method: 'POST',
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify({
@@ -48,7 +48,7 @@ function List() {
 	const deleteList = (idList, nameList) => {
 		const confirmed = window.confirm(`Êtes-vous sûr de vouloir supprimer la list : ${nameList} ?`);
 		confirmed &&
-			fetch(`https://mvp-backend-seven.vercel.app/lists/removeList/${idList}`, {
+			fetch(`http://localhost:3000/lists/removeList/${idList}`, {
 				method: 'DELETE',
 				headers: {'Content-Type': 'application/json'},
 			})
@@ -67,7 +67,7 @@ function List() {
 			<>
 				<Accordion type="single" collapsible className="relative mt-10 w-full" defaultValue="item-1 ">
 					<AccordionItem value="item-1" className="w-full">
-						<AccordionTrigger className="border-bgdarkblue border-b-2 pl-4 pr-4 text-darkblue">
+						<AccordionTrigger className="border-b-2 border-bgdarkblue pl-4 pr-4 text-darkblue">
 							<div className="flex">
 								<h6 className="mr-[10px] flex items-center">{listUser.name}</h6>
 								<p className="flex h-7 w-7 items-center justify-center rounded-full bg-white p-1 text-black">
@@ -79,7 +79,7 @@ function List() {
 								<Button
 									className="bg-transparent hover:bg-transparent"
 									onClick={() => deleteList(listUser._id, listUser.name)}>
-									<BadgeMinus />
+									<BadgeMinus color="orange" />
 								</Button>
 							</div>
 						</AccordionTrigger>
@@ -98,7 +98,7 @@ function List() {
 		<>
 			{/* {list} */}
 			<main className="flex min-h-screen-header flex-col items-center font-body">
-				<section className="to-bgdarkblue flex min-h-96 w-full flex-col items-center justify-center bg-gradient-to-tr from-darkblue">
+				<section className="flex min-h-96 w-full flex-col items-center justify-center bg-gradient-to-tr from-darkblue to-bgdarkblue">
 					<h1 className="font-title text-4xl uppercase tracking-tight text-slate-100">Favoris</h1>
 				</section>
 				<section className="h-full w-full p-20">

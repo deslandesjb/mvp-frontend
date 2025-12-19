@@ -92,7 +92,7 @@ function AllProducts() {
 		// On charge les produits par tranche (12 par 12)
 		for (let i = startIndex; i <= productsNumber; i++) {
 			try {
-				const response = await fetch(`https://mvp-backend-seven.vercel.app/products`);
+				const response = await fetch(`http://localhost:3000/products`);
 				const data = await response.json();
 
 				if (data.products && data.products[i]) {
@@ -128,7 +128,7 @@ function AllProducts() {
 				sortBy: searchParams.get('sortBy'),
 			};
 
-			const response = await fetch('https://mvp-backend-seven.vercel.app/products/search', {
+			const response = await fetch('http://localhost:3000/products/search', {
 				method: 'POST',
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify(payload),
@@ -178,7 +178,7 @@ function AllProducts() {
 	// ==========================================
 	const allLists = () => {
 		token &&
-			fetch(`https://mvp-backend-seven.vercel.app/lists/${token}`)
+			fetch(`http://localhost:3000/lists/${token}`)
 				.then((response) => response.json())
 				.then((listsUser) => setListsData(listsUser));
 	};
@@ -203,7 +203,7 @@ function AllProducts() {
 			<div className="relative z-20 min-h-96">
 				{/* Content Layer */}
 				<div className="relative z-10 flex h-full min-h-96 flex-col items-center justify-center p-4 text-center">
-					<h1 className="font-title text-4xl uppercase tracking-tight text-slate-100">
+					<h1 className="pointer-events-none font-title text-4xl uppercase tracking-tight text-slate-100">
 						{isSearchMode ? 'Résultats de la recherche' : 'All Products'}
 					</h1>
 

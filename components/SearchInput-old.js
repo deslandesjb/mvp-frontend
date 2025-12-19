@@ -81,7 +81,7 @@ export default function SearchInput() {
 		try {
 			const payload = {search: query, ...filters};
 			// Utilisation du port 3000 comme demandé pour le backend
-			const response = await fetch('https://mvp-backend-seven.vercel.app/products/search', {
+			const response = await fetch('http://localhost:3000/products/search', {
 				method: 'POST',
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify(payload),
