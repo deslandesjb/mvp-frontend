@@ -6,40 +6,6 @@ import {ArrowDownNarrowWide, ArrowUpNarrowWide, Check, Minus, Plus, SlidersHoriz
 import {useRouter} from 'next/navigation';
 import {useEffect, useRef, useState} from 'react';
 
-// const ALL_CATEGORIES = ['Casque', 'Portable', 'Tablette', 'Ordinateur', 'Télévision'];
-
-const ALL_BRANDS = [
-	'Sony',
-	'JBL',
-	'Bose',
-	'Marshall',
-	'Avizar',
-	'Samsung',
-	'Blackview',
-	'Générique / Reseller',
-	'Xiaomi',
-	'Acer',
-	'HP',
-	'Logicom',
-	'Doogee',
-	'Lenovo',
-	'Shokz',
-	'HyperX',
-	'SteelSeries',
-	'Microsoft',
-	'Greed / Reseller',
-	'Asus',
-	'TCL',
-	'Smart Tech',
-	'Hisense',
-	'Proline',
-	'Thomson',
-	'Philips',
-	'Veidoo',
-	'Archos',
-	'Apple',
-];
-
 const AVAILABLE_SELLERS = ['Amazon', 'Darty', 'Fnac'];
 
 export default function FilterPanel() {
@@ -47,11 +13,18 @@ export default function FilterPanel() {
 	const [expandCats, setExpandCats] = useState(false);
 	const [expandBrands, setExpandBrands] = useState(false);
 	const [categories, setCategories] = useState([]); // Catégories
+	const [brands, setBrands] = useState([]); // brands
 
 	useEffect(() => {
 		fetch('https://mvp-backend-seven.vercel.app/products/categories')
 			.then((response) => response.json())
 			.then((data) => data.result && setCategories(data.categories));
+	}, []);
+
+	useEffect(() => {
+		fetch('https://mvp-backend-seven.vercel.app/products/brands')
+			.then((response) => response.json())
+			.then((data) => data.result && setBrands(data.brands));
 	}, []);
 
 	const [filters, setFilters] = useState({
@@ -179,7 +152,7 @@ export default function FilterPanel() {
 						<div>
 							<h4 className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">Marques</h4>
 							<div className="flex flex-wrap gap-2">
-								{(expandBrands ? ALL_BRANDS : ALL_BRANDS.slice(0, 6)).map((brand) => (
+								{(expandBrands ? brands : brands.slice(0, 6)).map((brand) => (
 									<button
 										key={brand}
 										type="button"
