@@ -1,7 +1,7 @@
-// 'use client';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {Search, X} from 'lucide-react';
+import Link from 'next/link';
 import {useRouter} from 'next/navigation';
 import {useEffect, useRef, useState} from 'react';
 
@@ -91,29 +91,30 @@ export default function SearchComp(props) {
 					className={`z-50 mt-2 max-h-[60vh] w-full overflow-hidden overflow-y-auto rounded-lg border bg-background shadow-xl ${props.home ? ' absolute' : ''}`}>
 					<ul>
 						{results.map((item, index) => (
-							<li
-								key={index}
-								className="flex cursor-pointer gap-4 border-b p-4 transition-colors last:border-0 hover:bg-muted/50"
-								onClick={() => router.push(`/?q=${encodeURIComponent(item.name)}`)}>
-								<div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-md border bg-white">
-									<img
-										src={Array.isArray(item.picture) ? item.picture[0]?.url : item.picture || '/placeholder.png'}
-										alt={item.name}
-										className="h-full w-full object-contain"
-										onError={(e) => (e.target.src = '/placeholder.png')}
-									/>
-								</div>
-								<div className="flex min-w-0 flex-1 flex-col justify-between">
-									<div>
-										<p className="truncate text-sm font-semibold">{item.name}</p>
-										<p className="truncate text-xs capitalize text-muted-foreground">
-											{item.brand} • {item.categorie}
-										</p>
+							<li key={index} className="border-b last:border-0">
+								<Link
+									href={`/product/${item.id}`}
+									className="flex cursor-pointer gap-4 p-4 transition-colors hover:bg-muted/50">
+									<div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-md border bg-white">
+										<img
+											src={Array.isArray(item.picture) ? item.picture[0]?.url : item.picture || '/placeholder.png'}
+											alt={item.name}
+											className="h-full w-full object-contain"
+											onError={(e) => (e.target.src = '/placeholder.png')}
+										/>
 									</div>
-									<div className="mt-1 flex items-center justify-between">
-										<span className="font-bold text-primary">{item.priceMoy} €</span>
+									<div className="flex min-w-0 flex-1 flex-col justify-between">
+										<div>
+											<p className="truncate text-sm font-semibold">{item.name}</p>
+											<p className="truncate text-xs capitalize text-muted-foreground">
+												{item.brand} • {item.categorie}
+											</p>
+										</div>
+										<div className="mt-1 flex items-center justify-between">
+											<span className="font-bold text-primary">{item.priceMoy} €</span>
+										</div>
 									</div>
-								</div>
+								</Link>
 							</li>
 						))}
 					</ul>

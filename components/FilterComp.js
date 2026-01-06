@@ -1,12 +1,8 @@
-// 'use client';
-
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {ArrowDownNarrowWide, ArrowUpNarrowWide, Check, Minus, Plus, SlidersHorizontal, Star} from 'lucide-react';
 import {useRouter} from 'next/navigation';
 import {useEffect, useRef, useState} from 'react';
-
-const AVAILABLE_SELLERS = ['Amazon', 'Darty', 'Fnac'];
 
 export default function FilterPanel() {
 	const [showFilters, setShowFilters] = useState(false);
@@ -31,7 +27,6 @@ export default function FilterPanel() {
 	const [filters, setFilters] = useState({
 		categories: [],
 		brands: [],
-		sellers: [],
 		minPrice: '',
 		maxPrice: '',
 		sortBy: 'pertinence',
@@ -55,7 +50,6 @@ export default function FilterPanel() {
 	const activeCount =
 		filters.categories.length +
 		filters.brands.length +
-		filters.sellers.length +
 		(filters.minPrice || filters.maxPrice ? 1 : 0) +
 		(filters.sortBy !== 'pertinence' ? 1 : 0);
 
@@ -64,7 +58,6 @@ export default function FilterPanel() {
 		const params = new URLSearchParams();
 		if (filters.categories.length > 0) params.append('categories', filters.categories.join(','));
 		if (filters.brands.length > 0) params.append('brands', filters.brands.join(','));
-		if (filters.sellers.length > 0) params.append('sellers', filters.sellers.join(','));
 		if (filters.minPrice) params.append('minPrice', filters.minPrice);
 		if (filters.maxPrice) params.append('maxPrice', filters.maxPrice);
 		if (filters.sortBy !== 'pertinence') params.append('sortBy', filters.sortBy);
@@ -171,22 +164,6 @@ export default function FilterPanel() {
 							</div>
 						</div>
 
-						{/* VENDEURS */}
-						<div>
-							<h4 className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">Vendeurs</h4>
-							<div className="flex flex-wrap gap-2">
-								{AVAILABLE_SELLERS.map((seller) => (
-									<button
-										key={seller}
-										type="button"
-										onClick={() => toggleFilterArray('sellers', seller)}
-										className={`rounded-md border px-3 py-1 text-xs transition-all ${filters.sellers.includes(seller) ? 'border-primary bg-primary text-primary-foreground' : 'border-input hover:bg-muted'}`}>
-										{seller}
-									</button>
-								))}
-							</div>
-						</div>
-
 						{/* BUDGET */}
 						<div className="pb-2">
 							<h4 className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">Budget</h4>
@@ -221,7 +198,6 @@ export default function FilterPanel() {
 								setFilters({
 									categories: [],
 									brands: [],
-									sellers: [],
 									minPrice: '',
 									maxPrice: '',
 									sortBy: 'pertinence',
