@@ -17,7 +17,6 @@ import {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {login} from '../reducer/user';
 
-// export default function Inscription({isOpen, onOpenChange, switchToLogin, }) {
 export default function Inscription(props) {
 	// console.log(props);
 	const router = useRouter();
@@ -186,7 +185,7 @@ export default function Inscription(props) {
 					<button
 						className="font-medium text-orange hover:underline"
 						onClick={() => {
-							if (props.switchToLogin) switchToLogin();
+							if (props.switchToLogin) props.switchToLogin();
 						}}>
 						Se connecter
 					</button>

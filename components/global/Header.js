@@ -3,7 +3,7 @@ import {useWindowSize} from '@uidotdev/usehooks';
 import {LogOut, Menu, Search, User, X} from 'lucide-react'; // Ajout de LogOut et User
 import Link from 'next/link';
 import {useRouter} from 'next/router';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {logout} from '../../reducer/user';
 
@@ -34,9 +34,6 @@ export default function Header() {
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.user);
 
-	const [isSearchOpen, setIsSearchOpen] = useState(false);
-	const searchRef = useRef(null);
-
 	// --- GESTION DES MODALES AUTH ---
 	const [isLoginOpen, setIsLoginOpen] = useState(false);
 	const [isInscriptionOpen, setIsInscriptionOpen] = useState(false);
@@ -49,17 +46,6 @@ export default function Header() {
 		setIsLoginOpen(false);
 		setIsInscriptionOpen(true);
 	};
-
-	// Fermer la recherche au clic extérieur
-	useEffect(() => {
-		const handleClickOutside = (event) => {
-			if (searchRef.current && !searchRef.current.contains(event.target)) {
-				setIsSearchOpen(false);
-			}
-		};
-		document.addEventListener('mousedown', handleClickOutside);
-		return () => document.removeEventListener('mousedown', handleClickOutside);
-	}, []);
 
 	useEffect(() => {
 		fetch('http://localhost:3000/products/categories')
@@ -218,11 +204,9 @@ export default function Header() {
 				<NavigationMenu className="hidden lg:flex">
 					<NavigationMenuList className="flex-wrap gap-4">
 						<NavigationMenuItem>
-							<NavigationMenuTrigger className="bg-transparent px-3 text-base font-normal transition-colors hover:bg-transparent hover:text-orange data-[state=open]:bg-transparent data-[state=open]:text-orange">
-								<Link className="flex items-center gap-2" href="/">
-									<Search className="h-4 w-4" />
-									Rechercher
-								</Link>
+							<NavigationMenuTrigger className="gap-2 bg-transparent px-3 text-base font-normal transition-colors hover:bg-transparent hover:text-orange data-[state=open]:bg-transparent data-[state=open]:text-orange">
+								<Search className="h-4 w-4" />
+								Rechercher
 							</NavigationMenuTrigger>
 							<NavigationMenuContent>
 								<div className="relative flex w-[400px] flex-col gap-3 p-4">

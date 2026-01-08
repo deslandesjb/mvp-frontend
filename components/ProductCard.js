@@ -14,12 +14,10 @@ import Link from 'next/link';
 import {useSelector} from 'react-redux';
 import Inscription from '../components/Inscription';
 
-import {useState} from 'react';
 import {toast} from 'sonner';
 
 function ProductCard(props) {
 	const token = useSelector((state) => state.user.token);
-	const [removed, setRemoved] = useState(Boolean);
 
 	const addToList = (idProduct, idList, nameProduct, nameList) => {
 		// console.log("token", token)
@@ -36,7 +34,6 @@ function ProductCard(props) {
 					console.log(nameProduct);
 					console.log(nameList);
 					props.allLists();
-					setRemoved(resultat.remove);
 
 					const message = resultat.remove
 						? `Vous avez enlevé le produit ${nameProduct.slice(0, 10)}...  de la list : ${nameList} `
@@ -86,7 +83,6 @@ function ProductCard(props) {
 												variant="outline"
 												onClick={() => {
 													addToList(props.id, name._id, props.name, name.name);
-													notif();
 												}}>
 												{!productExists ? <Plus color="darkblue" /> : <Minus color="orange" />}
 											</Button>

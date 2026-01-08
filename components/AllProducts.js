@@ -4,7 +4,6 @@
 // IMPORTS
 // ==============================
 import {Button} from '@/components/ui/button';
-import Link from 'next/link';
 import {useSearchParams} from 'next/navigation'; // Lecture des paramètres dans l’URL
 
 import {useCallback, useEffect, useState} from 'react';
@@ -13,7 +12,6 @@ import Filter from './FilterComp';
 import ProductCard from './ProductCard';
 import SearchComp from './SearchComp';
 // import { useSelector } from 'react-redux';
-import {Toaster} from '@/components/ui/sonner';
 import Script from 'next/script';
 
 function AllProducts() {

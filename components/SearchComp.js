@@ -1,4 +1,5 @@
 import {Button} from '@/components/ui/button';
+import {Card} from '@/components/ui/card.tsx';
 import {Input} from '@/components/ui/input';
 import {Search, X} from 'lucide-react';
 import Link from 'next/link';
@@ -87,8 +88,8 @@ export default function SearchComp(props) {
 
 			{/* PREVISUALISATION RESULTATS */}
 			{results.length > 0 && (
-				<div
-					className={`z-50 mt-2 max-h-[60vh] w-full overflow-hidden overflow-y-auto rounded-lg border bg-background shadow-xl ${props.home ? ' absolute' : ''}`}>
+				<Card
+					className={`z-50 mt-2 max-h-[60vh] w-full overflow-hidden overflow-y-auto shadow-xl ${props.home ? ' absolute' : ''}`}>
 					<ul>
 						{results.map((item, index) => (
 							<li key={index} className="border-b last:border-0">
@@ -118,7 +119,7 @@ export default function SearchComp(props) {
 							</li>
 						))}
 					</ul>
-				</div>
+				</Card>
 			)}
 		</div>
 	);

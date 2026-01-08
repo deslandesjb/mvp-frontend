@@ -1,9 +1,7 @@
 import List from '../components/Lists.js';
 
-
 function listsPage() {
-  
-  return <List/>
+	return <List />;
 }
 
 export default listsPage;
