@@ -1,15 +1,22 @@
 import {Button} from '@/components/ui/button';
+import {Card, CardContent, CardFooter, CardHeader, CardTitle} from '@/components/ui/card.tsx';
+import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from '@/components/ui/dropdown-menu';
 import {Input} from '@/components/ui/input';
-import {ArrowDownNarrowWide, ArrowUpNarrowWide, Check, Minus, Plus, SlidersHorizontal, Star} from 'lucide-react';
+import {Check, SlidersHorizontal} from 'lucide-react';
 import {useRouter} from 'next/navigation';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useState} from 'react';
 
 export default function FilterPanel() {
-	const [showFilters, setShowFilters] = useState(false);
-	const [expandCats, setExpandCats] = useState(false);
-	const [expandBrands, setExpandBrands] = useState(false);
+	const router = useRouter();
+
 	const [categories, setCategories] = useState([]); // Catégories
 	const [brands, setBrands] = useState([]); // brands
+	const [filters, setFilters] = useState({
+		categories: [],
+		brands: [],
+		minPrice: '',
+		maxPrice: '',
+	});
 
 	useEffect(() => {
 		// fetch('https://mvp-backend-seven.vercel.app/products/categories')
@@ -24,34 +31,31 @@ export default function FilterPanel() {
 			.then((data) => data.result && setBrands(data.brands));
 	}, []);
 
-	const [filters, setFilters] = useState({
-		categories: [],
-		brands: [],
-		minPrice: '',
-		maxPrice: '',
-		sortBy: 'pertinence',
-	});
-
-	const router = useRouter();
-	const filterRef = useRef(null);
-
 	// --- HANDLERS UI ---
-	const toggleFilterArray = (field, value) => {
-		setFilters((prev) => {
-			const list = prev[field];
-			if (list.includes(value)) return {...prev, [field]: list.filter((item) => item !== value)};
-			else return {...prev, [field]: [...list, value]};
-		});
+	const handleSelectFilter = (field, value) => {
+		// On récupère la liste actuelle (ex: categories ou brands)
+		const currentList = filters[field];
+		let newList = [];
+
+		// Si l'élément est déjà coché, on le retire
+		if (currentList.includes(value)) {
+			newList = currentList.filter((item) => item !== value);
+		} else {
+			// Sinon, on l'ajoute à la liste
+			newList = [...currentList, value];
+		}
+
+		// On met à jour l'état global
+		setFilters({...filters, [field]: newList});
 	};
 
-	const handlePriceChange = (field, value) => setFilters((prev) => ({...prev, [field]: value}));
-	const handleSortChange = (value) => setFilters((prev) => ({...prev, sortBy: value}));
+	const handlePriceChange = (field, value) => {
+		setFilters({...filters, [field]: value});
+	};
 
+	// Calcul du nombre de filtres actifs
 	const activeCount =
-		filters.categories.length +
-		filters.brands.length +
-		(filters.minPrice || filters.maxPrice ? 1 : 0) +
-		(filters.sortBy !== 'pertinence' ? 1 : 0);
+		filters.categories.length + filters.brands.length + (filters.minPrice || filters.maxPrice ? 1 : 0);
 
 	// --- REDIRECTION VERS HOME ---
 	const handleApplyFilters = () => {
@@ -60,20 +64,15 @@ export default function FilterPanel() {
 		if (filters.brands.length > 0) params.append('brands', filters.brands.join(','));
 		if (filters.minPrice) params.append('minPrice', filters.minPrice);
 		if (filters.maxPrice) params.append('maxPrice', filters.maxPrice);
-		if (filters.sortBy !== 'pertinence') params.append('sortBy', filters.sortBy);
 
 		router.push(`/?${params.toString()}`);
-		setShowFilters(false);
 	};
 
 	// --- RENDER ---
 	return (
-		<div className="relative" ref={filterRef}>
-			<Button
-				type="button"
-				variant={showFilters ? 'secondary' : 'outline'}
-				onClick={() => setShowFilters(!showFilters)}
-				className={`relative shrink-0 border px-3 hover:border-orange hover:bg-orange ${activeCount > 0 ? 'border-solid border-orangehover bg-orangehover text-primary' : ''}`}>
+		<DropdownMenu>
+			<DropdownMenuTrigger
+				className={`relative flex h-10 shrink-0 items-center justify-center rounded-md border border-orange bg-orange px-3 text-sm font-medium ring-offset-background transition-colors hover:border-orangehover hover:bg-orangehover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${activeCount > 0 ? 'border-solid border-orangehover bg-orangehover text-primary' : ''}`}>
 				<SlidersHorizontal className="mr-2 h-4 w-4" />
 				<span className="hidden sm:inline">Filtres</span>
 				{activeCount > 0 && (
@@ -81,42 +80,22 @@ export default function FilterPanel() {
 						{activeCount}
 					</span>
 				)}
-			</Button>
+			</DropdownMenuTrigger>
 
-			{/* MODAL FILTRES */}
-			{showFilters && (
-				<div className="absolute left-0 top-full z-50 mt-2 flex max-h-[60vh] w-[calc(100vw-2rem)] max-w-[400px] flex-col rounded-xl border bg-popover text-popover-foreground shadow-2xl animate-in fade-in zoom-in-95 sm:max-h-[500px] sm:w-[400px]">
-					<div className="flex-1 space-y-6 overflow-y-auto p-5">
-						{/* TRI */}
-						<div>
-							<h4 className="mb-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">Trier par</h4>
-							<div className="flex flex-wrap gap-2">
-								{[
-									{label: 'Pertinence', val: 'pertinence', icon: null},
-									{label: '- Cher', val: 'price_asc', icon: ArrowDownNarrowWide},
-									{label: '+ Cher', val: 'price_desc', icon: ArrowUpNarrowWide},
-									{label: 'Notes', val: 'stars', icon: Star},
-								].map((opt) => (
-									<button
-										key={opt.val}
-										type="button"
-										onClick={() => handleSortChange(opt.val)}
-										className={`flex items-center gap-1 rounded-full border px-3 py-1.5 text-xs transition-all ${filters.sortBy === opt.val ? 'border-primary bg-primary font-medium text-primary-foreground' : 'bg-background hover:bg-muted'}`}>
-										{opt.icon && <opt.icon className="h-3 w-3" />}
-										{opt.label}
-									</button>
-								))}
-							</div>
-						</div>
-
+			<DropdownMenuContent className="w-[90vw] max-w-[400px] p-0" align="start">
+				<Card className="border-0 shadow-none">
+					<CardHeader className="pb-4">
+						<CardTitle>Filtres</CardTitle>
+					</CardHeader>
+					<CardContent className="grid max-h-[60vh] gap-6 overflow-y-auto">
 						{/* CATÉGORIES */}
 						<div>
 							<h4 className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">Catégories</h4>
 							<div className="grid grid-cols-2 gap-2">
-								{(expandCats ? categories : categories.slice(0, 6)).map((cat) => (
+								{categories.map((cat) => (
 									<div
 										key={cat}
-										onClick={() => toggleFilterArray('categories', cat)}
+										onClick={() => handleSelectFilter('categories', cat)}
 										className={`flex cursor-pointer items-center gap-2 rounded border px-2 py-1.5 transition-colors ${filters.categories.includes(cat) ? 'border-primary bg-primary/10' : 'border-transparent hover:bg-muted'}`}>
 										<div
 											className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${filters.categories.includes(cat) ? 'border-primary bg-primary' : 'border-muted-foreground'}`}>
@@ -125,20 +104,6 @@ export default function FilterPanel() {
 										<span className="truncate text-sm">{cat}</span>
 									</div>
 								))}
-								<button
-									type="button"
-									onClick={() => setExpandCats(!expandCats)}
-									className="col-span-2 mt-1 flex items-center justify-center gap-1 py-1 text-xs font-medium text-primary hover:underline">
-									{expandCats ? (
-										<>
-											<Minus className="h-3 w-3" /> Moins
-										</>
-									) : (
-										<>
-											<Plus className="h-3 w-3" /> Voir plus
-										</>
-									)}
-								</button>
 							</div>
 						</div>
 
@@ -146,21 +111,15 @@ export default function FilterPanel() {
 						<div>
 							<h4 className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">Marques</h4>
 							<div className="flex flex-wrap gap-2">
-								{(expandBrands ? brands : brands.slice(0, 6)).map((brand) => (
+								{brands.map((brand) => (
 									<button
 										key={brand}
 										type="button"
-										onClick={() => toggleFilterArray('brands', brand)}
+										onClick={() => handleSelectFilter('brands', brand)}
 										className={`rounded-md border px-3 py-1 text-xs transition-all ${filters.brands.includes(brand) ? 'border-primary bg-primary text-primary-foreground' : 'border-input hover:bg-muted'}`}>
 										{brand}
 									</button>
 								))}
-								<button
-									type="button"
-									onClick={() => setExpandBrands(!expandBrands)}
-									className="flex items-center rounded-full border border-dashed border-primary px-2 py-1 text-xs text-primary transition-colors hover:bg-primary/10">
-									{expandBrands ? <Minus className="h-3 w-3" /> : <Plus className="h-3 w-3" />}
-								</button>
 							</div>
 						</div>
 
@@ -189,9 +148,9 @@ export default function FilterPanel() {
 								</div>
 							</div>
 						</div>
-					</div>
+					</CardContent>
 
-					<div className="flex shrink-0 items-center justify-between rounded-b-xl border-t bg-background p-4">
+					<CardFooter className="flex justify-between border-t pt-4">
 						<button
 							type="button"
 							onClick={() =>
@@ -200,18 +159,20 @@ export default function FilterPanel() {
 									brands: [],
 									minPrice: '',
 									maxPrice: '',
-									sortBy: 'pertinence',
 								})
 							}
 							className="text-xs text-muted-foreground underline transition-colors hover:text-red-500">
 							Tout effacer
 						</button>
-						<Button size="sm" onClick={handleApplyFilters}>
-							Voir les résultats
-						</Button>
-					</div>
-				</div>
-			)}
-		</div>
+						{/*  */}
+						<DropdownMenuItem asChild>
+							<Button size="sm" onClick={handleApplyFilters} className="w-auto cursor-pointer">
+								Voir les résultats
+							</Button>
+						</DropdownMenuItem>
+					</CardFooter>
+				</Card>
+			</DropdownMenuContent>
+		</DropdownMenu>
 	);
 }
