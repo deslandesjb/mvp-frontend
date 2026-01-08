@@ -72,9 +72,11 @@ export default function Header() {
 			);
 		} else {
 			return (
-				<Link key={i} href={`/?categories=${data}`} className="block pt-2 text-xl first-letter:uppercase">
-					{data}
-				</Link>
+				<DrawerClose key={i} asChild>
+					<Link href={`/?categories=${data}`} className="block pt-2 text-xl first-letter:uppercase">
+						{data}
+					</Link>
+				</DrawerClose>
 			);
 		}
 	});
@@ -153,12 +155,16 @@ export default function Header() {
 									</div>
 									{catShow}
 
-									<Link href="/" className="pt-2 text-xl text-orange">
-										Tous les produits
-									</Link>
-									<Link href="/lists" className="pt-2 text-xl">
-										Favoris
-									</Link>
+									<DrawerClose asChild>
+										<Link href="/" className="pt-2 text-xl text-orange">
+											Tous les produits
+										</Link>
+									</DrawerClose>
+									<DrawerClose asChild>
+										<Link href="/lists" className="pt-2 text-xl">
+											Favoris
+										</Link>
+									</DrawerClose>
 
 									<div className="my-6 h-px bg-gray-200"></div>
 
