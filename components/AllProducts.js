@@ -1,5 +1,3 @@
-'use client'; // Composant exécuté côté client (Next.js)
-
 // ==============================
 // IMPORTS
 // ==============================
