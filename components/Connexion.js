@@ -1,157 +1,239 @@
-//
+/**
+ * ============================================================================
+ * FICHIER : components/Connexion.js
+ * ============================================================================
+ * 
+ * CONTEXTE :
+ * Ce composant gère la connexion des utilisateurs existants.
+ * Il est affiché dans une modal (Dialog) depuis le Header.
+ * 
+ * RÔLE :
+ * - Afficher le formulaire de connexion
+ * - Valider les identifiants via l'API
+ * - Stocker le token utilisateur dans Redux
+ * - Notifier l'utilisateur du résultat
+ * 
+ * FONCTIONNEMENT :
+ * 1. L'utilisateur saisit son email et mot de passe
+ * 2. Au clic sur "Connexion", appel API POST /users/signin
+ * 3. Si succès : dispatch login() et fermeture de la modal
+ * 4. Si échec : affichage d'un toast d'erreur
+ * 
+ * TECHNOLOGIES UTILISÉES :
+ * - React : Composant fonctionnel avec hooks (useState)
+ * - Redux : useDispatch pour mettre à jour le state global
+ * - shadcn/ui : Input, Label, Button pour le formulaire
+ * - Sonner : Notifications toast pour feedback utilisateur
+ * 
+ * PROPS :
+ * - closeModal : Fonction callback pour fermer la modal parent
+ * 
+ * ============================================================================
+ */
+
+
+// ============================================================================
+// 1. IMPORTS
+// ============================================================================
+
+/**
+ * Composants UI shadcn/ui
+ */
 import {Button} from '@/components/ui/button';
-import {
-	Dialog,
-	DialogClose,
-	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from '@/components/ui/dialog';
 import {Input} from '@/components/ui/input';
 import {Label} from '@/components/ui/label';
 
-import {useRouter} from 'next/router';
+/**
+ * Sonner : Bibliothèque de notifications toast
+ * Plus moderne et esthétique que les alertes natives
+ */
+import {toast} from 'sonner';
+
+/**
+ * React : Hook useState pour gérer l'état du formulaire
+ */
 import {useState} from 'react';
+
+/**
+ * Redux : useDispatch pour déclencher des actions
+ */
 import {useDispatch} from 'react-redux';
-import {login} from '../reducer/user';
 
-export function Connexion({isOpen, onOpenChange, switchToSignup}) {
-	const router = useRouter();
-	const dispatch = useDispatch();
+/**
+ * Action Redux : login pour stocker les infos utilisateur
+ */
+import {login} from '@/reducer/user';
 
-	const [internalOpen, setInternalOpen] = useState(false);
-	const [errorMessage, setErrorMessage] = useState('');
-	const [isLoading, setIsLoading] = useState(false);
-	const [mail, setMail] = useState('');
-	const [password, setPassword] = useState('');
 
-	// Gestion de l'état (contrôlé par le parent ou interne)
-	const isControlled = typeof isOpen !== 'undefined';
-	const open = isControlled ? isOpen : internalOpen;
-	const setOpen = isControlled ? onOpenChange : setInternalOpen;
+// ============================================================================
+// 2. COMPOSANT CONNEXION
+// ============================================================================
 
-	const handleLogin = async () => {
-		setErrorMessage('');
+/**
+ * Connexion : Formulaire de connexion utilisateur
+ * 
+ * @param {Object} props - Les propriétés du composant
+ * @param {Function} props.closeModal - Fonction pour fermer la modal parent
+ * 
+ * @returns {JSX.Element} - Le formulaire de connexion
+ */
+export default function Connexion({closeModal}) {
 
-		if (!mail || !password) {
-			setErrorMessage('Merci de remplir tous les champs.');
-			return;
-		}
+// ─────────────────────────────────────────────────────────────────────────
+// 2.1 ÉTATS LOCAUX
+// ─────────────────────────────────────────────────────────────────────────
+/**
+ * mail : Adresse email saisie par l'utilisateur
+ * password : Mot de passe saisi par l'utilisateur
+ */
+const [mail, setMail] = useState('');
+const [password, setPassword] = useState('');
 
-		setIsLoading(true);
 
-		try {
-			const response = await fetch('http://localhost:3000/users/signin', {
-				method: 'POST',
-				headers: {'Content-Type': 'application/json'},
-				body: JSON.stringify({mail, password}),
-			});
+// ─────────────────────────────────────────────────────────────────────────
+// 2.2 CONFIGURATION REDUX
+// ─────────────────────────────────────────────────────────────────────────
+/**
+ * useDispatch : Hook Redux pour déclencher des actions
+ * Permet de modifier le state global de l'application
+ */
+const dispatch = useDispatch();
 
-			const data = await response.json();
 
-			if (data.result) {
-				dispatch(
-					login({
-						token: data.token,
-						firstname: data.firstname,
-						lastname: data.lastname,
-						mail: data.mail,
-					}),
-				);
+// ─────────────────────────────────────────────────────────────────────────
+// 2.3 FONCTION : GÉRER LA CONNEXION
+// ─────────────────────────────────────────────────────────────────────────
+/**
+ * handleSignin : Traite la soumission du formulaire
+ * 
+ * LOGIQUE :
+ * 1. Envoie les identifiants à l'API /users/signin
+ * 2. Si result === true :
+ *    - Dispatch l'action login() avec les données utilisateur
+ *    - Ferme la modal
+ *    - Affiche un toast de succès
+ * 3. Si result === false :
+ *    - Affiche un toast d'erreur avec le message du serveur
+ * 
+ * APPEL API : POST /users/signin
+ * 
+ * BODY ENVOYÉ :
+ * {
+ *   mail: string,
+ *   password: string
+ * }
+ * 
+ * RÉPONSE ATTENDUE (succès) :
+ * {
+ *   result: true,
+ *   token: string,
+ *   firstname: string,
+ *   lastname: string,
+ *   mail: string
+ * }
+ * 
+ * RÉPONSE ATTENDUE (échec) :
+ * {
+ *   result: false,
+ *   error: string
+ * }
+ */
+const handleSignin = () => {
 
-				setOpen(false);
+// Envoi de la requête de connexion
+fetch('http://localhost:3000/users/signin', {
+method: 'POST',
+headers: {'Content-Type': 'application/json'},
+body: JSON.stringify({
+mail: mail,
+password: password
+})
+})
+.then((response) => response.json())
+.then((data) => {
 
-				setMail('');
-				setPassword('');
-				setErrorMessage('');
+// ═══════════════════════════════════════════════════════════
+// CONNEXION RÉUSSIE
+// ═══════════════════════════════════════════════════════════
+if (data.result) {
 
-				router.push('/');
-			} else {
-				setErrorMessage(data.error || 'Identifiants incorrects.');
-			}
-		} catch (error) {
-			console.error('Erreur lors de la connexion:', error);
-			setErrorMessage('Erreur de connexion au serveur.');
-		} finally {
-			setIsLoading(false);
-		}
-	};
+// Dispatch l'action login avec les données utilisateur
+// Cela met à jour le store Redux et persiste via redux-persist
+dispatch(login({
+token: data.token,
+firstname: data.firstname,
+lastname: data.lastname,
+mail: data.mail
+}));
 
-	const onKeyPressHandler = (e) => {
-		if (e.key === 'Enter' && !isLoading) {
-			handleLogin();
-		}
-	};
+// Ferme la modal
+closeModal();
 
-	return (
-		<Dialog open={open} onOpenChange={setOpen}>
-			<DialogTrigger asChild>
-				<Button variant="ghost" className="w-fit px-0 text-xl font-normal hover:text-orange xl:text-base">
-					Me connecter
-				</Button>
-			</DialogTrigger>
+// Affiche une notification de succès
+toast.success('Connexion réussie');
 
-			<DialogContent className="sm:max-w-[425px]">
-				<DialogHeader>
-					<DialogTitle>Me connecter</DialogTitle>
-					{errorMessage && (
-						<DialogDescription className="font-semibold italic text-red-600">{errorMessage}</DialogDescription>
-					)}
-				</DialogHeader>
-
-				<div className="grid gap-4 py-4">
-					<div className="grid gap-3">
-						<Label>Email</Label>
-						<Input
-							type="email"
-							value={mail}
-							onChange={(e) => setMail(e.target.value)}
-							onKeyDown={onKeyPressHandler}
-							placeholder="votre@email.com"
-							disabled={isLoading}
-						/>
-					</div>
-
-					<div className="grid gap-3">
-						<Label>Mot de passe</Label>
-						<Input
-							type="password"
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
-							onKeyDown={onKeyPressHandler}
-							placeholder="••••••••"
-							disabled={isLoading}
-						/>
-					</div>
-				</div>
-
-				<DialogFooter>
-					<DialogClose asChild>
-						<Button variant="outline" disabled={isLoading}>
-							Annuler
-						</Button>
-					</DialogClose>
-
-					<Button onClick={handleLogin} disabled={isLoading}>
-						{isLoading ? 'Connexion...' : 'Se connecter'}
-					</Button>
-				</DialogFooter>
-				<div className="mt-2 flex items-center justify-center gap-2 text-sm text-gray-500">
-					<span>Pas encore de compte ?</span>
-					<button
-						className="font-medium text-orange hover:underline"
-						onClick={() => {
-							if (switchToSignup) switchToSignup();
-						}}>
-						Créer un compte
-					</button>
-				</div>
-			</DialogContent>
-		</Dialog>
-	);
+// ═══════════════════════════════════════════════════════════
+// CONNEXION ÉCHOUÉE
+// ═══════════════════════════════════════════════════════════
+} else {
+// Affiche le message d'erreur du serveur
+// Ex: "Email ou mot de passe incorrect"
+toast.error(data.error);
 }
 
-export default Connexion;
+});
+};
+
+
+// ─────────────────────────────────────────────────────────────────────────
+// 2.4 RENDU JSX
+// ─────────────────────────────────────────────────────────────────────────
+return (
+<>
+{/* ═══════════════════════════════════════════════════════════════
+    CHAMP EMAIL
+    ═══════════════════════════════════════════════════════════════ */}
+<div>
+{/* Label associé au champ input via htmlFor */}
+<Label htmlFor="mail">Email</Label>
+
+{/* Input contrôlé : value liée à l'état, onChange met à jour l'état */}
+<Input
+id="mail"
+type="email"
+placeholder="Entrez votre email"
+onChange={(e) => setMail(e.target.value)}
+value={mail}
+/>
+</div>
+
+
+{/* ═══════════════════════════════════════════════════════════════
+    CHAMP MOT DE PASSE
+    ═══════════════════════════════════════════════════════════════ */}
+<div>
+<Label htmlFor="password">Mot de passe</Label>
+
+{/* type="password" masque les caractères saisis */}
+<Input
+id="password"
+type="password"
+placeholder="Entrez votre mot de passe"
+onChange={(e) => setPassword(e.target.value)}
+value={password}
+/>
+</div>
+
+
+{/* ═══════════════════════════════════════════════════════════════
+    BOUTON DE CONNEXION
+    ═══════════════════════════════════════════════════════════════ */}
+<Button
+className="bg-orange hover:bg-orangehover"
+onClick={() => handleSignin()}
+>
+Connexion
+</Button>
+</>
+);
+}
