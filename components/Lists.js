@@ -21,7 +21,7 @@ import ProductCard from './ProductCard';
 
 function List() {
 	const token = useSelector((state) => state.user.token);
-	console.log(token);
+	// console.log(token);
 	// ${user.token}
 	const [listsData, setListsData] = useState([]);
 	const [nameList, setNameList] = useState('');
@@ -161,7 +161,7 @@ function List() {
 							type="single"
 							collapsible
 							defaultValue={i === 0 ? listUser._id : ''} // si 1er alors ouvert
-							className="w-full overflow-hidden rounded-xl border bg-white shadow-sm transition-all hover:shadow-md"
+							className="w-full overflow-hidden rounded-xl border bg-white shadow-sm hover:shadow-sm"
 							key={listUser._id}>
 							<AccordionItem value={listUser._id} className="border-0">
 								<div className="relative w-full">
