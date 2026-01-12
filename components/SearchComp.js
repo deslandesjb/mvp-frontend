@@ -89,7 +89,7 @@ export default function SearchComp(props) {
 			{/* PREVISUALISATION RESULTATS */}
 			{results.length > 0 && (
 				<Card
-					className={`z-50 mt-2 max-h-[60vh] w-full overflow-hidden overflow-y-auto shadow-xl ${props.home ? ' absolute' : ''}`}>
+					className={`z-50 mt-2 max-h-[60vh] w-full overflow-hidden overflow-y-auto text-left shadow-xl ${props.home ? ' absolute' : ''}`}>
 					<ul>
 						{results.map((item, index) => (
 							<li key={index} className="border-b last:border-0">
