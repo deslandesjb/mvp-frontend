@@ -76,7 +76,7 @@ export default function ProductPage() {
 		<main className="mt-16 flex min-h-screen flex-col items-center justify-center px-8 font-body">
 			{productData && (
 				<>
-					<section className="flex flex-col md:flex-row">
+					<section className="flex w-full flex-col md:flex-row">
 						<div className="md:w-1/2">
 							{productInfo.picture && (
 								<Image
@@ -117,7 +117,7 @@ export default function ProductPage() {
 							</div>
 							<div>
 								<h2 className="mb-2 mt-4 text-lg underline">Ou acheter</h2>
-								<div className="flex gap-4">{sellerLinks}</div>
+								<div className="flex flex-wrap gap-4">{sellerLinks}</div>
 							</div>
 						</div>
 					</section>
