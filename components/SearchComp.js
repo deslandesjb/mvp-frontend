@@ -1,10 +1,10 @@
-import {Button} from '@/components/ui/button';
-import {Card} from '@/components/ui/card.tsx';
-import {Input} from '@/components/ui/input';
-import {Search, X} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card.tsx';
+import { Input } from '@/components/ui/input';
+import { Search, X } from 'lucide-react';
 import Link from 'next/link';
-import {useRouter} from 'next/navigation';
-import {useEffect, useRef, useState} from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
 
 export default function SearchComp(props) {
 	// console.log(props.home);
@@ -17,7 +17,7 @@ export default function SearchComp(props) {
 	// --- FETCH PREVIEW ---
 	const fetchPreviewData = async () => {
 		try {
-			const response = await fetch('http://localhost:3000/products/search', {
+			const response = await fetch('https://mvp-backend-seven.vercel.app/products/search', {
 				method: 'POST',
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify({search: query}),

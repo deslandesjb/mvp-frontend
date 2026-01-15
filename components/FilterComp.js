@@ -19,14 +19,14 @@ export default function FilterPanel() {
 	});
 
 	useEffect(() => {
-		// fetch('http://localhost:3000/products/categories')
-		fetch('http://localhost:3000/products/categories')
+		// fetch('https://mvp-backend-seven.vercel.app/products/categories')
+		fetch('https://mvp-backend-seven.vercel.app/products/categories')
 			.then((response) => response.json())
 			.then((data) => data.result && setCategories(data.categories));
 	}, []);
 
 	useEffect(() => {
-		fetch('http://localhost:3000/products/brands')
+		fetch('https://mvp-backend-seven.vercel.app/products/brands')
 			.then((response) => response.json())
 			.then((data) => data.result && setBrands(data.brands));
 	}, []);
