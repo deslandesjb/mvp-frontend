@@ -1,5 +1,5 @@
 import {Button} from '@/components/ui/button';
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from '@/components/ui/card.tsx';
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card.tsx';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -24,7 +24,7 @@ function ProductCard(props) {
 		// console.log("idProduct", idProduct)
 		// console.log("idList", idList)
 		token &&
-			fetch(`http://localhost:3000/lists/addToLists/${token}/${idProduct}/${idList}`, {
+			fetch(`https://mvp-backend-seven.vercel.app/lists/addToLists/${token}/${idProduct}/${idList}`, {
 				method: 'POST',
 				headers: {'Content-Type': 'application/json'},
 			})

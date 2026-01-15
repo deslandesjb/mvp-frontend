@@ -48,7 +48,7 @@ export default function Header() {
 	};
 
 	useEffect(() => {
-		fetch('http://localhost:3000/products/categories')
+		fetch('https://mvp-backend-seven.vercel.app/products/categories')
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.result) setCategories(data.categories);

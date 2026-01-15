@@ -1,11 +1,11 @@
 import Image from 'next/image';
 // import React from 'react';
 import {Button} from '@/components/ui/button';
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from '@/components/ui/card.tsx';
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card.tsx';
 import {Star} from 'lucide-react';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 
 export default function ProductPage() {
 	const [productInfo, setProductInfo] = useState({});
@@ -19,7 +19,7 @@ export default function ProductPage() {
 			return;
 		}
 
-		fetch(`http://localhost:3000/products/id/${id}`)
+		fetch(`https://mvp-backend-seven.vercel.app/products/id/${id}`)
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.result) {
