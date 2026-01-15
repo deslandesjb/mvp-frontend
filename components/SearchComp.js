@@ -17,7 +17,7 @@ export default function SearchComp(props) {
 	// --- FETCH PREVIEW ---
 	const fetchPreviewData = async () => {
 		try {
-			const response = await fetch('https://mvp-backend-seven.vercel.app/products/search', {
+			const response = await fetch('http://localhost:3000/products/search', {
 				method: 'POST',
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify({search: query}),

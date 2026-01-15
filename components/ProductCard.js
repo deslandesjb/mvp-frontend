@@ -24,7 +24,7 @@ function ProductCard(props) {
 		// console.log("idProduct", idProduct)
 		// console.log("idList", idList)
 		token &&
-			fetch(`https://mvp-backend-seven.vercel.app/lists/addToLists/${token}/${idProduct}/${idList}`, {
+			fetch(`http://localhost:3000/lists/addToLists/${token}/${idProduct}/${idList}`, {
 				method: 'POST',
 				headers: {'Content-Type': 'application/json'},
 			})
