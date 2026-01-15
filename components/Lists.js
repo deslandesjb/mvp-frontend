@@ -83,7 +83,7 @@ function List() {
 	// --- VUE : NON CONNECTÉ ---
 	if (!token) {
 		return (
-			<main className="flex min-h-[80vh] flex-col items-center justify-center gap-6 p-4 font-body">
+			<main className="flex min-h-screen flex-col items-center justify-center gap-6 p-4 font-body">
 				<div className="flex max-w-md flex-col items-center text-center">
 					<h2 className="mb-2 text-2xl font-bold text-darkblue">Vous n'êtes pas connecté</h2>
 					<p className="mb-8 text-muted-foreground">
